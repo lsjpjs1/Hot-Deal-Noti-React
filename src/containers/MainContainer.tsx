@@ -33,7 +33,8 @@ const MainContainer = () => {
     }
 
     return (
-        <div>
+        <div  style={{textAlign:"center"}}>
+            <img style={{width:"300px",height:"200"}} src={require("../image/특가언제떠.jpeg")}/>
             <HotDealListView hotDeals={hotDeals}></HotDealListView>
             <PageView onPageChange={onPageChange} totalPageCount={totalPages}></PageView>
         </div>
