@@ -14,7 +14,7 @@ const HotDealListView = (props: Props) => {
                     <h3 style={{display:'inline-block'}}>{" <- "}</h3>
                     <h3 style={{display:'inline-block',textDecoration:"line-through"}}>{hotDeal.originalPrice.toLocaleString()}</h3>
                 </div>
-                <a href={hotDeal.link}>
+                <a href={hotDeal.link} target={"_blank"}>
                     {hotDeal.title}
                 </a>
             </div>
