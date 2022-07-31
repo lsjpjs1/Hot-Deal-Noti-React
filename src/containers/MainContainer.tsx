@@ -42,7 +42,7 @@ const MainContainer = () => {
         }))
     }
 
-    const onSearch = async (s:string) => {
+    const onSearch = (s:string) => {
         dispatch(setSearchBody(s))
     }
 
