@@ -19,7 +19,6 @@ const MainContainer = () => {
 
     const onPageChange = (page:{selected:number}) => {
         getHotDeals(page.selected)
-        window.scrollTo(0, 0);
     }
 
     const getHotDeals = (page: number) => {
