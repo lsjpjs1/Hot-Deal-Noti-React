@@ -1,5 +1,6 @@
-import {TextField} from "@mui/material";
-import {IconButton, InputAdornment} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
 import {useState} from "react";
 
 type SearchBarProps = {

@@ -6,8 +6,7 @@ import '../App.css'
 import HotDealListView from "../components/HotDealListView";
 import PageView from "../components/PageView";
 import SearchBar from "../components/SearchBar";
-import {Simulate} from "react-dom/test-utils";
-import {Button} from "@mui/material";
+import Button from "@mui/material/Button";
 
 const MainContainer = () => {
 
