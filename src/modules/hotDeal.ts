@@ -8,11 +8,20 @@ import exp from "constants";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 
+const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
+
 export const getHotDealsSuccess = (hotDeals: HotDealPreview[],totalPages: number) => ({
     type: GET_HOT_DEALS_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
 });
+
+
+export const setSearchBody = (searchBody : string) => ({
+    type: SET_SEARCH_BODY,
+    searchBody: searchBody
+});
+
 
 export const callGetHotDeals =
     (getHotDealsRequest:GetHotDealsRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
@@ -27,6 +36,7 @@ export const callGetHotDeals =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof setSearchBody>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -50,6 +60,14 @@ function hotDealReducer(
                 ...state,
                 hotDeals: action.hotDeals,
                 totalPages: action.totalPages
+            }
+        case "SET_SEARCH_BODY":
+            return {
+                ...state,
+                filter:{
+                    ...state.filter,
+                    searchBody:action.searchBody
+                }
             }
         default:
             return state
