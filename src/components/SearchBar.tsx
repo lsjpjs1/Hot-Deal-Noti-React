@@ -1,17 +1,19 @@
 import TextField from "@mui/material/TextField";
 import {IconButton, InputAdornment} from "@mui/material";
+import {useState} from "react";
 
 type SearchBarProps = {
-    onSearch: () => void ;
-    onSearchTextChange: (s:string) => void ;
+    onSearch: (s: string) => void;
+    onSearchTextChange: (s: string) => void ;
 }
 
 const SearchBar = (searchBarProps: SearchBarProps) => {
 
-    const onEnterPress = (e:React.KeyboardEvent<HTMLDivElement>) => {
+    const [searchBody, setSearchBody] = useState("");
+    const onEnterPress = (e: React.KeyboardEvent<HTMLDivElement>) => {
 
-        if(e.code=="Enter") {
-            searchBarProps.onSearch()
+        if (e.code == "Enter") {
+            searchBarProps.onSearch(searchBody)
         }
 
     }
@@ -21,7 +23,10 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
             <TextField
                 placeholder={"검색"}
                 onKeyDown={onEnterPress}
-                onChange={(e)=>searchBarProps.onSearchTextChange(e.target.value)}
+                onChange={(e) => {
+                    searchBarProps.onSearchTextChange(e.target.value)
+                    setSearchBody(e.target.value)
+                }}
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position={"start"}>

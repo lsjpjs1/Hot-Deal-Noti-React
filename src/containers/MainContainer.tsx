@@ -21,6 +21,10 @@ const MainContainer = () => {
         getHotDeals(0)
     }, []);
 
+    useEffect(() => {
+        getHotDeals(0)
+    }, [filter.searchBody]);
+
     const onPageChange = (page:{selected:number}) => {
         getHotDeals(page.selected)
         window.scrollTo(0, 0);
@@ -38,12 +42,11 @@ const MainContainer = () => {
         }))
     }
 
-    const onSearch = () => {
-        getHotDeals(0)
+    const onSearch = async (s:string) => {
+        dispatch(setSearchBody(s))
     }
 
     const onSearchTextChange = (s:string) => {
-        dispatch(setSearchBody(s))
     }
 
     return (
