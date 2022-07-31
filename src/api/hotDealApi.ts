@@ -1,8 +1,13 @@
 import axiosInstance from "./index";
 import {PageRequest} from "../common/page";
+import {HotDealsQueryFilter} from "../common/hotDealDto";
+import qs from "qs";
 
 export type GetHotDealsRequest = {
-    pageRequest: PageRequest
+    pageRequest: PageRequest,
+    filter: HotDealsQueryFilter
 }
 export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>
-    axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort},desc`)
+    axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort},desc`,
+        {params:getHotDealsRequest.filter}
+        )

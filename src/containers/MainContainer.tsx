@@ -12,6 +12,7 @@ const MainContainer = () => {
     const dispatch = useDispatch();
     const hotDeals = useSelector((state: RootState) => state.hotDealReducer.hotDeals);
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
+    const filter = useSelector((state: RootState) => state.hotDealReducer.filter);
 
     useEffect(() => {
         getHotDeals(0)
@@ -29,7 +30,8 @@ const MainContainer = () => {
                 page: page,
                 size: PAGE_SIZE,
                 sort: "DISCOUNT_RATE"
-            }
+            },
+            filter:filter
         }))
     }
 

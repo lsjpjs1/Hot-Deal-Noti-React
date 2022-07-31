@@ -1,4 +1,4 @@
-import {HotDealPreview} from "../common/hotDealDto";
+import {HotDealPreview, HotDealsQueryFilter} from "../common/hotDealDto";
 import {getHotDeals, GetHotDealsRequest} from "../api/hotDealApi";
 import {AnyAction} from "redux";
 import {RootState} from "./index";
@@ -30,12 +30,14 @@ type HotDealAction =
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
-    totalPages: number
+    totalPages: number,
+    filter: HotDealsQueryFilter
 }
 
 const initialState: HotDealState = {
     hotDeals: [],
-    totalPages: 0
+    totalPages: 0,
+    filter: {searchBody:null}
 }
 
 function hotDealReducer(

@@ -10,5 +10,9 @@ export interface HotDealPreview {
     uploadTime: string
 }
 
+export interface HotDealsQueryFilter {
+    searchBody: string
+}
+
 
 
