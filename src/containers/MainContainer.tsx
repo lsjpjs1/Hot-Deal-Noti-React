@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
-import {callGetHotDeals, callViewHotDeal, setSearchBody} from "../modules/hotDeal";
+import {callGetHotDeals, callPostConnectionHistory, callViewHotDeal, setSearchBody} from "../modules/hotDeal";
 import '../App.css'
 import HotDealListView from "../components/HotDealListView";
 import PageView from "../components/PageView";
@@ -17,6 +17,8 @@ const MainContainer = () => {
     const filter = useSelector((state: RootState) => state.hotDealReducer.filter);
 
     useEffect(() => {
+        // @ts-ignore
+        dispatch(callPostConnectionHistory())
         getHotDeals(0)
     }, []);
 

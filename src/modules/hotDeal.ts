@@ -5,6 +5,7 @@ import {RootState} from "./index";
 import {ThunkAction} from "redux-thunk";
 import {Page} from "../common/page";
 import exp from "constants";
+import {postConnectionHistory} from "../api/connectionHistoryApi";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 
@@ -38,6 +39,16 @@ export const callViewHotDeal =
     (viewHotDealRequest: ViewHotDealRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch,getState) => {
             await viewHotDeal(viewHotDealRequest).then((res)=>{
+
+            }).catch((error)=>{
+                console.log(error.response.data)
+            })
+        };
+
+export const callPostConnectionHistory =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch,getState) => {
+            await postConnectionHistory().then((res)=>{
 
             }).catch((error)=>{
                 console.log(error.response.data)
