@@ -7,7 +7,14 @@ export type GetHotDealsRequest = {
     pageRequest: PageRequest,
     filter: HotDealsQueryFilter
 }
+
+export type ViewHotDealRequest = {
+    hotDealId: number
+}
 export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>
     axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort},desc`,
         {params:getHotDealsRequest.filter}
-        )
+    )
+
+export const viewHotDeal = (viewHotDealRequest: ViewHotDealRequest) =>
+    axiosInstance.patch(`/hot-deals/${viewHotDealRequest.hotDealId}/view`)

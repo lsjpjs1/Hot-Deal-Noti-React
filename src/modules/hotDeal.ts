@@ -1,5 +1,5 @@
 import {HotDealPreview, HotDealsQueryFilter} from "../common/hotDealDto";
-import {getHotDeals, GetHotDealsRequest} from "../api/hotDealApi";
+import {getHotDeals, GetHotDealsRequest, viewHotDeal, ViewHotDealRequest} from "../api/hotDealApi";
 import {AnyAction} from "redux";
 import {RootState} from "./index";
 import {ThunkAction} from "redux-thunk";
@@ -29,6 +29,16 @@ export const callGetHotDeals =
             await getHotDeals(getHotDealsRequest).then((res)=>{
                 const page:Page<HotDealPreview> = res.data
                 dispatch(getHotDealsSuccess(page.content,page.totalPages))
+            }).catch((error)=>{
+                console.log(error.response.data)
+            })
+        };
+
+export const callViewHotDeal =
+    (viewHotDealRequest: ViewHotDealRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch,getState) => {
+            await viewHotDeal(viewHotDealRequest).then((res)=>{
+
             }).catch((error)=>{
                 console.log(error.response.data)
             })
