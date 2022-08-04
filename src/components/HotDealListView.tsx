@@ -10,7 +10,7 @@ const HotDealListView = (props: Props) => {
         return (
             <div style={{marginBottom:"30px"}}>
                 <div >
-                    <h2 >{hotDeal.discountRate}{"%"}</h2>
+                    <h2 >{hotDeal.discountRate}{"%↓"}</h2>
                     <h2 style={{display:'inline-block'}} >{hotDeal.discountPrice.toLocaleString()+"원"}</h2>
                     <h3 style={{display:'inline-block'}}>{" <- "}</h3>
                     <h3 style={{display:'inline-block',textDecoration:"line-through"}}>{hotDeal.originalPrice.toLocaleString()}</h3>
