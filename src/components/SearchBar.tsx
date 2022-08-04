@@ -2,7 +2,8 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import {useState} from "react";
-
+import Button from "@material-ui/core/Button";
+import "./SearchBar.css"
 type SearchBarProps = {
     onSearch: (s: string) => void;
     onSearchTextChange: (s: string) => void ;
@@ -20,9 +21,11 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     return (
-        <div>
+        <div className={"search"}>
             <TextField
-                placeholder={"검색"}
+                className={"search"}
+                style={{display:'inline-block'}}
+                placeholder={"검색어"}
                 onKeyDown={onEnterPress}
                 onChange={(e) => {
                     searchBarProps.onSearchTextChange(e.target.value)
@@ -37,6 +40,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                     )
                 }}>
             </TextField>
+            <Button onClick={()=>searchBarProps.onSearch(searchBody)} className={"search"} variant={"contained"} color="primary" style={{display:'inline-block'}}>검색</Button>
         </div>
     )
 }
