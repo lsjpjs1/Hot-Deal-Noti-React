@@ -6,7 +6,7 @@ import '../App.css'
 import HotDealListView from "../components/HotDealListView";
 import PageView from "../components/PageView";
 import SearchBar from "../components/SearchBar";
-import Button from "@mui/material/Button";
+import Button from "@material-ui/core/Button";
 
 const MainContainer = () => {
 
