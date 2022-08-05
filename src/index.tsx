@@ -8,6 +8,7 @@ import rootReducer from "./modules";
 import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainContainer from "./containers/MainContainer";
+import ServerMaintenanceContainer from "./containers/ServerMaintenanceContainer";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,7 +20,7 @@ root.render(
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<MainContainer/>}/>
-
+              {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
           </Routes>
       </BrowserRouter>
   </Provider>
