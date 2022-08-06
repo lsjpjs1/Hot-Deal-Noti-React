@@ -21,7 +21,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     return (
-        <div className={"search"}>
+        <div className={"search"} style={{display:'inline-block'}}>
             <TextField
                 className={"search"}
                 style={{display:'inline-block'}}
@@ -35,7 +35,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 InputProps={{
                     endAdornment: (
                         <InputAdornment position={"start"}>
-                            <Button onClick={()=>searchBarProps.onSearch(searchBody)} variant={"contained"} color="primary">
+                            <Button onClick={()=>{searchBarProps.onSearch(searchBody)}} variant={"contained"} color="primary">
                                 검색
                             </Button>
                         </InputAdornment>

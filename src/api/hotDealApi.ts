@@ -12,7 +12,7 @@ export type ViewHotDealRequest = {
     hotDealId: number
 }
 export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>
-    axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort},desc`,
+    axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort}`,
         {params:getHotDealsRequest.filter}
     )
 

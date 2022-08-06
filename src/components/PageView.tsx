@@ -4,7 +4,8 @@ import './PageView.css'
 import styles from './PageView.module.css'
 type Props = {
     onPageChange : (page:{selected:number}) => void,
-    totalPageCount: number
+    totalPageCount: number,
+    currentPage: number
 }
 
 const PageView = (props: Props) => {
@@ -17,7 +18,7 @@ const PageView = (props: Props) => {
                            nextLabel={"다음"}
                            pageRangeDisplayed={10}
                            onPageChange={props.onPageChange}
-
+                            forcePage={props.currentPage}
             ></ReactPaginate>
         </div>
     )
