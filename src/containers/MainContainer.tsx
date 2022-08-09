@@ -16,6 +16,7 @@ import SearchBar from "../components/SearchBar";
 import Button from "@material-ui/core/Button";
 import HotDealSortingSelect from "../components/HotDealSortingSelect";
 import moment from 'moment';
+import 'moment/locale/ko';
 import sortingType from "../enum/SortingType";
 
 const MainContainer = () => {
@@ -26,6 +27,7 @@ const MainContainer = () => {
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
+
 
     useEffect(() => {
         // @ts-ignore
@@ -81,7 +83,7 @@ const MainContainer = () => {
             {initData!=null &&
                 <div>
                     <h3>{"공지사항: "+initData.notice}</h3>
-                    <h3>{"최근 업데이트: "+ moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss')}</h3>
+                    <h3>{"최근 업데이트: "+ moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9,"h").format('YYYY-MM-DD HH:mm:ss')}</h3>
                 </div>
             }
 
