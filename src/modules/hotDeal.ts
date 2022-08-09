@@ -7,8 +7,11 @@ import {Page, PageRequest} from "../common/page";
 import exp from "constants";
 import {postConnectionHistory} from "../api/connectionHistoryApi";
 import SortingType from "../enum/SortingType";
+import {getInitData} from "../api/getInitDataApi";
+import {InitData} from "../common/InitData";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
+const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
 const SET_SORT = 'SET_SORT' as const;
@@ -18,6 +21,11 @@ export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: numbe
     type: GET_HOT_DEALS_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
+});
+
+export const getInitDataSuccess = (initData: InitData) => ({
+    type: GET_INIT_DATA_SUCCESS,
+    initData:initData
 });
 
 
@@ -48,6 +56,16 @@ export const callGetHotDeals =
             })
         };
 
+export const callGetInitData =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getInitData().then((res) => {
+                dispatch(getInitDataSuccess(res.data))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 export const callViewHotDeal =
     (viewHotDealRequest: ViewHotDealRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
@@ -70,18 +88,21 @@ export const callPostConnectionHistory =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof getInitDataSuccess>
     | ReturnType<typeof setSearchBody>
     | ReturnType<typeof setSort>
     | ReturnType<typeof setPage>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
+    initData:  InitData
     totalPages: number,
     getHotDealRequest: GetHotDealsRequest
 }
 
 const initialState: HotDealState = {
     hotDeals: [],
+    initData: null,
     totalPages: 0,
     getHotDealRequest: {
         pageRequest: {
@@ -105,6 +126,11 @@ function hotDealReducer(
                 ...state,
                 hotDeals: action.hotDeals,
                 totalPages: action.totalPages
+            }
+        case "GET_INIT_DATA_SUCCESS":
+            return {
+                ...state,
+                initData: action.initData
             }
         case "SET_SEARCH_BODY":
             return {
