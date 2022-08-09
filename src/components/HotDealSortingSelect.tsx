@@ -23,6 +23,7 @@ const HotDealSortingSelect = (props: HotDealSortingSelectProps) => {
                     <option value={SortingType.VIEW_COUNT_DESC}>조회수</option>
                     <option value={SortingType.PRICE_ASC}>낮은 가격순</option>
                     <option value={SortingType.PRICE_DESC}>높은 가격순</option>
+                    <option value={SortingType.UPLOAD_TIME_DESC}>최신순</option>
                 </NativeSelect>
             </FormControl>
         </Box>

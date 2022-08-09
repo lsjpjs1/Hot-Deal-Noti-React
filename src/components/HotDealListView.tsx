@@ -1,4 +1,6 @@
 import {HotDealPreview} from "../common/hotDealDto";
+import moment from "moment";
+moment.locale("ko");
 
 type Props = {
     hotDeals: HotDealPreview[],
@@ -10,6 +12,7 @@ const HotDealListView = (props: Props) => {
         return (
             <div style={{marginBottom:"30px"}}>
                 <div >
+                    <h4 >{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9,"h").fromNow()}</h4>
                     <h2 >{hotDeal.discountRate}{"%↓"}</h2>
                     <h2 style={{display:'inline-block'}} >{hotDeal.discountPrice.toLocaleString()+"원"}</h2>
                     <h3 style={{display:'inline-block'}}>{" <- "}</h3>
