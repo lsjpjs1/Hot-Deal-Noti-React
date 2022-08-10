@@ -7,7 +7,7 @@ import {
     callViewHotDeal,
     setPage,
     setSearchBody,
-    setSort
+    setSort, setSourceSites
 } from "../modules/hotDeal";
 import '../App.css'
 import HotDealListView from "../components/HotDealListView";
@@ -18,6 +18,7 @@ import HotDealSortingSelect from "../components/HotDealSortingSelect";
 import moment from 'moment';
 import 'moment/locale/ko';
 import sortingType from "../enum/SortingType";
+import SourceSiteCheckBoxGroup from "../components/SourceSiteCheckBoxGroup";
 
 const MainContainer = () => {
 
@@ -27,6 +28,8 @@ const MainContainer = () => {
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
+
+    console.log(getHotDealRequest)
 
 
     useEffect(() => {
@@ -73,6 +76,12 @@ const MainContainer = () => {
         getHotDeals()
     }
 
+    const onCheckBoxClick = (checked:boolean, sourceSite: string) => {
+        dispatch(setSourceSites(checked,sourceSite))
+        goFirstPage()
+        getHotDeals()
+    }
+
 
 
     return (
@@ -88,6 +97,7 @@ const MainContainer = () => {
             }
 
             <div>
+                <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                 <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
                 <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
             </div>

@@ -16,6 +16,7 @@ const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
 const SET_SORT = 'SET_SORT' as const;
 const SET_PAGE = 'SET_PAGE' as const;
+const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 
 export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
     type: GET_HOT_DEALS_SUCCESS,
@@ -42,6 +43,12 @@ export const setSort = (sort: string) => ({
 export const setPage = (page: number) => ({
     type: SET_PAGE,
     page: page
+});
+
+export const setSourceSites = (checked:boolean, sourceSite: string) => ({
+    type: SET_SOURCE_SITES,
+    checked: checked,
+    sourceSite: sourceSite
 });
 
 
@@ -92,6 +99,7 @@ type HotDealAction =
     | ReturnType<typeof setSearchBody>
     | ReturnType<typeof setSort>
     | ReturnType<typeof setPage>
+    | ReturnType<typeof setSourceSites>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -112,7 +120,14 @@ const initialState: HotDealState = {
         },
         filter: {
             searchBody: null
-        }
+        },
+        sourceSitesMap: new Map<string, boolean>([
+            ["11번가",false],
+            ["G마켓",false],
+            ["옥션",false],
+            ["롯데ON",false]
+            ]
+        )
     }
 }
 
@@ -163,6 +178,16 @@ function hotDealReducer(
                         ...state.getHotDealRequest.pageRequest,
                         page: action.page
                     }
+                }
+            }
+        case "SET_SOURCE_SITES":
+            const newSourceSitesMap  = new Map(state.getHotDealRequest.sourceSitesMap);
+            newSourceSitesMap.set(action.sourceSite,action.checked)
+            return {
+                ...state,
+                getHotDealRequest: {
+                    ...state.getHotDealRequest,
+                    sourceSitesMap: newSourceSitesMap
                 }
             }
         default:
