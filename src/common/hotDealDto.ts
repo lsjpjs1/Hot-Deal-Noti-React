@@ -8,6 +8,8 @@ export interface HotDealPreview {
     discountRate: number
     link: string
     uploadTime: string
+    viewCount: number
+    sourceSite: string
 }
 
 export interface HotDealsQueryFilter {

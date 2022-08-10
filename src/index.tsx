@@ -19,8 +19,8 @@ root.render(
   <Provider store={store}>
       <BrowserRouter>
           <Routes>
-              {/*<Route path="/" element={<MainContainer/>}/>*/}
-              <Route path="/" element={<ServerMaintenanceContainer/>}/>
+              <Route path="/" element={<MainContainer/>}/>
+              {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
           </Routes>
       </BrowserRouter>
   </Provider>

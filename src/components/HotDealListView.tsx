@@ -12,7 +12,10 @@ const HotDealListView = (props: Props) => {
         return (
             <div style={{marginBottom:"30px"}}>
                 <div >
-                    <h4 >{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9,"h").fromNow()}</h4>
+
+                    <h3 style={{display:'inline-block'}}>{hotDeal.sourceSite}</h3>
+                    <h4 style={{display:'inline-block',marginLeft:'10px'}}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9,"h").fromNow()}</h4>
+                    <h4 style={{display:'inline-block',marginLeft:'10px'}}>{"조회: "+hotDeal.viewCount}</h4>
                     <h2 >{hotDeal.discountRate}{"%↓"}</h2>
                     <h2 style={{display:'inline-block'}} >{hotDeal.discountPrice.toLocaleString()+"원"}</h2>
                     <h3 style={{display:'inline-block'}}>{" <- "}</h3>
