@@ -87,7 +87,7 @@ const MainContainer = () => {
     return (
         <div  style={{textAlign:"center",marginTop:"50px",marginBottom:"50px"}}>
             <Button>
-                <img onClick={()=>{window.location.replace("/")}} style={{width:"300px",height:"200"}} src={require("../image/특가언제떠.jpeg")}/>
+                <img onClick={()=>{window.location.replace("/")}} style={{width:"300px",height:"200"}} src={require("../image/IMG_0385.PNG")}/>
             </Button>
             {initData!=null &&
                 <div>
