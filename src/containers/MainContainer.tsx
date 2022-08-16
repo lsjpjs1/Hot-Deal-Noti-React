@@ -19,6 +19,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import sortingType from "../enum/SortingType";
 import SourceSiteCheckBoxGroup from "../components/SourceSiteCheckBoxGroup";
+import KakaoLoginButton from "../components/KakaoLoginButton";
 
 const MainContainer = () => {
 
@@ -41,7 +42,7 @@ const MainContainer = () => {
     }, []);
 
 
-    const onPageChange = (page:{selected:number}) => {
+    const onPageChange = (page: { selected: number }) => {
         dispatch(setPage(page.selected))
         getHotDeals()
         window.scrollTo(0, 0);
@@ -52,57 +53,59 @@ const MainContainer = () => {
         dispatch(callGetHotDeals())
     }
 
-    const onSearch = (s:string) => {
+    const onSearch = (s: string) => {
         dispatch(setSearchBody(s))
         goFirstPage()
         getHotDeals()
     }
 
-    const goFirstPage= () => {
+    const goFirstPage = () => {
         dispatch(setPage(0))
     }
 
-    const onSearchTextChange = (s:string) => {
+    const onSearchTextChange = (s: string) => {
     }
 
-    const hotDealLinkOnClick = (hotDealId:number) => {
+    const hotDealLinkOnClick = (hotDealId: number) => {
         // @ts-ignore
-        dispatch(callViewHotDeal({hotDealId:hotDealId}))
+        dispatch(callViewHotDeal({hotDealId: hotDealId}))
     }
 
-    const onHotDealSortingSelect = (sort:string) => {
+    const onHotDealSortingSelect = (sort: string) => {
         dispatch(setSort(sort))
         goFirstPage()
         getHotDeals()
     }
 
-    const onCheckBoxClick = (checked:boolean, sourceSite: string) => {
-        dispatch(setSourceSites(checked,sourceSite))
+    const onCheckBoxClick = (checked: boolean, sourceSite: string) => {
+        dispatch(setSourceSites(checked, sourceSite))
         goFirstPage()
         getHotDeals()
     }
 
 
-
     return (
-        <div  style={{textAlign:"center",marginTop:"50px",marginBottom:"50px"}}>
+        <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
             <Button>
-                <img onClick={()=>{window.location.replace("/")}} style={{width:"300px",height:"200"}} src={require("../image/IMG_0385.PNG")}/>
+                <img onClick={() => {
+                    window.location.replace("/")
+                }} style={{width: "300px", height: "200"}} src={require("../image/IMG_0385.PNG")}/>
             </Button>
-            {initData!=null &&
+            {initData != null &&
                 <div>
-                    <h3>{"공지사항: "+initData.notice}</h3>
-                    <h3>{"최근 업데이트: "+ moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9,"h").format('YYYY-MM-DD HH:mm:ss')}</h3>
+                    <h3>{"공지사항: " + initData.notice}</h3>
+                    <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
                 </div>
             }
-
+            <KakaoLoginButton></KakaoLoginButton>
             <div>
                 <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                 <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
                 <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
             </div>
             <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>
-            <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange} totalPageCount={totalPages}></PageView>
+            <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
+                      totalPageCount={totalPages}></PageView>
         </div>
     )
 };
