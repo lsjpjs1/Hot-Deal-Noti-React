@@ -29,7 +29,7 @@ export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
 
 export const getWeeklyPopularHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
 
-    return axiosInstance.get(`/hot-deals/weekly-popular?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort}`,
+    return axiosInstance.get(`/hot-deals/weekly-popular?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=VIEW_COUNT,desc`,
         {params:getHotDealsRequest.filter}
     )
 }
