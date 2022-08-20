@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
 import {
-    callGetHotDeals, callGetInitData,
+    callGetHotDeals, callGetInitData, callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
     callViewHotDeal,
     setPage,
@@ -82,6 +82,12 @@ const MainContainer = () => {
         getHotDeals()
     }
 
+    const onClickWeeklyPopular = () => {
+        goFirstPage()
+        // @ts-ignore
+        dispatch(callGetWeeklyPopularHotDeals())
+    }
+
 
 
     return (
@@ -100,9 +106,13 @@ const MainContainer = () => {
                 <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                 <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
                 <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
+                <Button variant={"contained"} color={"primary"} onClick={onClickWeeklyPopular}>🔥이번 주 인기 상품</Button>
             </div>
             <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>
             <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange} totalPageCount={totalPages}></PageView>
+            <p><b>Email : whendiscount@gmail.com</b><br/>
+            이용 중 불편사항이나 문의사항은 메일주시면 감사드리겠습니다!
+            </p>
         </div>
     )
 };

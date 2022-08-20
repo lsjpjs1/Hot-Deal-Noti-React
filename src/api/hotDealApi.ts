@@ -27,6 +27,13 @@ export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
     )
 }
 
+export const getWeeklyPopularHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
+
+    return axiosInstance.get(`/hot-deals/weekly-popular?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort}`,
+        {params:getHotDealsRequest.filter}
+    )
+}
+
 
 export const viewHotDeal = (viewHotDealRequest: ViewHotDealRequest) =>
     axiosInstance.patch(`/hot-deals/${viewHotDealRequest.hotDealId}/view`)
