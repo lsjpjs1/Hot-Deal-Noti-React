@@ -97,7 +97,7 @@ const MainContainer = () => {
             </Button>
             {initData!=null &&
                 <div>
-                    <h3>{"공지사항: "+initData.notice}</h3>
+                    {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
                     <h3>{"최근 업데이트: "+ moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9,"h").format('YYYY-MM-DD HH:mm:ss')}</h3>
                 </div>
             }
