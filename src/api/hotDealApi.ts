@@ -34,6 +34,11 @@ export const getWeeklyPopularHotDeals = (getHotDealsRequest: GetHotDealsRequest)
     )
 }
 
+export const getNotClassifiedHotDeals = () =>{
+
+    return axiosInstance.get(`/hot-deals/not-classified`)
+}
+
 
 export const viewHotDeal = (viewHotDealRequest: ViewHotDealRequest) =>
     axiosInstance.patch(`/hot-deals/${viewHotDealRequest.hotDealId}/view`)

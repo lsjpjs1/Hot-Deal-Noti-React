@@ -1,8 +1,10 @@
 import {combineReducers} from "redux";
 import hotDealReducer from "./hotDeal";
+import productReducer from "./product";
 
 const rootReducer = combineReducers({
-    hotDealReducer
+    hotDealReducer,
+    productReducer
 });
 
 export default rootReducer;

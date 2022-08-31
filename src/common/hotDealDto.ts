@@ -12,6 +12,16 @@ export interface HotDealPreview {
     sourceSite: string
 }
 
+export interface NotClassifiedHotDeal {
+    hotDealId: number
+    hotDealTitle: string
+    hotDealOriginalPrice: number
+    hotDealDiscountPrice: number
+    hotDealDiscountRate: number
+    hotDealLink: string
+    hotDealUploadTime: string
+}
+
 export interface HotDealsQueryFilter {
     searchBody: string
 }

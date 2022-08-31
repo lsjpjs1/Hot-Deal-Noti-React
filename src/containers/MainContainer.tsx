@@ -29,7 +29,6 @@ const MainContainer = () => {
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
 
-    console.log(getHotDealRequest)
 
 
     useEffect(() => {

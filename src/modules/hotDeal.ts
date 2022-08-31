@@ -1,7 +1,7 @@
-import {HotDealPreview, HotDealsQueryFilter} from "../common/hotDealDto";
+import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal} from "../common/hotDealDto";
 import {
     getHotDeals,
-    GetHotDealsRequest,
+    GetHotDealsRequest, getNotClassifiedHotDeals,
     getWeeklyPopularHotDeals,
     viewHotDeal,
     ViewHotDealRequest
@@ -17,6 +17,7 @@ import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
+const GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS = "GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS" as const;
 const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
@@ -28,6 +29,11 @@ export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: numbe
     type: GET_HOT_DEALS_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
+});
+
+export const getNotClassifiedHotDealsSuccess = (notClassifiedHotDeals: NotClassifiedHotDeal[]) => ({
+    type: GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS,
+    notClassifiedHotDeals: notClassifiedHotDeals
 });
 
 export const getInitDataSuccess = (initData: InitData) => ({
@@ -64,6 +70,16 @@ export const callGetHotDeals =
             await getHotDeals(getState().hotDealReducer.getHotDealRequest).then((res) => {
                 const page: Page<HotDealPreview> = res.data
                 dispatch(getHotDealsSuccess(page.content, page.totalPages))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callGetNotClassifiedHotDeals =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getNotClassifiedHotDeals().then((res) => {
+                dispatch(getNotClassifiedHotDealsSuccess(res.data.hotDeals))
             }).catch((error) => {
                 console.log(error.response.data)
             })
@@ -112,6 +128,7 @@ export const callPostConnectionHistory =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof getNotClassifiedHotDealsSuccess>
     | ReturnType<typeof getInitDataSuccess>
     | ReturnType<typeof setSearchBody>
     | ReturnType<typeof setSort>
@@ -120,6 +137,7 @@ type HotDealAction =
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
+    notClassifiedHotDeals: NotClassifiedHotDeal[],
     initData:  InitData
     totalPages: number,
     getHotDealRequest: GetHotDealsRequest
@@ -127,6 +145,7 @@ type HotDealState = {
 
 const initialState: HotDealState = {
     hotDeals: [],
+    notClassifiedHotDeals: [],
     initData: null,
     totalPages: 0,
     getHotDealRequest: {
@@ -158,6 +177,11 @@ function hotDealReducer(
                 ...state,
                 hotDeals: action.hotDeals,
                 totalPages: action.totalPages
+            }
+        case GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS:
+            return {
+                ...state,
+                notClassifiedHotDeals: action.notClassifiedHotDeals
             }
         case "GET_INIT_DATA_SUCCESS":
             return {
