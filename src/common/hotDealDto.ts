@@ -10,6 +10,11 @@ export interface HotDealPreview {
     uploadTime: string
     viewCount: number
     sourceSite: string
+
+    productId: number
+    modelName: string
+    manufacturer:string
+    productPurpose: string
 }
 
 export interface NotClassifiedHotDeal {
@@ -20,6 +25,7 @@ export interface NotClassifiedHotDeal {
     hotDealDiscountRate: number
     hotDealLink: string
     hotDealUploadTime: string
+
 }
 
 export interface HotDealsQueryFilter {

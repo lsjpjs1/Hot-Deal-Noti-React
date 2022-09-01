@@ -149,6 +149,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
 
     return (
         <div style={{textAlign:"center"}}>
+            {process.env["REACT_APP_SERVER_BASE_URL"]!="https://api.whendiscount.com"?<h1 style={{color:"red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</h1>:<h1 style={{color:"blue"}}>Production 서버가 맞습니다</h1>}
             {hotDealElements}
         </div>
     )
