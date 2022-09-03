@@ -65,7 +65,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 onOpen={openPopper}
                 onClose={closePopper}
 
-                sx={{width: 300}}
+                sx={{width: '500px'}}
                 renderInput={(params) => <TextField {...params} label="검색" variant={"standard"}/>}
             />
         </div>
