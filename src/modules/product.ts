@@ -93,7 +93,6 @@ export const callGetProducts =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             await getProducts(getState().productReducer.getProductsRequest).then((res) => {
-                console.log(res.data)
                 dispatch(getProductsSuccess(res.data.products))
             }).catch((error) => {
                 console.log(error.response.data)
@@ -171,7 +170,6 @@ function productReducer(
                 }
             }
         case SET_PRODUCT_PURPOSE_ID:
-            console.log(state.classifyHotDealRequest)
             return {
                 ...state,
                 classifyHotDealRequest: {
@@ -201,7 +199,6 @@ function productReducer(
                 }
             }
         case SET_MANUFACTURER_NAME:
-            console.log(state.classifyHotDealRequest)
             return {
                 ...state,
                 classifyHotDealRequest: {
@@ -216,7 +213,6 @@ function productReducer(
             }
 
         case SET_HOT_DEAL_ID:
-            console.log(state.classifyHotDealRequest)
             return {
                 ...state,
                 classifyHotDealRequest: {
@@ -225,7 +221,6 @@ function productReducer(
                 }
             }
         case CLASSIFY_HOT_DEAL_SUCCESS:
-            console.log("success")
             return {
                 ...state,
                 classifyHotDealRequest: null

@@ -1,6 +1,6 @@
 import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal} from "../common/hotDealDto";
 import {
-    getHotDeals,
+    getHotDeals, getHotDealsByProductId,
     GetHotDealsRequest, getNotClassifiedHotDeals,
     getWeeklyPopularHotDeals,
     viewHotDeal,
@@ -17,16 +17,24 @@ import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
+const GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS = "GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS" as const;
 const GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS = "GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS" as const;
 const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
 const SET_SORT = 'SET_SORT' as const;
+const SET_PRODUCT_PURPOSE_ID = 'SET_PRODUCT_PURPOSE_ID' as const;
 const SET_PAGE = 'SET_PAGE' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
+const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
 
 export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
     type: GET_HOT_DEALS_SUCCESS,
+    hotDeals: hotDeals,
+    totalPages: totalPages
+});
+export const getHotDealsByProductIdSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
+    type: GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
 });
@@ -40,7 +48,10 @@ export const getInitDataSuccess = (initData: InitData) => ({
     type: GET_INIT_DATA_SUCCESS,
     initData:initData
 });
-
+export const setProductIdForSearch = (productId: number) => ({
+    type: SET_PRODUCT_ID_FOR_SEARCH,
+    productId: productId
+});
 
 export const setSearchBody = (searchBody: string) => ({
     type: SET_SEARCH_BODY,
@@ -50,6 +61,11 @@ export const setSearchBody = (searchBody: string) => ({
 export const setSort = (sort: string) => ({
     type: SET_SORT,
     sort: sort
+});
+
+export const setProductPurposeId = (productPurposeId: number) => ({
+    type: SET_PRODUCT_PURPOSE_ID,
+    productPurposeId: productPurposeId
 });
 
 export const setPage = (page: number) => ({
@@ -74,6 +90,18 @@ export const callGetHotDeals =
                 console.log(error.response.data)
             })
         };
+
+export const callGetHotDealsByProductId =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getHotDealsByProductId(getState().hotDealReducer.getHotDealRequest,getState().hotDealReducer.productIdForSearch).then((res) => {
+                const page: Page<HotDealPreview> = res.data
+                dispatch(getHotDealsByProductIdSuccess(page.content, page.totalPages))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 
 export const callGetNotClassifiedHotDeals =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
@@ -128,19 +156,23 @@ export const callPostConnectionHistory =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof getHotDealsByProductIdSuccess>
     | ReturnType<typeof getNotClassifiedHotDealsSuccess>
     | ReturnType<typeof getInitDataSuccess>
     | ReturnType<typeof setSearchBody>
     | ReturnType<typeof setSort>
+    | ReturnType<typeof setProductPurposeId>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setSourceSites>
+    | ReturnType<typeof setProductIdForSearch>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
     notClassifiedHotDeals: NotClassifiedHotDeal[],
     initData:  InitData
     totalPages: number,
-    getHotDealRequest: GetHotDealsRequest
+    getHotDealRequest: GetHotDealsRequest,
+    productIdForSearch: number
 }
 
 const initialState: HotDealState = {
@@ -155,7 +187,8 @@ const initialState: HotDealState = {
             size: 40
         },
         filter: {
-            searchBody: null
+            searchBody: null,
+            productPurposeId: null
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
@@ -164,7 +197,8 @@ const initialState: HotDealState = {
             ["롯데ON",false]
             ]
         )
-    }
+    },
+    productIdForSearch: null
 }
 
 function hotDealReducer(
@@ -173,6 +207,12 @@ function hotDealReducer(
 ) {
     switch (action.type) {
         case "GET_HOT_DEALS_SUCCESS":
+            return {
+                ...state,
+                hotDeals: action.hotDeals,
+                totalPages: action.totalPages
+            }
+        case GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS:
             return {
                 ...state,
                 hotDeals: action.hotDeals,
@@ -210,6 +250,17 @@ function hotDealReducer(
                     }
                 }
             }
+        case SET_PRODUCT_PURPOSE_ID:
+            return {
+                ...state,
+                getHotDealRequest: {
+                    ...state.getHotDealRequest,
+                    filter: {
+                        ...state.getHotDealRequest.filter,
+                        productPurposeId: isNaN(action.productPurposeId) ? null: action.productPurposeId
+                    }
+                }
+            }
         case SET_PAGE:
             return {
                 ...state,
@@ -230,6 +281,11 @@ function hotDealReducer(
                     ...state.getHotDealRequest,
                     sourceSitesMap: newSourceSitesMap
                 }
+            }
+        case "SET_PRODUCT_ID_FOR_SEARCH":
+            return {
+                ...state,
+                productIdForSearch: action.productId
             }
         default:
             return state

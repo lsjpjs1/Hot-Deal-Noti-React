@@ -5,7 +5,7 @@ import {
     callGetHotDeals, callGetInitData, callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
     callViewHotDeal,
-    setPage,
+    setPage, setProductPurposeId,
     setSearchBody,
     setSort, setSourceSites
 } from "../modules/hotDeal";
@@ -17,8 +17,9 @@ import Button from "@material-ui/core/Button";
 import HotDealSortingSelect from "../components/HotDealSortingSelect";
 import moment from 'moment';
 import 'moment/locale/ko';
-import sortingType from "../enum/SortingType";
 import SourceSiteCheckBoxGroup from "../components/SourceSiteCheckBoxGroup";
+import ProductPurposeSelect from "../components/ProductPurposeSelect";
+import {callGetProductInitData} from "../modules/product";
 
 const MainContainer = () => {
 
@@ -37,6 +38,8 @@ const MainContainer = () => {
         // @ts-ignore
         dispatch(callGetInitData())
         getHotDeals()
+        // @ts-ignore
+        dispatch(callGetProductInitData())
     }, []);
 
 
@@ -75,6 +78,12 @@ const MainContainer = () => {
         getHotDeals()
     }
 
+    const onProductPurposeSelect = (productPurposeId:number) => {
+        dispatch(setProductPurposeId(productPurposeId))
+        goFirstPage()
+        getHotDeals()
+    }
+
     const onCheckBoxClick = (checked:boolean, sourceSite: string) => {
         dispatch(setSourceSites(checked,sourceSite))
         goFirstPage()
@@ -105,6 +114,7 @@ const MainContainer = () => {
                 <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                 <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
                 <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
+                {/*<ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>*/}
                 <Button variant={"contained"} color={"primary"} onClick={onClickWeeklyPopular}>🔥이번 주 인기 상품</Button>
             </div>
             <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>

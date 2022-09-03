@@ -35,6 +35,7 @@ export interface GetProductsResponse {
 export interface ProductDto {
     productId: number,
     modelName: string,
+    fullModelName: string,
     productType: string,
     manufacturer: string,
     manufacturerId: number

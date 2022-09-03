@@ -71,9 +71,10 @@ const NotClassifiedHotDealListView = (props: Props) => {
                     </a>
                     <div>
                         <Autocomplete
+                            freeSolo={true}
                             options={props.products}
                             // @ts-ignore
-                            getOptionLabel={(option: ProductDto) => option.modelName}
+                            getOptionLabel={(option: ProductDto|string) =>typeof option=="object"?option.modelName:option}
                             // @ts-ignore
                             onChange={(event, value: ProductDto) => {
                                 dispatch(setProductId(value.productId))
@@ -89,9 +90,10 @@ const NotClassifiedHotDealListView = (props: Props) => {
                             renderInput={(params) => <TextField {...params} label="모델명" variant={"standard"}/>}
                         />
                         <Autocomplete
+                            freeSolo={true}
                             options={props.products}
                             // @ts-ignore
-                            getOptionLabel={(option: ProductDto) => option.manufacturer}
+                            getOptionLabel={(option: ProductDto|string) =>typeof option=="object"?option.manufacturer:option}
                             // @ts-ignore
                             onChange={(event, value: ProductDto) => {
                                 dispatch(setManufacturerId(value.manufacturerId))

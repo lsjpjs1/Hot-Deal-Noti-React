@@ -15,6 +15,8 @@ export interface HotDealPreview {
     modelName: string
     manufacturer:string
     productPurpose: string
+
+    isDelete: boolean
 }
 
 export interface NotClassifiedHotDeal {
@@ -30,6 +32,7 @@ export interface NotClassifiedHotDeal {
 
 export interface HotDealsQueryFilter {
     searchBody: string
+    productPurposeId: number
 }
 
 

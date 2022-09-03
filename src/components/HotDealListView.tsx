@@ -15,7 +15,7 @@ const HotDealListView = (props: Props) => {
                 <div>
                     <div>
                         <h3 style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.modelName}</h3>
-                        {hotDeal.productId!=1&&<div >
+                        {hotDeal.productId != 1 && <div>
                             <h3 style={{display: 'inline-block'}}>{hotDeal.manufacturer}</h3>
                             <h3 style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.productPurpose}</h3>
                         </div>}
@@ -35,9 +35,19 @@ const HotDealListView = (props: Props) => {
                         textDecoration: "line-through"
                     }}>{hotDeal.originalPrice.toLocaleString()}</h3>
                 </div>
-                <a href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)} target={"_blank"}>
-                    {hotDeal.title}
-                </a>
+                {
+                    hotDeal.isDelete
+                    ?
+                    <del >
+                        {hotDeal.title}
+                    </del>
+                    :
+                    <a href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
+                       target={"_blank"}>
+                        {hotDeal.title}
+                    </a>
+                }
+
             </div>
         )
     })
