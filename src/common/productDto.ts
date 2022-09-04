@@ -1,6 +1,7 @@
 export interface ProductInitData {
     productTypes: ProductType[],
-    productPurposes: ProductPurpose[]
+    productPurposes: ProductPurpose[],
+    manufacturers: Manufacturer[]
 }
 
 export interface ProductType {
@@ -10,6 +11,10 @@ export interface ProductType {
 export interface ProductPurpose {
     productPurposeId: number,
     productPurposeName: string
+}
+export interface Manufacturer {
+    manufacturerId: number,
+    manufacturerName: string
 }
 
 export interface GetProductsRequest {

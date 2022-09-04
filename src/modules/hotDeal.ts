@@ -24,6 +24,7 @@ const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
 const SET_SORT = 'SET_SORT' as const;
 const SET_PRODUCT_PURPOSE_ID = 'SET_PRODUCT_PURPOSE_ID' as const;
+const SET_MANUFACTURER_ID = 'SET_MANUFACTURER_ID' as const;
 const SET_PAGE = 'SET_PAGE' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
@@ -66,6 +67,10 @@ export const setSort = (sort: string) => ({
 export const setProductPurposeId = (productPurposeId: number) => ({
     type: SET_PRODUCT_PURPOSE_ID,
     productPurposeId: productPurposeId
+});
+export const setManufacturerId = (manufacturerId: number) => ({
+    type: SET_MANUFACTURER_ID,
+    manufacturerId: manufacturerId
 });
 
 export const setPage = (page: number) => ({
@@ -162,6 +167,7 @@ type HotDealAction =
     | ReturnType<typeof setSearchBody>
     | ReturnType<typeof setSort>
     | ReturnType<typeof setProductPurposeId>
+    | ReturnType<typeof setManufacturerId>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setSourceSites>
     | ReturnType<typeof setProductIdForSearch>
@@ -188,7 +194,8 @@ const initialState: HotDealState = {
         },
         filter: {
             searchBody: null,
-            productPurposeId: null
+            productPurposeId: null,
+            manufacturerId: null
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
@@ -258,6 +265,17 @@ function hotDealReducer(
                     filter: {
                         ...state.getHotDealRequest.filter,
                         productPurposeId: isNaN(action.productPurposeId) ? null: action.productPurposeId
+                    }
+                }
+            }
+        case SET_MANUFACTURER_ID:
+            return {
+                ...state,
+                getHotDealRequest: {
+                    ...state.getHotDealRequest,
+                    filter: {
+                        ...state.getHotDealRequest.filter,
+                        manufacturerId: isNaN(action.manufacturerId) ? null: action.manufacturerId
                     }
                 }
             }

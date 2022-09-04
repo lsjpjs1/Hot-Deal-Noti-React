@@ -10,8 +10,6 @@ const SourceSiteCheckBoxGroup = (props: Props) => {
             <div>
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"11번가")} />} label="11번가" />
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"G마켓")} />} label="G마켓" />
-            </div>
-            <div>
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"롯데ON")} />} label="롯데ON" />
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"옥션")} />} label="옥션" />
             </div>

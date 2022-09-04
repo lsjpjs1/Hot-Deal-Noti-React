@@ -33,6 +33,7 @@ export interface NotClassifiedHotDeal {
 export interface HotDealsQueryFilter {
     searchBody: string
     productPurposeId: number
+    manufacturerId: number
 }
 
 

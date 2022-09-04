@@ -11,7 +11,7 @@ type Props = {
 const HotDealListView = (props: Props) => {
     const hotDealElements = props.hotDeals.map((hotDeal) => {
         return (
-            <div style={{marginBottom: "30px"}}>
+            <div style={{marginBottom: "30px",marginTop:"30px"}}>
                 <div>
                     <div>
                         <h3 style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.modelName}</h3>
