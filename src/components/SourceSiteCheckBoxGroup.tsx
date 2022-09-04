@@ -6,7 +6,7 @@ type Props = {
 }
 const SourceSiteCheckBoxGroup = (props: Props) => {
     return (
-        <FormGroup style={{display:'inline-block'}}>
+        <FormGroup >
             <div>
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"11번가")} />} label="11번가" />
                 <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"G마켓")} />} label="G마켓" />
