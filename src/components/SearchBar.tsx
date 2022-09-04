@@ -65,9 +65,17 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 open={open}
                 onOpen={openPopper}
                 onClose={closePopper}
-                style={{width:350}}
+                style={{display: 'inline-block',width:300}}
                 renderInput={(params) => <TextField {...params} label="검색" variant={"standard"}/>}
             />
+
+            <Button
+                style={{display: 'inline-block',marginTop:20}}
+                onClick={() => {
+                searchBarProps.onSearch(searchBody)
+            }} variant={"contained"} color="primary">
+                검색
+            </Button>
         </div>
     )
 }
