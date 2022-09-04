@@ -51,6 +51,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                     }
                 }}
                 onKeyDown={(event) => {
+                    console.log(event.key)
                     if (event.key === 'Enter') {
                         // Prevent's default 'Enter' behavior.
                         // @ts-ignore
