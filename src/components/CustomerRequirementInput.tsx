@@ -12,6 +12,7 @@ const CustomerRequirementInput = () => {
         // @ts-ignore
         dispatch(callPostCustomerRequirement())
         alert("등록되었습니다! 감사합니다~^0^~")
+        customerRequirementBodySet("")
     }
     return (
         <Container style={{textAlign:"center", marginTop:5}}>
@@ -23,6 +24,7 @@ const CustomerRequirementInput = () => {
                 onChange={(event) => {
                     customerRequirementBodySet(event.target.value)
                 }}
+                value={customerRequirementBody}
                 label="요청사항" variant="standard"/>
             <Button style={{display: 'inline-block', marginTop: 10, marginLeft: 2}}
                     variant={"contained"}
