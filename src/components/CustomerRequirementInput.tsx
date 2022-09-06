@@ -11,6 +11,7 @@ const CustomerRequirementInput = () => {
         dispatch(setCustomerRequirementBody(customerRequirementBody))
         // @ts-ignore
         dispatch(callPostCustomerRequirement())
+        alert("등록되었습니다! 감사합니다~^0^~")
     }
     return (
         <Container style={{textAlign:"center", marginTop:5}}>
