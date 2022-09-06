@@ -22,6 +22,7 @@ import ProductPurposeSelect from "../components/ProductPurposeSelect";
 import {callGetProductInitData} from "../modules/product";
 import ManufacturerSelect from "../components/ManufacturerSelect";
 import {Container} from "@mui/material";
+import CustomerRequirementInput from "../components/CustomerRequirementInput";
 
 const MainContainer = () => {
 
@@ -105,38 +106,43 @@ const MainContainer = () => {
 
 
     return (
-        <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
-            <Button>
-                <img onClick={() => {
-                    window.location.replace("/")
-                }} style={{width: "300px", height: "200"}} src={require("../image/IMG_0385.PNG")}/>
-            </Button>
-            {initData != null &&
+        <div>
+            <CustomerRequirementInput></CustomerRequirementInput>
+            <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
+
+                <Button>
+                    <img onClick={() => {
+                        window.location.replace("/")
+                    }} style={{width: "300px", height: "200"}} src={require("../image/IMG_0385.PNG")}/>
+                </Button>
+                {initData != null &&
+                    <div>
+                        {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
+                        <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
+                    </div>
+                }
+
+                <Button variant={"contained"} color={"primary"} onClick={onClickWeeklyPopular}>🔥이번 주 인기 상품</Button>
                 <div>
-                    {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
-                    <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
+
+                    <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
+                    <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
+                    <Container maxWidth={"sm"}>
+                        <ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>
+                        <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
+                        <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
+
+                    </Container>
                 </div>
-            }
-
-            <Button variant={"contained"} color={"primary"} onClick={onClickWeeklyPopular}>🔥이번 주 인기 상품</Button>
-            <div>
-
-                <SearchBar onSearch={onSearch} onSearchTextChange={onSearchTextChange}></SearchBar>
-                <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
-                <Container maxWidth={"sm"}>
-                    <ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>
-                    <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
-                    <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
-
-                </Container>
+                <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>
+                <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
+                          totalPageCount={totalPages}></PageView>
+                <p><b>Email : whendiscount@gmail.com</b><br/>
+                    이용 중 불편사항이나 문의사항은 메일주시면 감사드리겠습니다!
+                </p>
             </div>
-            <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>
-            <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
-                      totalPageCount={totalPages}></PageView>
-            <p><b>Email : whendiscount@gmail.com</b><br/>
-                이용 중 불편사항이나 문의사항은 메일주시면 감사드리겠습니다!
-            </p>
         </div>
+
     )
 };
 

@@ -15,6 +15,8 @@ import {postConnectionHistory} from "../api/connectionHistoryApi";
 import SortingType from "../enum/SortingType";
 import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
+import {postCustomerRequirement} from "../api/customerRequirementApi";
+import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 const GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS = "GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS" as const;
@@ -28,6 +30,7 @@ const SET_MANUFACTURER_ID = 'SET_MANUFACTURER_ID' as const;
 const SET_PAGE = 'SET_PAGE' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
+const SET_CUSTOMER_REQUIREMENT_BODY = "SET_CUSTOMER_REQUIREMENT_BODY" as const;
 
 export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
     type: GET_HOT_DEALS_SUCCESS,
@@ -76,6 +79,11 @@ export const setManufacturerId = (manufacturerId: number) => ({
 export const setPage = (page: number) => ({
     type: SET_PAGE,
     page: page
+});
+
+export const setCustomerRequirementBody = (customerRequirementBody: string) => ({
+    type: SET_CUSTOMER_REQUIREMENT_BODY,
+    customerRequirementBody: customerRequirementBody
 });
 
 export const setSourceSites = (checked:boolean, sourceSite: string) => ({
@@ -139,6 +147,16 @@ export const callGetInitData =
             })
         };
 
+export const callPostCustomerRequirement =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await postCustomerRequirement(getState().hotDealReducer.postCustomerRequirementRequest).then((res) => {
+
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 export const callViewHotDeal =
     (viewHotDealRequest: ViewHotDealRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
@@ -171,6 +189,7 @@ type HotDealAction =
     | ReturnType<typeof setPage>
     | ReturnType<typeof setSourceSites>
     | ReturnType<typeof setProductIdForSearch>
+    | ReturnType<typeof setCustomerRequirementBody>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -178,7 +197,8 @@ type HotDealState = {
     initData:  InitData
     totalPages: number,
     getHotDealRequest: GetHotDealsRequest,
-    productIdForSearch: number
+    productIdForSearch: number,
+    postCustomerRequirementRequest:PostCustomerRequirementRequest
 }
 
 const initialState: HotDealState = {
@@ -205,7 +225,10 @@ const initialState: HotDealState = {
             ]
         )
     },
-    productIdForSearch: null
+    productIdForSearch: null,
+    postCustomerRequirementRequest: {
+        customerRequirementBody: ""
+    }
 }
 
 function hotDealReducer(
@@ -304,6 +327,14 @@ function hotDealReducer(
             return {
                 ...state,
                 productIdForSearch: action.productId
+            }
+        case "SET_CUSTOMER_REQUIREMENT_BODY":
+            return {
+                ...state,
+                postCustomerRequirementRequest: {
+                    ...state.postCustomerRequirementRequest,
+                    customerRequirementBody: action.customerRequirementBody
+                }
             }
         default:
             return state
