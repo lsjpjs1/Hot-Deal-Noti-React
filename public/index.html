@@ -9,6 +9,7 @@
       name="description"
       content="여러 오픈마켓 노트북 특가를 한눈에!"
     />
+
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -25,6 +26,19 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>특가 어디가 | 한눈에 보는 노트북 실시간 특가</title>
+
+
+    <!-- Google tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-237106524-1">
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-237106524-1');
+    </script>
+
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
