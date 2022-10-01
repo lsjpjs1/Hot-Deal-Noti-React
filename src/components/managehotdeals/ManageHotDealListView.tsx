@@ -30,6 +30,8 @@ const HotDealListView = (props: Props) => {
                                 dispatch(callDeleteHotDeal(hotDeal.hotDealId))
                                 // @ts-ignore
                                 dispatch(callGetHotDeals())
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
                             }}>
                             삭제
                         </Button>

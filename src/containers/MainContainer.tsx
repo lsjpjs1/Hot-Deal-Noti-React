@@ -119,7 +119,7 @@ const MainContainer = () => {
                     <div>
                         <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}  target={"_blank"}
                            style={{textDecoration:"none",color:"blue",marginTop:"10px",marginBottom:"10px",fontStyle:"normal",fontSize:"20px"}}>
-                            (참고) 여기 써있는 특가랑 실제 가격이랑 다른데요?!
+                            (읽어주세요) 여기 써있는 특가랑 실제 가격이랑 다른데요?!
                         </a>
                         {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
                         <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
