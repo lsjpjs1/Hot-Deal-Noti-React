@@ -44,6 +44,11 @@ export const getNotClassifiedHotDeals = () =>{
     return axiosInstance.get(`/hot-deals/not-classified`)
 }
 
+export const deleteHotDeal = (hotDealId: number) =>{
+
+    return axiosInstance.delete(`/hot-deals/${hotDealId}`)
+}
+
 
 export const viewHotDeal = (viewHotDealRequest: ViewHotDealRequest) =>
     axiosInstance.patch(`/hot-deals/${viewHotDealRequest.hotDealId}/view`)

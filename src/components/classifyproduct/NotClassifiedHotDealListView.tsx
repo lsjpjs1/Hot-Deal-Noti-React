@@ -13,6 +13,7 @@ import {
     setProductId, setProductPurposeId, setProductTypeId
 } from "../../modules/product";
 import {RootState} from "../../modules";
+import {callDeleteHotDeal} from "../../modules/hotDeal";
 
 moment.locale("ko");
 
@@ -57,6 +58,20 @@ const NotClassifiedHotDealListView = (props: Props) => {
                             display: 'inline-block',
                             marginLeft: '10px'
                         }}>{moment(notClassifiedHotDeals.hotDealUploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</h4>
+                        <Button
+                            style={{
+                            display: 'inline-block',
+                            marginLeft: '10px'
+                        }}
+                            onClick={() => {
+                                // @ts-ignore
+                                dispatch(callDeleteHotDeal(notClassifiedHotDeals.hotDealId))
+
+                                // @ts-ignore
+                                setHotDealsIsShowingMap((prevState)=> new Map(prevState).set(notClassifiedHotDeals.hotDealId,false))
+                            }}>
+                            삭제
+                        </Button>
                         <h2>{notClassifiedHotDeals.hotDealDiscountRate}{"%↓"}</h2>
                         <h2 style={{display: 'inline-block'}}>{notClassifiedHotDeals.hotDealDiscountPrice.toLocaleString() + "원"}</h2>
                         <h3 style={{display: 'inline-block'}}>{" <- "}</h3>

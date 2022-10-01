@@ -10,7 +10,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainContainer from "./containers/MainContainer";
 import ServerMaintenanceContainer from "./containers/ServerMaintenanceContainer";
 import ReactGA from 'react-ga4';
-import ProductClassifyContainer from "./containers/ProductClassifyContainer"; // GA4
+import ProductClassifyContainer from "./containers/ProductClassifyContainer";
+import ManageHotDealsContainer from "./containers/ManageHotDealsContainer"; // GA4
 
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
@@ -27,6 +28,8 @@ root.render(
           <Routes>
               <Route path="/" element={<MainContainer/>}/>
               <Route path="/hoon/980320" element={<ProductClassifyContainer/>}/>
+              <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
+
               {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
           </Routes>
       </BrowserRouter>

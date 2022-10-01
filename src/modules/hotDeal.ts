@@ -1,5 +1,6 @@
 import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal} from "../common/hotDealDto";
 import {
+    deleteHotDeal,
     getHotDeals, getHotDealsByProductId,
     GetHotDealsRequest, getNotClassifiedHotDeals,
     getWeeklyPopularHotDeals,
@@ -37,6 +38,7 @@ export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: numbe
     hotDeals: hotDeals,
     totalPages: totalPages
 });
+
 export const getHotDealsByProductIdSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
     type: GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS,
     hotDeals: hotDeals,
@@ -115,6 +117,14 @@ export const callGetHotDealsByProductId =
             })
         };
 
+export const callDeleteHotDeal =
+    (deletedHotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await deleteHotDeal(deletedHotDealId).then((res) => {
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
 
 export const callGetNotClassifiedHotDeals =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
