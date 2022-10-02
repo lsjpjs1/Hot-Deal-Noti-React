@@ -27,6 +27,7 @@ export interface NotClassifiedHotDeal {
     hotDealDiscountRate: number
     hotDealLink: string
     hotDealUploadTime: string
+    candidateProductName: string
 
 }
 

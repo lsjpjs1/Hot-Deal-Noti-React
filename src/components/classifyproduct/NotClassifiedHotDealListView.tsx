@@ -1,6 +1,6 @@
 import {HotDealPreview, NotClassifiedHotDeal} from "../../common/hotDealDto";
 import moment from "moment";
-import {Autocomplete, Button, MenuItem, Select, TextField} from "@mui/material";
+import {Autocomplete, Button, createFilterOptions, MenuItem, Select, TextField} from "@mui/material";
 import {ClassifyHotDealRequest, ProductDto, ProductInitData} from "../../common/productDto";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -26,22 +26,34 @@ type Props = {
 const NotClassifiedHotDealListView = (props: Props) => {
 
     const dispatch = useDispatch();
+    const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
 
+    const [hotDealsIsShowingMap, setHotDealsIsShowingMap] = React.useState(new Map<number, boolean>());
 
-    const [hotDealsIsShowingMap, setHotDealsIsShowingMap] = React.useState(new Map<number,boolean>());
+    const filterOptions = createFilterOptions({
+        stringify: (option:ProductDto) => option.fullModelName + option.modelName
+    });
 
+    const [inputValueMap, setInputValueMap] = React.useState(new Map<number, string>());
 
-    const hotDealElements = props.notClassifiedHotDeals.map((notClassifiedHotDeals)=>{
-        if(!hotDealsIsShowingMap.has(notClassifiedHotDeals.hotDealId)){
+    const hotDealElements = props.notClassifiedHotDeals.map((notClassifiedHotDeals) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        var inputValue
+        if(!inputValueMap.has(notClassifiedHotDeals.hotDealId)){
+            inputValue = notClassifiedHotDeals.candidateProductName!=undefined?notClassifiedHotDeals.candidateProductName:""
+            inputValueMap.set(notClassifiedHotDeals.hotDealId,inputValue)
+        }
+
+        if (!hotDealsIsShowingMap.has(notClassifiedHotDeals.hotDealId)) {
             hotDealsIsShowingMap.set(notClassifiedHotDeals.hotDealId, true)
         }
-        const productPurposeMenuItems = props.productInitData.productPurposes.map((productPurpose)=>{
+        const productPurposeMenuItems = productInitData.productPurposes.map((productPurpose) => {
             return (
                 <MenuItem value={productPurpose.productPurposeId}>{productPurpose.productPurposeName}</MenuItem>
             )
         })
 
-        const productTypeMenuItems = props.productInitData.productTypes.map((productType)=>{
+        const productTypeMenuItems = productInitData.productTypes.map((productType) => {
             return (
                 <MenuItem value={productType.productTypeId}>{productType.productTypeName}</MenuItem>
             )
@@ -51,7 +63,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
         return (
             <div>
 
-                {hotDealsIsShowingMap.get(notClassifiedHotDeals.hotDealId)&&<div style={{marginBottom: "30px"}}>
+                {hotDealsIsShowingMap.get(notClassifiedHotDeals.hotDealId) && <div style={{marginBottom: "30px"}}>
                     <div>
 
                         <h4 style={{
@@ -60,15 +72,15 @@ const NotClassifiedHotDealListView = (props: Props) => {
                         }}>{moment(notClassifiedHotDeals.hotDealUploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</h4>
                         <Button
                             style={{
-                            display: 'inline-block',
-                            marginLeft: '10px'
-                        }}
+                                display: 'inline-block',
+                                marginLeft: '10px'
+                            }}
                             onClick={() => {
                                 // @ts-ignore
                                 dispatch(callDeleteHotDeal(notClassifiedHotDeals.hotDealId))
 
                                 // @ts-ignore
-                                setHotDealsIsShowingMap((prevState)=> new Map(prevState).set(notClassifiedHotDeals.hotDealId,false))
+                                setHotDealsIsShowingMap((prevState) => new Map(prevState).set(notClassifiedHotDeals.hotDealId, false))
                             }}>
                             삭제
                         </Button>
@@ -86,10 +98,12 @@ const NotClassifiedHotDealListView = (props: Props) => {
                     </a>
                     <div>
                         <Autocomplete
+                            filterOptions={filterOptions}
                             freeSolo={true}
                             options={props.products}
+                            inputValue={inputValueMap.get(notClassifiedHotDeals.hotDealId)}
                             // @ts-ignore
-                            getOptionLabel={(option: ProductDto|string) =>typeof option=="object"?option.modelName:option}
+                            getOptionLabel={(option: ProductDto | string) => typeof option == "object" ? option.modelName : option}
                             // @ts-ignore
                             onChange={(event, value: ProductDto) => {
                                 dispatch(setProductId(value.productId))
@@ -100,15 +114,24 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                     // @ts-ignore
                                     dispatch(callGetProducts())
                                 }
+                                inputValueMap.set(notClassifiedHotDeals.hotDealId,inputValue)
+                                setInputValueMap(inputValueMap)
+                            }}
+                            onFocus={(a)=>{
+                                dispatch(setModelName(a.target.textContent))
+                                // @ts-ignore
+                                dispatch(callGetProducts())
                             }}
                             sx={{width: 300}}
-                            renderInput={(params) => <TextField {...params} label="모델명" variant={"standard"}/>}
+                            renderInput={(params) =>
+                                <TextField {...params}
+                                           label="모델명" variant={"standard"}/>}
                         />
                         <Autocomplete
                             freeSolo={true}
                             options={props.products}
                             // @ts-ignore
-                            getOptionLabel={(option: ProductDto|string) =>typeof option=="object"?option.manufacturer:option}
+                            getOptionLabel={(option: ProductDto | string) => typeof option == "object" ? option.manufacturer : option}
                             // @ts-ignore
                             onChange={(event, value: ProductDto) => {
                                 dispatch(setManufacturerId(value.manufacturerId))
@@ -148,7 +171,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                 dispatch(callClassifyHotDeal())
 
                                 // @ts-ignore
-                                setHotDealsIsShowingMap((prevState)=> new Map(prevState).set(notClassifiedHotDeals.hotDealId,false))
+                                setHotDealsIsShowingMap((prevState) => new Map(prevState).set(notClassifiedHotDeals.hotDealId, false))
                             }}>
                             등록
                         </Button>
@@ -163,10 +186,11 @@ const NotClassifiedHotDealListView = (props: Props) => {
     })
 
 
-
     return (
-        <div style={{textAlign:"center"}}>
-            {process.env["REACT_APP_SERVER_BASE_URL"]!="https://api.whendiscount.com"?<h1 style={{color:"red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</h1>:<h1 style={{color:"blue"}}>Production 서버가 맞습니다</h1>}
+        <div style={{textAlign: "center"}}>
+            {process.env["REACT_APP_SERVER_BASE_URL"] != "https://api.whendiscount.com" ?
+                <h1 style={{color: "red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</h1> :
+                <h1 style={{color: "blue"}}>Production 서버가 맞습니다</h1>}
             {hotDealElements}
         </div>
     )
