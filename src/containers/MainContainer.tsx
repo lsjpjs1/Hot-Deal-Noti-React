@@ -121,7 +121,10 @@ const MainContainer = () => {
                            style={{textDecoration:"none",color:"blue",marginTop:"10px",marginBottom:"10px",fontStyle:"normal",fontSize:"20px"}}>
                             (읽어주세요) 여기 써있는 특가랑 실제 가격이랑 다른데요?!
                         </a>
-                        {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
+                        <h3>{"공지사항: 특가 키워드 알림 앱이 출시되었습니다!"}</h3>
+                        <a href={"https://play.google.com/store/apps/details?id=com.hotdealnoti"}  target={"_blank"}>
+                            안드로이드 링크
+                        </a>
                         <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
                     </div>
                 }
