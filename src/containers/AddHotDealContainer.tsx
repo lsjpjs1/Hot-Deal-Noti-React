@@ -14,7 +14,8 @@ import {
 } from "../modules/hotDeal";
 import NotClassifiedHotDealListView from "../components/classifyproduct/NotClassifiedHotDealListView";
 import {callGetProductInitData, callGetProducts} from "../modules/product";
-import {Button, TextField} from "@mui/material";
+import {Button, TextField} from "@material-ui/core";
+
 
 const AddHotDealContainer = () => {
 
