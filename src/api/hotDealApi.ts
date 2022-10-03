@@ -1,6 +1,6 @@
 import axiosInstance from "./index";
 import {PageRequest} from "../common/page";
-import {HotDealsQueryFilter} from "../common/hotDealDto";
+import {HotDealsQueryFilter, PostHotDealRequest} from "../common/hotDealDto";
 import qs from "qs";
 
 export type GetHotDealsRequest = {
@@ -47,6 +47,13 @@ export const getNotClassifiedHotDeals = () =>{
 export const deleteHotDeal = (hotDealId: number) =>{
 
     return axiosInstance.delete(`/hot-deals/${hotDealId}`)
+}
+
+export const postHotDeal = (postHotDealRequest: PostHotDealRequest) =>{
+
+    return axiosInstance.post(`/hot-deals`,
+        postHotDealRequest
+        )
 }
 
 

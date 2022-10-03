@@ -37,5 +37,12 @@ export interface HotDealsQueryFilter {
     manufacturerId: number
 }
 
-
+export interface PostHotDealRequest {
+     discountRate: number
+     discountPrice: number
+     originalPrice: number
+     title: string
+     url: string
+     sourceSite: string
+}
 

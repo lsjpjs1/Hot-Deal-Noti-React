@@ -1,9 +1,9 @@
-import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal} from "../common/hotDealDto";
+import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
 import {
     deleteHotDeal,
     getHotDeals, getHotDealsByProductId,
     GetHotDealsRequest, getNotClassifiedHotDeals,
-    getWeeklyPopularHotDeals,
+    getWeeklyPopularHotDeals, postHotDeal,
     viewHotDeal,
     ViewHotDealRequest
 } from "../api/hotDealApi";
@@ -18,6 +18,7 @@ import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 import {postCustomerRequirement} from "../api/customerRequirementApi";
 import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
+import {useDispatch} from "react-redux";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 const GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS = "GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS" as const;
@@ -32,6 +33,44 @@ const SET_PAGE = 'SET_PAGE' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
 const SET_CUSTOMER_REQUIREMENT_BODY = "SET_CUSTOMER_REQUIREMENT_BODY" as const;
+
+
+const SET_ADD_HOT_DEAL_TITLE = "SET_ADD_HOT_DEAL_TITLE" as const;
+const SET_ADD_HOT_DEAL_LINK = "SET_ADD_HOT_DEAL_LINK" as const;
+const SET_ADD_HOT_DEAL_SITE = "SET_ADD_HOT_DEAL_SITE" as const;
+const SET_ADD_HOT_DEAL_ORIGINAL_PRICE = "SET_ADD_HOT_DEAL_ORIGINAL_PRICE" as const;
+const SET_ADD_HOT_DEAL_DISCOUNT_PRICE = "SET_ADD_HOT_DEAL_DISCOUNT_PRICE" as const;
+const SET_ADD_HOT_DEAL_DISCOUNT_RATE = "SET_ADD_HOT_DEAL_DISCOUNT_RATE" as const;
+
+export const setAddHotDealSite = (site: string) => ({
+    type: SET_ADD_HOT_DEAL_SITE,
+    site: site
+});
+
+export const setAddHotDealOriginalPrice = (originalPrice: number) => ({
+    type: SET_ADD_HOT_DEAL_ORIGINAL_PRICE,
+    originalPrice: originalPrice
+});
+
+export const setAddHotDealDiscountPrice = (discountPrice: number) => ({
+    type: SET_ADD_HOT_DEAL_DISCOUNT_PRICE,
+    discountPrice: discountPrice
+});
+
+export const setAddHotDealDiscountRate = (discountRate: number) => ({
+    type: SET_ADD_HOT_DEAL_DISCOUNT_RATE,
+    discountRate: discountRate
+});
+
+export const setAddHotDealLink = (link: string) => ({
+    type: SET_ADD_HOT_DEAL_LINK,
+    link: link
+});
+
+export const setAddHotDealTitle = (hotDealTitle: string) => ({
+    type: SET_ADD_HOT_DEAL_TITLE,
+    hotDealTitle: hotDealTitle
+});
 
 export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
     type: GET_HOT_DEALS_SUCCESS,
@@ -95,6 +134,8 @@ export const setSourceSites = (checked:boolean, sourceSite: string) => ({
 });
 
 
+
+
 export const callGetHotDeals =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
@@ -121,6 +162,16 @@ export const callDeleteHotDeal =
     (deletedHotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             await deleteHotDeal(deletedHotDealId).then((res) => {
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callPostHotDeal =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await postHotDeal(getState().hotDealReducer.postHotDealRequest).then((res) => {
+                window.location.reload()
             }).catch((error) => {
                 console.log(error.response.data)
             })
@@ -200,6 +251,12 @@ type HotDealAction =
     | ReturnType<typeof setSourceSites>
     | ReturnType<typeof setProductIdForSearch>
     | ReturnType<typeof setCustomerRequirementBody>
+    | ReturnType<typeof setAddHotDealTitle>
+    | ReturnType<typeof setAddHotDealLink>
+    | ReturnType<typeof setAddHotDealSite>
+    | ReturnType<typeof setAddHotDealOriginalPrice>
+    | ReturnType<typeof setAddHotDealDiscountPrice>
+    | ReturnType<typeof setAddHotDealDiscountRate>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -208,7 +265,8 @@ type HotDealState = {
     totalPages: number,
     getHotDealRequest: GetHotDealsRequest,
     productIdForSearch: number,
-    postCustomerRequirementRequest:PostCustomerRequirementRequest
+    postCustomerRequirementRequest:PostCustomerRequirementRequest,
+    postHotDealRequest: PostHotDealRequest
 }
 
 const initialState: HotDealState = {
@@ -238,6 +296,14 @@ const initialState: HotDealState = {
     productIdForSearch: null,
     postCustomerRequirementRequest: {
         customerRequirementBody: ""
+    },
+    postHotDealRequest: {
+        discountRate: null,
+        discountPrice: null,
+        originalPrice: null,
+        title: null,
+        url: null,
+        sourceSite: null
     }
 }
 
@@ -344,6 +410,75 @@ function hotDealReducer(
                 postCustomerRequirementRequest: {
                     ...state.postCustomerRequirementRequest,
                     customerRequirementBody: action.customerRequirementBody
+                }
+            }
+        case SET_ADD_HOT_DEAL_TITLE:
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    title: action.hotDealTitle
+                }
+            }
+        case "SET_ADD_HOT_DEAL_LINK":
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    url: action.link
+                }
+            }
+        case "SET_ADD_HOT_DEAL_SITE":
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    sourceSite: action.site
+                }
+            }
+        case SET_ADD_HOT_DEAL_ORIGINAL_PRICE:
+            if (state.postHotDealRequest.originalPrice!=null&& state.postHotDealRequest.discountPrice!=null){
+                return {
+                    ...state,
+                    postHotDealRequest: {
+                        ...state.postHotDealRequest,
+                        originalPrice: action.originalPrice,
+                        discountRate: Math.floor(100-(state.postHotDealRequest.discountPrice/action.originalPrice))
+                    }
+                }
+            }
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    originalPrice: action.originalPrice
+                }
+            }
+        case "SET_ADD_HOT_DEAL_DISCOUNT_PRICE":
+            if (state.postHotDealRequest.originalPrice!=null&& state.postHotDealRequest.discountPrice!=null){
+                console.log((action.discountPrice/state.postHotDealRequest.originalPrice))
+                return {
+                    ...state,
+                    postHotDealRequest: {
+                        ...state.postHotDealRequest,
+                        discountPrice: action.discountPrice,
+                        discountRate: Math.floor(100-100*(action.discountPrice/state.postHotDealRequest.originalPrice))
+                    }
+                }
+            }
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    discountPrice: action.discountPrice
+                }
+            }
+        case "SET_ADD_HOT_DEAL_DISCOUNT_RATE":
+            return {
+                ...state,
+                postHotDealRequest: {
+                    ...state.postHotDealRequest,
+                    discountRate: action.discountRate
                 }
             }
         default:
