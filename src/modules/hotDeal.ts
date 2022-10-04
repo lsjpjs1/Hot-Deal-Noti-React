@@ -289,7 +289,8 @@ const initialState: HotDealState = {
             ["11번가",false],
             ["G마켓",false],
             ["옥션",false],
-            ["롯데ON",false]
+            ["롯데ON",false],
+            ["하이마트",false]
             ]
         )
     },
