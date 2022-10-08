@@ -109,7 +109,6 @@ const MainContainer = () => {
         <div>
             <CustomerRequirementInput></CustomerRequirementInput>
             <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
-지
                 <Button>
                     <img onClick={() => {
                         window.location.reload()
