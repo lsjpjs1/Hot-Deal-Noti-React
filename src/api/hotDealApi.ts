@@ -30,6 +30,10 @@ export const getHotDealsByProductId = (getHotDealsRequest: GetHotDealsRequest, p
     return axiosInstance.get(`/hot-deals/${productId}?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort}`
     )
 }
+export const getHotDealsByHotDealId = (hotDealId: number) =>{
+    return axiosInstance.get(`/hot-deals/hot-deal/${hotDealId}`
+    )
+}
 
 
 export const getWeeklyPopularHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{

@@ -28,6 +28,7 @@ root.render(
       <BrowserRouter>
           <Routes>
               <Route path="/" element={<MainContainer/>}/>
+              <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
               <Route path="/hoon/980320" element={<ProductClassifyContainer/>}/>
               <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
               <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>

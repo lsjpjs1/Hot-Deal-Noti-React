@@ -2,7 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
 import {
-    callGetHotDeals, callGetInitData, callGetWeeklyPopularHotDeals,
+    callGetHotDeals, callGetHotDealsByHotDealId, callGetInitData, callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
     callViewHotDeal, setManufacturerId,
     setPage, setProductPurposeId,
@@ -23,9 +23,11 @@ import {callGetProductInitData} from "../modules/product";
 import ManufacturerSelect from "../components/ManufacturerSelect";
 import {Container} from "@mui/material";
 import CustomerRequirementInput from "../components/CustomerRequirementInput";
+import {useParams} from "react-router";
 
 const MainContainer = () => {
 
+    const params = useParams();
     const PAGE_SIZE = 40;
     const dispatch = useDispatch();
     const hotDeals = useSelector((state: RootState) => state.hotDealReducer.hotDeals);
@@ -34,14 +36,25 @@ const MainContainer = () => {
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
 
 
+
+
     useEffect(() => {
+
         // @ts-ignore
         dispatch(callPostConnectionHistory())
         // @ts-ignore
         dispatch(callGetInitData())
-        getHotDeals()
+
         // @ts-ignore
         dispatch(callGetProductInitData())
+
+        if(params.hotDealId != null){
+
+            // @ts-ignore
+            dispatch(callGetHotDealsByHotDealId(params.hotDealId))
+        }else{
+            getHotDeals()
+        }
     }, []);
 
 
@@ -111,7 +124,7 @@ const MainContainer = () => {
             <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
                 <Button>
                     <img onClick={() => {
-                        window.location.reload()
+                        window.location.replace("/")
                     }} style={{width: "300px", height: "200"}} src={require("../image/IMG_0385.PNG")}/>
                 </Button>
                 {initData != null &&

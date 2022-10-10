@@ -1,7 +1,7 @@
 import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
 import {
     deleteHotDeal, deletePermanentHotDeal,
-    getHotDeals, getHotDealsByProductId,
+    getHotDeals, getHotDealsByHotDealId, getHotDealsByProductId,
     GetHotDealsRequest, getNotClassifiedHotDeals,
     getWeeklyPopularHotDeals, postHotDeal,
     viewHotDeal,
@@ -153,6 +153,17 @@ export const callGetHotDealsByProductId =
             await getHotDealsByProductId(getState().hotDealReducer.getHotDealRequest,getState().hotDealReducer.productIdForSearch).then((res) => {
                 const page: Page<HotDealPreview> = res.data
                 dispatch(getHotDealsByProductIdSuccess(page.content, page.totalPages))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callGetHotDealsByHotDealId =
+    (hotDealId:number): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getHotDealsByHotDealId(hotDealId).then((res) => {
+                const hotDealPreview: HotDealPreview = res.data
+                dispatch(getHotDealsSuccess([hotDealPreview], 1))
             }).catch((error) => {
                 console.log(error.response.data)
             })
