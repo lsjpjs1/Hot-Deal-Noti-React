@@ -1,7 +1,7 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import moment from "moment";
 import {useDispatch} from "react-redux";
-import {callDeleteHotDeal, callGetHotDeals} from "../../modules/hotDeal";
+import {callDeleteHotDeal, callDeletePermanentHotDeal, callGetHotDeals} from "../../modules/hotDeal";
 import {Button} from "@mui/material";
 import React from "react";
 
@@ -34,6 +34,23 @@ const HotDealListView = (props: Props) => {
                                 dispatch(callGetHotDeals())
                             }}>
                             삭제
+                        </Button>
+
+                        <Button
+                            style={{
+                                display: 'inline-block',
+                                marginLeft: '40px',
+                                color: 'red'
+                            }}
+                            onClick={() => {
+                                // @ts-ignore
+                                dispatch(callDeletePermanentHotDeal(hotDeal.hotDealId))
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                            }}>
+                            영구 삭제
                         </Button>
                         {hotDeal.productId != 1 && <div>
                             <h3 style={{display: 'inline-block'}}>{hotDeal.manufacturer}</h3>

@@ -49,6 +49,12 @@ export const deleteHotDeal = (hotDealId: number) =>{
     return axiosInstance.delete(`/hot-deals/${hotDealId}`)
 }
 
+export const deletePermanentHotDeal = (hotDealId: number) =>{
+
+    return axiosInstance.delete(`/hot-deals/${hotDealId}/permanent`)
+}
+
+
 export const postHotDeal = (postHotDealRequest: PostHotDealRequest) =>{
 
     return axiosInstance.post(`/hot-deals`,
