@@ -1,9 +1,15 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import moment from "moment";
 import {useDispatch} from "react-redux";
-import {callDeleteHotDeal, callDeletePermanentHotDeal, callGetHotDeals} from "../../modules/hotDeal";
+import {
+    callDeleteHotDeal,
+    callDeletePermanentHotDeal,
+    callGetHotDeals, callGetHotDealsByProductId,
+    setProductIdForSearch
+} from "../../modules/hotDeal";
 import {Button} from "@mui/material";
 import React from "react";
+import {Chip} from "@material-ui/core";
 
 moment.locale("ko");
 
@@ -19,7 +25,17 @@ const HotDealListView = (props: Props) => {
             <div style={{marginBottom: "30px", marginTop: "30px"}}>
                 <div>
                     <div>
-                        <h3 style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.modelName}</h3>
+                        {/*@ts-ignore*/}
+                        <Chip
+                            label={hotDeal.modelName}
+                            onClick={() => {
+                                console.log("click")
+                                dispatch(setProductIdForSearch(hotDeal.productId))
+                                // @ts-ignore
+                                dispatch(callGetHotDealsByProductId())
+                            }}>
+                        </Chip>
+
                         <Button
                             style={{
                                 display: 'inline-block',
