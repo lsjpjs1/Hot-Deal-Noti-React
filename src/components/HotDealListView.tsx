@@ -79,13 +79,13 @@ const HotDealListView = (props: Props) => {
                     hotDeal.isDelete
                         ?
                         <del>
-                            <a href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
+                            <a style={{color:"gray"}} href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
                                target={"_blank"}>
                                 {hotDeal.title}
                             </a>
                         </del>
                         :
-                        <a href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
+                        <a  href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
                            target={"_blank"}>
                             {hotDeal.title}
                         </a>
