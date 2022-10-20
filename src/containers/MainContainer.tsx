@@ -2,12 +2,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
 import {
-    callGetHotDeals, callGetHotDealsByHotDealId, callGetInitData, callGetWeeklyPopularHotDeals,
+    callGetHotDeals,
+    callGetHotDealsByHotDealId,
+    callGetHotDealsByProductId,
+    callGetInitData,
+    callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
-    callViewHotDeal, setManufacturerId,
-    setPage, setProductPurposeId,
+    callViewHotDeal,
+    setManufacturerId,
+    setPage,
+    setProductIdForSearch,
+    setProductPurposeId,
     setSearchBody,
-    setSort, setSourceSites
+    setSort,
+    setSourceSites
 } from "../modules/hotDeal";
 import '../App.css'
 import HotDealListView from "../components/HotDealListView";
@@ -52,7 +60,11 @@ const MainContainer = () => {
 
             // @ts-ignore
             dispatch(callGetHotDealsByHotDealId(params.hotDealId))
-        }else{
+        }else if(params.productId!=null){
+            dispatch(setProductIdForSearch(Number.parseInt(params.productId)))
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
+        } else{
             getHotDeals()
         }
     }, []);
