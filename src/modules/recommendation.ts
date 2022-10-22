@@ -17,8 +17,8 @@ import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 import {ClassifyHotDealRequest, GetProductsRequest, ProductDto, ProductInitData} from "../common/productDto";
 import {classifyHotDeal, getProductInitData, getProducts} from "../api/productApi";
-import {getRecommendations} from "../api/recommendationApi";
-import RecommendationDto from "../common/recommendationDto";
+import {getRecommendations, postProductFamily} from "../api/recommendationApi";
+import RecommendationDto, {PostProductFamilyRequest} from "../common/recommendationDto";
 
 const GET_RECOMMENDATIONS_SUCCESS = "GET_RECOMMENDATIONS_SUCCESS" as const;
 
@@ -37,6 +37,17 @@ export const callGetRecommendations =
                 console.log(error.response.data)
             })
         };
+
+export const callPostProductFamily =
+    (postProductFamilyRequest: PostProductFamilyRequest): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await postProductFamily(postProductFamilyRequest).then((res) => {
+
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 
 
 type ProductAction =

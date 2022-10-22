@@ -1,6 +1,10 @@
 import axiosInstance from "./index";
 import {GetProductsRequest, ClassifyHotDealRequest} from "../common/productDto";
-import {PostProductFamilyRequest} from "../common/recommendationDto";
+import {
+    GetProductFamiliesRequest,
+    PostProductFamilyRequest, PostRecommendationProductFamilyRequest,
+    SetProductFamilyRequest
+} from "../common/recommendationDto";
 
 export const getRecommendations = () =>
     axiosInstance.get("/recommendations"
@@ -13,3 +17,27 @@ export const postProductFamily = (postProductFamilyRequest: PostProductFamilyReq
     )
 }
 
+
+export const postRecommendationProductFamily = (postRecommendationProductFamilyRequest: PostRecommendationProductFamilyRequest) =>{
+
+    return axiosInstance.post(`/recommendation-product-family`,
+        postRecommendationProductFamilyRequest
+    )
+}
+
+
+export const getProductFamilies = (getProductFamiliesRequest:GetProductFamiliesRequest) =>
+    axiosInstance.get(`/product-families`,
+        {params:getProductFamiliesRequest}
+    )
+
+export const getProductPurposeDetails = () =>
+    axiosInstance.get(`/product-purpose-details`
+    )
+
+export const setProductFamily = (setProductFamilyRequest:SetProductFamilyRequest) =>{
+
+    return axiosInstance.patch(`/products/product-family`,
+        setProductFamilyRequest
+    )
+}

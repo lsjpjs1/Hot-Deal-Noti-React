@@ -32,3 +32,15 @@ export interface PostProductFamilyRequest {
   productFamilyDescription: string
 }
 
+export interface PostRecommendationProductFamilyRequest {
+  productFamilyId: number,
+  productPurposeDetailId: number
+}
+export interface GetProductFamiliesRequest {
+  productFamilyName: string
+}
+
+export interface SetProductFamilyRequest {
+  productFamilyId: number,
+  productId: number
+}

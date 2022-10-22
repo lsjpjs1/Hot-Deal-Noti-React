@@ -13,7 +13,8 @@ import ReactGA from 'react-ga4';
 import ProductClassifyContainer from "./containers/ProductClassifyContainer";
 import ManageHotDealsContainer from "./containers/ManageHotDealsContainer";
 import AddHotDealContainer from "./containers/AddHotDealContainer";
-import RecommendationContainer from "./containers/RecommendationContainer"; // GA4
+import RecommendationContainer from "./containers/RecommendationContainer";
+import ManageRecommendationContainer from "./containers/ManageRecommendationContainer"; // GA4
 
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
@@ -28,15 +29,17 @@ root.render(
   <Provider store={store}>
       <BrowserRouter>
           <Routes>
+              <Route path="/" element={<ServerMaintenanceContainer/>}/>
               <Route path="/" element={<MainContainer/>}/>
               <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
               <Route path='/hot-deals/product/:productId' element={<MainContainer/>} />
               <Route path='/recommendation' element={<RecommendationContainer/>} />
+              <Route path='/hoon/recommendation' element={<ManageRecommendationContainer/>} />
               <Route path="/hoon/980320" element={<ProductClassifyContainer/>}/>
               <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
               <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>
 
-              {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
+
           </Routes>
       </BrowserRouter>
   </Provider>

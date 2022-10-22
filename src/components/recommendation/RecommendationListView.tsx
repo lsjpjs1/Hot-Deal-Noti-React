@@ -33,7 +33,9 @@ const RecommendationListView = () => {
                         <Typography>{recommendationDto.productPurposeDetail.productPurposeDetailTitle}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>{recommendationDto.productPurposeDetail.productPurposeDetailBody}</Typography>
+                        <Typography style={{whiteSpace:"pre-wrap"}}>
+                            {recommendationDto.productPurposeDetail.productPurposeDetailBody}
+                        </Typography>
                         <ProductFamilyListView productFamilies={recommendationDto.productFamilies}/>
                     </AccordionDetails>
                 </Accordion>

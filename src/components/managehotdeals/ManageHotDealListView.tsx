@@ -7,7 +7,7 @@ import {
     callGetHotDeals, callGetHotDealsByProductId,
     setProductIdForSearch
 } from "../../modules/hotDeal";
-import {Button} from "@mui/material";
+import {Button, SvgIcon} from "@mui/material";
 import React from "react";
 import {Chip} from "@material-ui/core";
 
@@ -35,6 +35,25 @@ const HotDealListView = (props: Props) => {
                                 dispatch(callGetHotDealsByProductId())
                             }}>
                         </Chip>
+
+                        <Button onClick={async (e)=>{
+                            const $textarea = document.createElement('textarea');
+                            document.body.appendChild($textarea);
+                            // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)
+                            $textarea.value = hotDeal.modelName;
+                            $textarea.select();
+                            // 3. execCommand 함수를 이용해 클립보드에 복사
+                            document.execCommand('copy');
+                            // 4. 임시 textarea 요소 제거
+                            document.body.removeChild($textarea);
+                        }}>
+                            <SvgIcon color={"primary"}>
+                                <path  d="M22,16A2,2 0 0,1 20,18H8C6.89,18 6,17.1 6,16V4C6,2.89 6.89,2 8,2H20A2,2 0 0,1 22,4V16M16,20V22H4A2,2 0 0,1 2,20V7H4V20H16Z" />
+                            </SvgIcon>
+                            <h4>
+                                모델명 복사
+                            </h4>
+                        </Button>
 
                         <Button
                             style={{

@@ -35,7 +35,7 @@ const ProductFamilyListView = (productFamilyProps: Props) => {
                         <Typography>
                             {productFamilies.productFamily.productFamilyName}
                         </Typography>
-                        <Typography>
+                        <Typography style={{whiteSpace:"pre-wrap"}}>
                             {productFamilies.productFamily.productFamilyDescription}
                         </Typography>
                         <RecommendationProductListView products={productFamilies.products}/>
