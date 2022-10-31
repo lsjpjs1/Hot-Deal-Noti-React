@@ -44,3 +44,9 @@ export interface SetProductFamilyRequest {
   productFamilyId: number,
   productId: number
 }
+
+
+export interface UpdateProductFamilyRequest {
+  productFamilyId: number,
+  productFamilyDescription: string
+}

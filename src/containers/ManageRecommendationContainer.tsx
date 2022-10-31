@@ -16,11 +16,11 @@ import NotClassifiedHotDealListView from "../components/classifyproduct/NotClass
 import {callGetProductInitData, callGetProducts} from "../modules/product";
 import {Button, TextField} from "@material-ui/core";
 import {callGetRecommendations} from "../modules/recommendation";
-import RecommendationListView from "../components/recommendation/RecommendationListView";
 import AddHotDealContainer from "./AddHotDealContainer";
 import AddProductFamily from "../components/recommendation/manage/AddProductFamily";
 import ProductToProductFamily from "../components/recommendation/manage/ProductToProductFamily";
 import AddRecommendationProductFamily from "../components/recommendation/manage/AddRecommendationProductFamily";
+import ManageRecommendationListView from "../components/recommendation/ManageRecommendationListView";
 
 
 const ManageRecommendationContainer = () => {
@@ -36,12 +36,17 @@ const ManageRecommendationContainer = () => {
 
 
     return (
-        <div style={{flexDirection:"row",display:"flex"}}>
+        <div>
+            <div style={{flexDirection:"row",display:"flex"}}>
 
-            <AddProductFamily/>
-            <ProductToProductFamily/>
-            <AddRecommendationProductFamily/>
+                <AddProductFamily/>
+                <ProductToProductFamily/>
+                <AddRecommendationProductFamily/>
+
+            </div>
+            <ManageRecommendationListView/>
         </div>
+
     )
 }
 

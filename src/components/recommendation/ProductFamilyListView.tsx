@@ -28,7 +28,7 @@ const ProductFamilyListView = (productFamilyProps: Props) => {
 
     const productFamilyElements = productFamilyProps.productFamilies.map((productFamilies) => {
         return (
-            <div style={{marginBottom: "30px", marginTop: "30px"}} key={productFamilies.productFamily.productFamilyId}>
+            <div style={{marginBottom: "30px", marginTop: "30px",flex:"0 0 auto"}} key={productFamilies.productFamily.productFamilyId}>
 
                 <Card variant={"outlined"}>
                     <CardContent>
@@ -47,7 +47,7 @@ const ProductFamilyListView = (productFamilyProps: Props) => {
     })
 
     return (
-        <div style={{flexDirection:"row",display:"flex"}}>
+        <div style={{display:"flex",flexWrap:"nowrap",overflowX:"auto"}}>
             {productFamilyElements}
         </div>
     )

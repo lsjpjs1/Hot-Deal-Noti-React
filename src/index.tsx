@@ -29,7 +29,6 @@ root.render(
   <Provider store={store}>
       <BrowserRouter>
           <Routes>
-              <Route path="/" element={<ServerMaintenanceContainer/>}/>
               <Route path="/" element={<MainContainer/>}/>
               <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
               <Route path='/hot-deals/product/:productId' element={<MainContainer/>} />
@@ -39,7 +38,7 @@ root.render(
               <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
               <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>
 
-
+              {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
           </Routes>
       </BrowserRouter>
   </Provider>

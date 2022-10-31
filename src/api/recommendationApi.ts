@@ -3,7 +3,7 @@ import {GetProductsRequest, ClassifyHotDealRequest} from "../common/productDto";
 import {
     GetProductFamiliesRequest,
     PostProductFamilyRequest, PostRecommendationProductFamilyRequest,
-    SetProductFamilyRequest
+    SetProductFamilyRequest, UpdateProductFamilyRequest
 } from "../common/recommendationDto";
 
 export const getRecommendations = () =>
@@ -39,5 +39,18 @@ export const setProductFamily = (setProductFamilyRequest:SetProductFamilyRequest
 
     return axiosInstance.patch(`/products/product-family`,
         setProductFamilyRequest
+    )
+}
+
+export const updateProductFamily = (updateProductFamilyRequest:UpdateProductFamilyRequest) =>{
+
+    return axiosInstance.patch(`/product-families/${updateProductFamilyRequest.productFamilyId}`,
+        updateProductFamilyRequest
+    )
+}
+
+export const clearProductFamily = (productId:number) =>{
+
+    return axiosInstance.delete(`/products/${productId}/product-family`
     )
 }

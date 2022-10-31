@@ -27,7 +27,6 @@ const RecommendationProductListView = (recommendationProductProps: Props) => {
     }, []);
 
     const recommendationProductElements = recommendationProductProps.products.map((product) => {
-        console.log(product)
         return (
             <ListItemButton style={{marginBottom: "30px", marginTop: "30px"}} key={product.productId}
             onClick={()=>{
