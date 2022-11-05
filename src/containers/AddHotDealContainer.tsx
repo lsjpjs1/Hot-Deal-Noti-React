@@ -14,7 +14,7 @@ import {
 } from "../modules/hotDeal";
 import NotClassifiedHotDealListView from "../components/classifyproduct/NotClassifiedHotDealListView";
 import {callGetProductInitData, callGetProducts} from "../modules/product";
-import {Button, TextField} from "@material-ui/core";
+import {Button, TextField, Typography} from "@material-ui/core";
 
 
 const AddHotDealContainer = () => {
@@ -31,8 +31,8 @@ const AddHotDealContainer = () => {
     return (
         <div>
             {process.env["REACT_APP_SERVER_BASE_URL"] != "https://api.whendiscount.com" ?
-                <h1 style={{color: "red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</h1> :
-                <h1 style={{color: "blue"}}>Production 서버가 맞습니다</h1>}
+                <Typography style={{color: "red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</Typography> :
+                <Typography style={{color: "blue"}}>Production 서버가 맞습니다</Typography>}
 
 
             <TextField

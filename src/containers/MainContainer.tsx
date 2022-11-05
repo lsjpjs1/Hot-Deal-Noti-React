@@ -32,6 +32,7 @@ import ManufacturerSelect from "../components/ManufacturerSelect";
 import {Container} from "@mui/material";
 import CustomerRequirementInput from "../components/CustomerRequirementInput";
 import {useParams} from "react-router";
+import { Typography } from "@material-ui/core";
 
 const MainContainer = () => {
 
@@ -130,6 +131,7 @@ const MainContainer = () => {
     }
 
 
+    // @ts-ignore
     return (
         <div>
             <CustomerRequirementInput></CustomerRequirementInput>
@@ -145,11 +147,11 @@ const MainContainer = () => {
                            style={{textDecoration:"none",color:"blue",marginTop:"10px",marginBottom:"10px",fontStyle:"normal",fontSize:"20px"}}>
                             (읽어주세요) 여기 써있는 특가랑 실제 가격이랑 다른데요?!
                         </a>
-                        <h3>{"공지사항: 특가 키워드 알림 앱이 출시되었습니다!"}</h3>
+                        <Typography>{"공지사항: 특가 키워드 알림 앱이 출시되었습니다!"}</Typography>
                         <a href={"https://play.google.com/store/apps/details?id=com.hotdealnoti"}  target={"_blank"}>
                             안드로이드 링크
                         </a>
-                        <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
+                        <Typography>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</Typography>
                     </div>
                 }
 
@@ -165,7 +167,15 @@ const MainContainer = () => {
 
                     </Container>
                 </div>
-                <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}></HotDealListView>
+                {params.productId!=null&&hotDeals.length>0&&
+                    <div>
+                        <h1>
+                            {hotDeals[0].modelName}
+                            <br/>
+                            {"역대 최저가 : " + Math.min(...hotDeals.map((hotdeal)=>hotdeal.discountPrice)).toLocaleString() + "원" }
+                        </h1>
+                    </div>}
+                <HotDealListView hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={params.productId!=null?"PRODUCT":""}></HotDealListView>
                 <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
                           totalPageCount={totalPages}></PageView>
                 <p><b>Email : whendiscount@gmail.com</b><br/>

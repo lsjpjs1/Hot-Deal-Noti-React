@@ -7,16 +7,17 @@ import HotDealListView from "../components/HotDealListView";
 import PageView from "../components/PageView";
 import SearchBar from "../components/SearchBar";
 import Button from "@material-ui/core/Button";
+import { Typography } from "@material-ui/core";
 
 const ServerMaintenanceContainer = () => {
 
 
     return (
         <div>
-            <h1>
+            <Typography>
                 서버 점검 중
-            </h1>
-            <h2>이용에 불편을 드려 죄송합니다.</h2>
+            </Typography>
+            <Typography>이용에 불편을 드려 죄송합니다.</Typography>
         </div>
     )
 };

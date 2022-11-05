@@ -15,7 +15,7 @@ const ManufacturerSelect = (props: ManufacturerSelectProps) => {
         options = productInitData.manufacturers.map((manufacturer)=>{
             if(manufacturer.manufacturerId!=0){
                 return (
-                    <option value={manufacturer.manufacturerId}>{manufacturer.manufacturerName}</option>
+                    <option value={manufacturer.manufacturerId} key={manufacturer.manufacturerId}>{manufacturer.manufacturerName}</option>
                 )
             }
 

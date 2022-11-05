@@ -14,6 +14,7 @@ import {
 } from "../../modules/product";
 import {RootState} from "../../modules";
 import {callDeleteHotDeal, callDeletePermanentHotDeal} from "../../modules/hotDeal";
+import {Typography} from "@material-ui/core";
 
 moment.locale("ko");
 
@@ -66,10 +67,10 @@ const NotClassifiedHotDealListView = (props: Props) => {
                 {hotDealsIsShowingMap.get(notClassifiedHotDeals.hotDealId) && <div style={{marginBottom: "30px"}}>
                     <div>
 
-                        <h4 style={{
+                        <Typography style={{
                             display: 'inline-block',
                             marginLeft: '10px'
-                        }}>{moment(notClassifiedHotDeals.hotDealUploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</h4>
+                        }}>{moment(notClassifiedHotDeals.hotDealUploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
                         <Button
                             style={{
                                 display: 'inline-block',
@@ -99,15 +100,15 @@ const NotClassifiedHotDealListView = (props: Props) => {
                             }}>
                             영구 삭제
                         </Button>
-                        <h2>{notClassifiedHotDeals.hotDealDiscountRate}{"%↓"}</h2>
-                        <h2 style={{display: 'inline-block'}}>{notClassifiedHotDeals.hotDealDiscountPrice.toLocaleString() + "원"}</h2>
-                        <h3 style={{display: 'inline-block'}}>{" <- "}</h3>
-                        <h3 style={{
+                        <Typography>{notClassifiedHotDeals.hotDealDiscountRate}{"%↓"}</Typography>
+                        <Typography style={{display: 'inline-block'}}>{notClassifiedHotDeals.hotDealDiscountPrice.toLocaleString() + "원"}</Typography>
+                        <Typography style={{display: 'inline-block'}}>{" <- "}</Typography>
+                        <Typography style={{
                             display: 'inline-block',
                             textDecoration: "line-through"
-                        }}>{notClassifiedHotDeals.hotDealOriginalPrice.toLocaleString()}</h3>
+                        }}>{notClassifiedHotDeals.hotDealOriginalPrice.toLocaleString()}</Typography>
                     </div>
-                    <h3>{notClassifiedHotDeals.hotDealTitle}</h3>
+                    <Typography>{notClassifiedHotDeals.hotDealTitle}</Typography>
                     <a href={notClassifiedHotDeals.hotDealLink} target={"_blank"}>
                         {notClassifiedHotDeals.hotDealLink}
                     </a>
@@ -204,8 +205,8 @@ const NotClassifiedHotDealListView = (props: Props) => {
     return (
         <div style={{textAlign: "center"}}>
             {process.env["REACT_APP_SERVER_BASE_URL"] != "https://api.whendiscount.com" ?
-                <h1 style={{color: "red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</h1> :
-                <h1 style={{color: "blue"}}>Production 서버가 맞습니다</h1>}
+                <Typography style={{color: "red"}}>Production 아님!!!!!!!!!! 환경 변수 바꾸셈</Typography> :
+                <Typography style={{color: "blue"}}>Production 서버가 맞습니다</Typography>}
             {hotDealElements}
         </div>
     )

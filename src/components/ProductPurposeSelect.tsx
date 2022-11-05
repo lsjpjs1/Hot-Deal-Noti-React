@@ -15,7 +15,7 @@ const ProductPurposeSelect = (props: ProductPurposeSelectProps) => {
         options = productInitData.productPurposes.map((productPurpose)=>{
             if(productPurpose.productPurposeId!=0){
                 return (
-                    <option value={productPurpose.productPurposeId}>{productPurpose.productPurposeName}</option>
+                    <option value={productPurpose.productPurposeId} key={productPurpose.productPurposeId}>{productPurpose.productPurposeName}</option>
                 )
             }
 

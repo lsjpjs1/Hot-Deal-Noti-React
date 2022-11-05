@@ -9,7 +9,7 @@ import {
 } from "../../modules/hotDeal";
 import {Button, SvgIcon} from "@mui/material";
 import React from "react";
-import {Chip} from "@material-ui/core";
+import {Chip, Typography} from "@material-ui/core";
 
 moment.locale("ko");
 
@@ -50,9 +50,9 @@ const HotDealListView = (props: Props) => {
                             <SvgIcon color={"primary"}>
                                 <path  d="M22,16A2,2 0 0,1 20,18H8C6.89,18 6,17.1 6,16V4C6,2.89 6.89,2 8,2H20A2,2 0 0,1 22,4V16M16,20V22H4A2,2 0 0,1 2,20V7H4V20H16Z" />
                             </SvgIcon>
-                            <h4>
+                            <Typography>
                                 모델명 복사
-                            </h4>
+                            </Typography>
                         </Button>
 
                         <Button
@@ -88,24 +88,24 @@ const HotDealListView = (props: Props) => {
                             영구 삭제
                         </Button>
                         {hotDeal.productId != 1 && <div>
-                            <h3 style={{display: 'inline-block'}}>{hotDeal.manufacturer}</h3>
-                            <h3 style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.productPurpose}</h3>
+                            <Typography style={{display: 'inline-block'}}>{hotDeal.manufacturer}</Typography>
+                            <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.productPurpose}</Typography>
                         </div>}
 
                     </div>
-                    <h4 style={{display: 'inline-block'}}>{hotDeal.sourceSite}</h4>
-                    <h4 style={{
+                    <Typography style={{display: 'inline-block'}}>{hotDeal.sourceSite}</Typography>
+                    <Typography style={{
                         display: 'inline-block',
                         marginLeft: '10px'
-                    }}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</h4>
-                    <h4 style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</h4>
-                    <h2>{hotDeal.discountRate}{"%↓"}</h2>
-                    <h2 style={{display: 'inline-block'}}>{hotDeal.discountPrice.toLocaleString() + "원"}</h2>
-                    <h3 style={{display: 'inline-block'}}>{" <- "}</h3>
-                    <h3 style={{
+                    }}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
+                    <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</Typography>
+                    <Typography>{hotDeal.discountRate}{"%↓"}</Typography>
+                    <Typography style={{display: 'inline-block'}}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
+                    <Typography style={{display: 'inline-block'}}>{" <- "}</Typography>
+                    <Typography style={{
                         display: 'inline-block',
                         textDecoration: "line-through"
-                    }}>{hotDeal.originalPrice.toLocaleString()}</h3>
+                    }}>{hotDeal.originalPrice.toLocaleString()}</Typography>
                 </div>
                 {
                     hotDeal.isDelete

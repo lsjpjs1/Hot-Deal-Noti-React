@@ -24,6 +24,7 @@ import ManufacturerSelect from "../components/ManufacturerSelect";
 import {Container} from "@mui/material";
 import CustomerRequirementInput from "../components/CustomerRequirementInput";
 import ManageHotDealListView from "../components/managehotdeals/ManageHotDealListView";
+import {Typography} from "@material-ui/core";
 
 const ManageHotDealsContainer = () => {
 
@@ -120,8 +121,7 @@ const ManageHotDealsContainer = () => {
                            style={{textDecoration:"none",color:"blue",marginTop:"10px",marginBottom:"10px",fontStyle:"normal",fontSize:"20px"}}>
                             (참고) 여기 써있는 특가랑 실제 가격이랑 다른데요?!
                         </a>
-                        {/*<h3>{"공지사항: "+initData.notice}</h3>*/}
-                        <h3>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</h3>
+                        <Typography>{"최근 업데이트: " + moment(initData.recentUpdateTime, 'YYYYMMDDHHmmss z').add(9, "h").format('YYYY-MM-DD HH:mm:ss')}</Typography>
                     </div>
                 }
 
