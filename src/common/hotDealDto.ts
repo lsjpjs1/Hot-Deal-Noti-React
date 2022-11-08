@@ -17,6 +17,8 @@ export interface HotDealPreview {
     productPurpose: string
 
     isDelete: boolean
+
+    hotDealThumbnailUrl: string
 }
 
 export interface NotClassifiedHotDeal {

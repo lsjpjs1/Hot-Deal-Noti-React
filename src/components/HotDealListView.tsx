@@ -71,6 +71,8 @@ const HotDealListView = (props: Props) => {
                         </div>}
 
                     </div>
+
+                    {hotDeal.hotDealThumbnailUrl!=""&&<div><img onClick={(e)=>{window.open(hotDeal.link, '_blank')}} src={hotDeal.hotDealThumbnailUrl} width={200} height={200} /><br/></div>}
                     <Typography style={{display: 'inline-block'}}>{hotDeal.sourceSite}</Typography>
                     <Typography style={{
                         display: 'inline-block',

@@ -48,17 +48,19 @@ const NotClassifiedHotDealListView = (props: Props) => {
         if (!hotDealsIsShowingMap.has(notClassifiedHotDeals.hotDealId)) {
             hotDealsIsShowingMap.set(notClassifiedHotDeals.hotDealId, true)
         }
-        const productPurposeMenuItems = productInitData.productPurposes.map((productPurpose) => {
+        const productPurposeMenuItems = productInitData!=null? productInitData.productPurposes.map((productPurpose) => {
             return (
                 <MenuItem value={productPurpose.productPurposeId}>{productPurpose.productPurposeName}</MenuItem>
             )
-        })
+        }):(<div></div>)
 
-        const productTypeMenuItems = productInitData.productTypes.map((productType) => {
-            return (
-                <MenuItem value={productType.productTypeId}>{productType.productTypeName}</MenuItem>
-            )
-        })
+        const productTypeMenuItems =
+            productInitData!=null? productInitData.productTypes.map((productType) => {
+                return (
+                    <MenuItem value={productType.productTypeId}>{productType.productTypeName}</MenuItem>
+                )
+            }):(<div></div>)
+
 
 
         return (
@@ -138,7 +140,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                 // @ts-ignore
                                 dispatch(callGetProducts())
                             }}
-                            sx={{width: 300}}
+                            sx={{width: 600}}
                             renderInput={(params) =>
                                 <TextField {...params}
                                            label="모델명" variant={"standard"}/>}
