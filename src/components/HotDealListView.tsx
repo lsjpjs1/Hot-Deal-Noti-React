@@ -79,11 +79,11 @@ const HotDealListView = (props: Props) => {
                         marginLeft: '10px'
                     }}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
                     <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</Typography>
-                    <Typography>{hotDeal.discountRate}{"%↓"}</Typography>
+                    <Typography style={{fontWeight:'bold'}}>{hotDeal.discountRate}{"%↓"}</Typography>
                     {/*{Math.min(...props.hotDeals.map((hotdeal)=>hotdeal.discountPrice))==hotDeal.discountPrice&&*/}
                     {/*    <Chip label="🔥역대가" color="primary" style={{marginRight: 5}} />}*/}
 
-                    <Typography style={{display: 'inline-block'}}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
+                    <Typography style={{display: 'inline-block',fontWeight:'bold'}}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
                     <Typography style={{display: 'inline-block'}}>{" <- "}</Typography>
                     <Typography style={{
                         display: 'inline-block',
