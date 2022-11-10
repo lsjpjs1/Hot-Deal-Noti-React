@@ -12,6 +12,7 @@ import {Button, Chip, Typography} from "@material-ui/core";
 import {SvgIcon} from "@mui/material";
 import {useEffect} from "react";
 import {callGetProductInitData} from "../modules/product";
+import ReactGA from "react-ga4";
 
 moment.locale("ko");
 
@@ -25,9 +26,9 @@ const HotDealListView = (props: Props) => {
     const dispatch = useDispatch();
 
 
-    if (props.pageType == "PRODUCT"){
+    if (props.pageType == "PRODUCT") {
         const htmlTitle = document.querySelector("title");
-        htmlTitle.innerHTML =props.hotDeals.length>0? props.hotDeals[0].modelName+" 특가 목록 | 역대가 "+Math.min(...props.hotDeals.map((hotdeal)=>hotdeal.discountPrice)).toLocaleString() + "원"+" | 진짜 최저가 | 노트북 특가 | 특가 어디가":htmlTitle.innerHTML;
+        htmlTitle.innerHTML = props.hotDeals.length > 0 ? props.hotDeals[0].modelName + " 특가 목록 | 역대가 " + Math.min(...props.hotDeals.map((hotdeal) => hotdeal.discountPrice)).toLocaleString() + "원" + " | 진짜 최저가 | 노트북 특가 | 특가 어디가" : htmlTitle.innerHTML;
     }
 
     const hotDealElements = props.hotDeals.map((hotDeal) => {
@@ -40,10 +41,21 @@ const HotDealListView = (props: Props) => {
                         <Chip
                             label={hotDeal.modelName}
                             onClick={() => {
+                                ReactGA.event({
+                                    category: "버튼",
+                                    action: "모델 역대가 조회",
+                                    label: hotDeal.productId + "-" + hotDeal.modelName,
+                                });
                                 window.open(`/hot-deals/product/${hotDeal.productId}`, '_blank')
                             }}>
                         </Chip>
                         <Button onClick={async (e) => {
+                            ReactGA.event({
+                                category: "버튼",
+                                action: "모델명 복사",
+                                label: hotDeal.productId + "-" + hotDeal.modelName,
+                            });
+
                             const $textarea = document.createElement('textarea');
                             document.body.appendChild($textarea);
                             // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)
@@ -67,23 +79,41 @@ const HotDealListView = (props: Props) => {
 
                         {hotDeal.productId != 1 && <div>
                             <Typography style={{display: 'inline-block'}}>{hotDeal.manufacturer}</Typography>
-                            <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.productPurpose}</Typography>
+                            <Typography style={{
+                                display: 'inline-block',
+                                marginLeft: '10px'
+                            }}>{hotDeal.productPurpose}</Typography>
                         </div>}
 
                     </div>
 
-                    {hotDeal.hotDealThumbnailUrl!=""&&<div><img onClick={(e)=>{window.open(hotDeal.link, '_blank')}} src={hotDeal.hotDealThumbnailUrl} width={200} height={200} /><br/></div>}
+                    {hotDeal.hotDealThumbnailUrl != "" &&
+                        <div>
+                            <img onClick={(e) => {
+                                window.open(hotDeal.link, '_blank')
+                                props.hotDealLinkOnClick(hotDeal.hotDealId)
+                                ReactGA.event({
+                                    category: "이미지 버튼",
+                                    action: "특가 링크로 이동",
+                                    label: hotDeal.hotDealId + "-" + hotDeal.modelName + "-" + hotDeal.title,
+                                });
+                            }} src={hotDeal.hotDealThumbnailUrl} width={200} height={200}/><br/>
+                        </div>}
                     <Typography style={{display: 'inline-block'}}>{hotDeal.sourceSite}</Typography>
                     <Typography style={{
                         display: 'inline-block',
                         marginLeft: '10px'
                     }}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
-                    <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</Typography>
-                    <Typography style={{fontWeight:'bold'}}>{hotDeal.discountRate}{"%↓"}</Typography>
+                    <Typography
+                        style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</Typography>
+                    <Typography style={{fontWeight: 'bold'}}>{hotDeal.discountRate}{"%↓"}</Typography>
                     {/*{Math.min(...props.hotDeals.map((hotdeal)=>hotdeal.discountPrice))==hotDeal.discountPrice&&*/}
                     {/*    <Chip label="🔥역대가" color="primary" style={{marginRight: 5}} />}*/}
 
-                    <Typography style={{display: 'inline-block',fontWeight:'bold'}}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
+                    <Typography style={{
+                        display: 'inline-block',
+                        fontWeight: 'bold'
+                    }}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
                     <Typography style={{display: 'inline-block'}}>{" <- "}</Typography>
                     <Typography style={{
                         display: 'inline-block',
@@ -94,10 +124,18 @@ const HotDealListView = (props: Props) => {
                     hotDeal.isDelete
                         ?
 
-                        <h2 style={{fontSize:"1em"}}>
+                        <h2 style={{fontSize: "1em"}}>
                             <del>
                                 <a style={{color: "gray"}} href={hotDeal.link}
-                                   onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
+                                   onClick={() =>{
+                                       ReactGA.event({
+                                           category: "버튼",
+                                           action: "특가 링크로 이동",
+                                           label: hotDeal.hotDealId+"-"+hotDeal.modelName+"-"+hotDeal.title,
+                                       });
+                                       props.hotDealLinkOnClick(hotDeal.hotDealId)
+                                   }
+                                }
                                    target={"_blank"}>
                                     {hotDeal.title}
                                 </a>
@@ -105,20 +143,29 @@ const HotDealListView = (props: Props) => {
                         </h2>
 
                         :
-                        <h2 style={{fontSize:"1em"}}>
-                            <a href={hotDeal.link} onClick={() => props.hotDealLinkOnClick(hotDeal.hotDealId)}
+                        <h2 style={{fontSize: "1em"}}>
+                            <a href={hotDeal.link}
+                               onClick={() =>{
+                                   ReactGA.event({
+                                       category: "버튼",
+                                       action: "특가 링크로 이동",
+                                       label: hotDeal.hotDealId+"-"+hotDeal.modelName+"-"+hotDeal.title,
+                                   });
+                                   props.hotDealLinkOnClick(hotDeal.hotDealId)
+                               }
+                            }
                                target={"_blank"}>
                                 {hotDeal.title}
                             </a>
                         </h2>
                 }
                 <Button onClick={async (e) => {
-                    // try {
-                    //     await navigator.clipboard.writeText(`https://whendiscount.com/hot-deals/${hotDeal.hotDealId}`);
-                    //     alert('클립보드에 복사되었습니다.');
-                    // } catch (error) {
-                    //     alert('복사에 실패하였습니다.');
-                    // }
+                    ReactGA.event({
+                        category: "버튼",
+                        action: "특가 링크 공유하기",
+                        label: hotDeal.hotDealId+"-"+hotDeal.modelName+"-"+hotDeal.title,
+                    });
+
                     const $textarea = document.createElement('textarea');
                     document.body.appendChild($textarea);
                     // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)
