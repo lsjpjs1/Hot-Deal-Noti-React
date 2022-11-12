@@ -8,7 +8,7 @@ import {
     setProductIdForSearch
 } from "../modules/hotDeal";
 import {useDispatch} from "react-redux";
-import {Button, Chip, Typography} from "@material-ui/core";
+import {Button, Chip, Grid, Typography} from "@material-ui/core";
 import {SvgIcon} from "@mui/material";
 import {useEffect} from "react";
 import {callGetProductInitData} from "../modules/product";
@@ -34,7 +34,8 @@ const HotDealListView = (props: Props) => {
     const hotDealElements = props.hotDeals.map((hotDeal) => {
 
         return (
-            <div style={{marginBottom: "30px", marginTop: "30px"}} key={hotDeal.hotDealId}>
+            <Grid item={true} spacing={5} style={{marginBottom: "30px", marginTop: "30px",
+                width:"300px"}} key={hotDeal.hotDealId}>
                 <div>
                     <div>
                         {/*@ts-ignore*/}
@@ -48,7 +49,7 @@ const HotDealListView = (props: Props) => {
                                 });
                                 window.open(`/hot-deals/product/${hotDeal.productId}`, '_blank')
                             }}>
-                        </Chip>
+                        </Chip><br/>
                         <Button onClick={async (e) => {
                             ReactGA.event({
                                 category: "버튼",
@@ -186,14 +187,14 @@ const HotDealListView = (props: Props) => {
                     </Typography>
                 </Button>
 
-            </div>
+            </Grid>
         )
     })
 
     return (
-        <div style={{textAlign: "center"}}>
+        <Grid container={true} style={{textAlign: "center"}}>
             {hotDealElements}
-        </div>
+        </Grid>
     )
 }
 
