@@ -192,7 +192,7 @@ const HotDealListView = (props: Props) => {
     })
 
     return (
-        <Grid container={true} style={{textAlign: "center"}}>
+        <Grid container={true} justifyContent={"center"}  >
             {hotDealElements}
         </Grid>
     )
