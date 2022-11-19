@@ -9,7 +9,8 @@ import {
 } from "../../modules/hotDeal";
 import {Button, SvgIcon} from "@mui/material";
 import React from "react";
-import {Chip, Typography} from "@material-ui/core";
+import {Chip, Grid, Typography} from "@material-ui/core";
+import ReactGA from "react-ga4";
 
 moment.locale("ko");
 
@@ -22,7 +23,8 @@ const HotDealListView = (props: Props) => {
     const dispatch = useDispatch()
     const hotDealElements = props.hotDeals.map((hotDeal) => {
         return (
-            <div style={{marginBottom: "30px", marginTop: "30px"}}>
+            <Grid item={true} spacing={5} style={{marginBottom: "30px", marginTop: "30px",
+                width:"300px"}} key={hotDeal.hotDealId}>
                 <div>
                     <div>
                         {/*@ts-ignore*/}
@@ -93,6 +95,18 @@ const HotDealListView = (props: Props) => {
                         </div>}
 
                     </div>
+                    {hotDeal.hotDealThumbnailUrl != "" &&
+                        <div>
+                            <img onClick={(e) => {
+                                window.open(hotDeal.link, '_blank')
+                                props.hotDealLinkOnClick(hotDeal.hotDealId)
+                                ReactGA.event({
+                                    category: "이미지 버튼",
+                                    action: "특가 링크로 이동",
+                                    label: hotDeal.hotDealId + "-" + hotDeal.modelName + "-" + hotDeal.title,
+                                });
+                            }} src={hotDeal.hotDealThumbnailUrl} width={200} height={200}/><br/>
+                        </div>}
                     <Typography style={{display: 'inline-block'}}>{hotDeal.sourceSite}</Typography>
                     <Typography style={{
                         display: 'inline-block',
@@ -120,14 +134,14 @@ const HotDealListView = (props: Props) => {
                         </a>
                 }
 
-            </div>
+            </Grid>
         )
     })
 
     return (
-        <div style={{textAlign: "center"}}>
+        <Grid container={true} justifyContent={"center"}  >
             {hotDealElements}
-        </div>
+        </Grid>
     )
 }
 
