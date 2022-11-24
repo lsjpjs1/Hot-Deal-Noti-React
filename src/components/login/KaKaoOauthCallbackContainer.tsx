@@ -11,7 +11,7 @@ const KaKaoOauthCallbackContainer = () => {
 
     useEffect(() => {
         const code = new URL(window.location.href).searchParams.get('code');
-        kakaoLogin(code).then((res) => {
+        kakaoLogin(code,window.location.origin+window.location.pathname).then((res) => {
             localStorage.setItem("authToken",res.data.token)
             navigate("/")
         }).catch((error) => {
