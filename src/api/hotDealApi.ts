@@ -53,6 +53,28 @@ export const deleteHotDeal = (hotDealId: number) =>{
     return axiosInstance.delete(`/hot-deals/${hotDealId}`)
 }
 
+export const postFavoriteHotDeal = (hotDealId: number) =>{
+
+    const authToken = localStorage.getItem("authToken") != null? localStorage.getItem("authToken"):""
+
+    return axiosInstance.post(`/hot-deals/${hotDealId}/favorite`,null,{
+        headers: {
+            "Authorization": "Bearer " + authToken
+        }
+    })
+}
+
+export const deleteFavoriteHotDeal = (hotDealId: number) =>{
+
+    const authToken = localStorage.getItem("authToken") != null? localStorage.getItem("authToken"):""
+
+    return axiosInstance.delete(`/hot-deals/${hotDealId}/favorite`,{
+        headers: {
+            "Authorization": "Bearer " + authToken
+        }
+    })
+}
+
 export const deletePermanentHotDeal = (hotDealId: number) =>{
 
     return axiosInstance.delete(`/hot-deals/${hotDealId}/permanent`)
@@ -69,3 +91,15 @@ export const postHotDeal = (postHotDealRequest: PostHotDealRequest) =>{
 
 export const viewHotDeal = (viewHotDealRequest: ViewHotDealRequest) =>
     axiosInstance.patch(`/hot-deals/${viewHotDealRequest.hotDealId}/view`)
+
+export const getFavoriteHotDeals = () =>{
+
+    const authToken = localStorage.getItem("authToken") != null? localStorage.getItem("authToken"):""
+    return axiosInstance.get(`/hot-deals/favorite`,
+        {
+            headers: {
+                Authorization: "Bearer " + authToken
+            }
+        }
+    )
+}

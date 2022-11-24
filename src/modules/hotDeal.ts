@@ -1,9 +1,9 @@
 import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
 import {
-    deleteHotDeal, deletePermanentHotDeal,
+    deleteHotDeal, deletePermanentHotDeal, getFavoriteHotDeals,
     getHotDeals, getHotDealsByHotDealId, getHotDealsByProductId,
     GetHotDealsRequest, getNotClassifiedHotDeals,
-    getWeeklyPopularHotDeals, postHotDeal,
+    getWeeklyPopularHotDeals, postFavoriteHotDeal, postHotDeal,
     viewHotDeal,
     ViewHotDealRequest
 } from "../api/hotDealApi";
@@ -147,6 +147,17 @@ export const callGetHotDeals =
             })
         };
 
+export const callGetFavoriteHotDeals =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getFavoriteHotDeals().then((res) => {
+                const hotDealPreviews: HotDealPreview[] = res.data
+                dispatch(getHotDealsSuccess(hotDealPreviews, 0))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 export const callGetHotDealsByProductId =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
@@ -173,6 +184,15 @@ export const callDeleteHotDeal =
     (deletedHotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             await deleteHotDeal(deletedHotDealId).then((res) => {
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callPostFavoriteHotDeal =
+    (hotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await postFavoriteHotDeal(hotDealId).then((res) => {
             }).catch((error) => {
                 console.log(error.response.data)
             })

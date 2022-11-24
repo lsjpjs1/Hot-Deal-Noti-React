@@ -1,6 +1,7 @@
 
 div.search {
     align-items: center;
+    display: flex;
 }
 
 

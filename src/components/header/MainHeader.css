@@ -1,0 +1,38 @@
+.shadow{
+    box-shadow: 1px 1px 10px #cccccc;
+}
+
+.main-header-container{
+     display: flex;
+     align-items: center;
+     padding-inline: 50px;
+     padding-top: 15px;
+ }
+
+.logo-image{
+    width: 126px;
+    height: 91px;
+    cursor: pointer;
+}
+
+.header-manu-container{
+    margin-left: auto;
+    vertical-align: middle;
+    display: flex;
+}
+
+.search-bar-container{
+    margin-left: auto;
+}
+
+.header-manu-text{
+    font-weight: bold !important;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+
+#star-btn{
+    display: flex;
+    margin-right: 25px;
+}

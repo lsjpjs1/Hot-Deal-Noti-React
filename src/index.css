@@ -12,11 +12,16 @@ code {
     monospace;
 }
 
-Typography{
+* {
   font-family: 'line';
+}
+@font-face {
+  font-family: "Line";
+  src: url("./fonts/LINESeedKR-Rg.otf") format('opentype');
 }
 
 @font-face {
   font-family: "Line";
-src: url("./fonts/LINESeedKR-Rg.otf") format('opentype');
+  font-weight: bold;
+  src: url("./fonts/LINESeedKR-Bd.otf") format('opentype');
 }
