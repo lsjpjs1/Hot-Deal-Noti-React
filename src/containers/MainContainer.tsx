@@ -5,7 +5,7 @@ import {
     callGetHotDeals,
     callGetHotDealsByHotDealId,
     callGetHotDealsByProductId,
-    callGetInitData,
+    callGetInitData, callGetRecommendationHotDeals,
     callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
     callViewHotDeal,
@@ -35,6 +35,7 @@ import {useParams} from "react-router";
 import {Typography} from "@material-ui/core";
 import ReactGA from "react-ga4";
 import MainHeader from "../components/header/MainHeader";
+import {HotDealPreview} from "../common/hotDealDto";
 
 const MainContainer = () => {
 
@@ -42,6 +43,7 @@ const MainContainer = () => {
     const PAGE_SIZE = 40;
     const dispatch = useDispatch();
     const hotDeals = useSelector((state: RootState) => state.hotDealReducer.hotDeals);
+    const recommendationHotDeals = useSelector((state: RootState) => state.hotDealReducer.recommendationHotDeals);
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
@@ -67,6 +69,8 @@ const MainContainer = () => {
             dispatch(callGetHotDealsByProductId())
         } else {
             getHotDeals()
+            // @ts-ignore
+            dispatch(callGetRecommendationHotDeals())
         }
     }, []);
 
@@ -98,6 +102,17 @@ const MainContainer = () => {
     const hotDealLinkOnClick = (hotDealId: number) => {
         // @ts-ignore
         dispatch(callViewHotDeal({hotDealId: hotDealId}))
+    }
+
+    const shuffleHotDeals = (hotDeals: HotDealPreview[]) => {
+        if (hotDeals.length < 5){
+            return hotDeals
+        }else{
+            hotDeals.sort(()=> Math.random() - 0.5)
+            return hotDeals.slice(0,4)
+        }
+
+
     }
 
 
@@ -197,6 +212,9 @@ const MainContainer = () => {
                             {"역대 최저가 : " + Math.min(...hotDeals.map((hotdeal) => hotdeal.discountPrice)).toLocaleString() + "원"}
                         </h1>
                     </div>}
+                {recommendationHotDeals.length>0&&
+                <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
+                    pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
 
                 <HotDealListView title={hotDealPageTitle()} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}
                                  pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>

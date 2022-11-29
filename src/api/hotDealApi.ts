@@ -36,6 +36,7 @@ export const getHotDealsByHotDealId = (hotDealId: number) =>{
 }
 
 
+
 export const getWeeklyPopularHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
 
     return axiosInstance.get(`/hot-deals/weekly-popular?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=VIEW_COUNT,desc`,
@@ -62,6 +63,12 @@ export const postFavoriteHotDeal = (hotDealId: number) =>{
             "Authorization": "Bearer " + authToken
         }
     })
+}
+
+export const postRecommendationHotDeal = (hotDealId: number) =>{
+
+
+    return axiosInstance.post(`/hot-deals/${hotDealId}/recommendation`)
 }
 
 export const deleteFavoriteHotDeal = (hotDealId: number) =>{
@@ -101,5 +108,11 @@ export const getFavoriteHotDeals = () =>{
                 Authorization: "Bearer " + authToken
             }
         }
+    )
+}
+
+export const getRecommendationHotDeals = () =>{
+
+    return axiosInstance.get(`/hot-deals/recommendation`
     )
 }

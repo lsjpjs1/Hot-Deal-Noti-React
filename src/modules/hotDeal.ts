@@ -2,7 +2,7 @@ import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal, PostHotDealRe
 import {
     deleteHotDeal, deletePermanentHotDeal, getFavoriteHotDeals,
     getHotDeals, getHotDealsByHotDealId, getHotDealsByProductId,
-    GetHotDealsRequest, getNotClassifiedHotDeals,
+    GetHotDealsRequest, getNotClassifiedHotDeals, getRecommendationHotDeals,
     getWeeklyPopularHotDeals, postFavoriteHotDeal, postHotDeal,
     viewHotDeal,
     ViewHotDealRequest
@@ -21,6 +21,7 @@ import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
 import {useDispatch} from "react-redux";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
+const GET_RECOMMENDATION_HOT_DEALS_SUCCESS = "GET_RECOMMENDATION_HOT_DEALS_SUCCESS" as const;
 const GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS = "GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS" as const;
 const GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS = "GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS" as const;
 const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
@@ -76,6 +77,11 @@ export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: numbe
     type: GET_HOT_DEALS_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
+});
+
+export const getRecommendationHotDealsSuccess = (recommendationHotDeals: HotDealPreview[]) => ({
+    type: GET_RECOMMENDATION_HOT_DEALS_SUCCESS,
+    recommendationHotDeals: recommendationHotDeals
 });
 
 export const getHotDealsByProductIdSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
@@ -153,6 +159,17 @@ export const callGetFavoriteHotDeals =
             await getFavoriteHotDeals().then((res) => {
                 const hotDealPreviews: HotDealPreview[] = res.data
                 dispatch(getHotDealsSuccess(hotDealPreviews, 0))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callGetRecommendationHotDeals =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getRecommendationHotDeals().then((res) => {
+                const hotDealPreviews: HotDealPreview[] = res.data
+                dispatch(getRecommendationHotDealsSuccess(hotDealPreviews))
             }).catch((error) => {
                 console.log(error.response.data)
             })
@@ -280,6 +297,7 @@ export const callPostConnectionHistory =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof getRecommendationHotDealsSuccess>
     | ReturnType<typeof getHotDealsByProductIdSuccess>
     | ReturnType<typeof getNotClassifiedHotDealsSuccess>
     | ReturnType<typeof getInitDataSuccess>
@@ -300,6 +318,7 @@ type HotDealAction =
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
+    recommendationHotDeals: HotDealPreview[],
     notClassifiedHotDeals: NotClassifiedHotDeal[],
     initData:  InitData
     totalPages: number,
@@ -311,6 +330,7 @@ type HotDealState = {
 
 const initialState: HotDealState = {
     hotDeals: [],
+    recommendationHotDeals: [],
     notClassifiedHotDeals: [],
     initData: null,
     totalPages: 0,
@@ -359,6 +379,11 @@ function hotDealReducer(
                 ...state,
                 hotDeals: action.hotDeals,
                 totalPages: action.totalPages
+            }
+        case "GET_RECOMMENDATION_HOT_DEALS_SUCCESS":
+            return {
+                ...state,
+                recommendationHotDeals: action.recommendationHotDeals
             }
         case GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS:
             return {

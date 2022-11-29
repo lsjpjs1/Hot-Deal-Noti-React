@@ -11,6 +11,7 @@ import {Button, SvgIcon} from "@mui/material";
 import React from "react";
 import {Chip, Grid, Typography} from "@material-ui/core";
 import ReactGA from "react-ga4";
+import {postRecommendationHotDeal} from "../../api/hotDealApi";
 
 moment.locale("ko");
 
@@ -37,6 +38,14 @@ const HotDealListView = (props: Props) => {
                                 dispatch(callGetHotDealsByProductId())
                             }}>
                         </Chip>
+
+                        <Button onClick={async (e)=>{
+                            postRecommendationHotDeal(hotDeal.hotDealId)
+                        }}>
+                            <Typography>
+                                추천
+                            </Typography>
+                        </Button>
 
                         <Button onClick={async (e)=>{
                             const $textarea = document.createElement('textarea');

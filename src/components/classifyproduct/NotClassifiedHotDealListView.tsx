@@ -15,6 +15,7 @@ import {
 import {RootState} from "../../modules";
 import {callDeleteHotDeal, callDeletePermanentHotDeal} from "../../modules/hotDeal";
 import {Typography} from "@material-ui/core";
+import {postRecommendationHotDeal} from "../../api/hotDealApi";
 
 moment.locale("ko");
 
@@ -73,6 +74,15 @@ const NotClassifiedHotDealListView = (props: Props) => {
                             display: 'inline-block',
                             marginLeft: '10px'
                         }}>{moment(notClassifiedHotDeals.hotDealUploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
+
+                        <Button onClick={async (e)=>{
+                            postRecommendationHotDeal(notClassifiedHotDeals.hotDealId)
+                        }}>
+                            <Typography>
+                                추천
+                            </Typography>
+                        </Button>
+
                         <Button
                             style={{
                                 display: 'inline-block',
