@@ -32,17 +32,17 @@ const HotDealListView = (props: Props) => {
                         <Chip
                             label={hotDeal.modelName}
                             onClick={() => {
-                                console.log("click")
-                                dispatch(setProductIdForSearch(hotDeal.productId))
-                                // @ts-ignore
-                                dispatch(callGetHotDealsByProductId())
+
+                                window.open(`/hot-deals/product/${hotDeal.productId}`, '_blank')
                             }}>
                         </Chip>
 
                         <Button onClick={async (e)=>{
                             postRecommendationHotDeal(hotDeal.hotDealId)
                         }}>
-                            <Typography>
+                            <Typography style={{
+                                color:"green"
+                            }}>
                                 추천
                             </Typography>
                         </Button>
