@@ -36,3 +36,10 @@
     display: flex;
     margin-right: 25px;
 }
+
+
+#faq-btn{
+    cursor: pointer;
+    display: flex;
+    margin-right: 25px;
+}

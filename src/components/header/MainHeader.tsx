@@ -2,6 +2,7 @@ import {Typography} from "@material-ui/core";
 import "./MainHeader.css"
 import React from "react";
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
+import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import SearchBar from "../SearchBar";
 import {useDispatch} from "react-redux";
 import {callGetHotDeals, setPage, setSearchBody} from "../../modules/hotDeal";
@@ -50,6 +51,11 @@ const MainHeader = () => {
                 </div>
 
                 <div className={"header-manu-container"}>
+
+                    <div id={"faq-btn"}  onClick={()=>{window.open("https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2", '_blank')}}>
+                        <HelpOutlineRoundedIcon/>
+                        <Typography className={"header-manu-text"} > FAQ</Typography>
+                    </div>
 
                     <div id={"star-btn"} >
                         <StarBorderRoundedIcon/>
