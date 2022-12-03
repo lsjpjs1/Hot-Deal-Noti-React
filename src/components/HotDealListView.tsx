@@ -164,6 +164,24 @@ const HotDealListView = (props: Props) => {
                             }}>
                         </Chip>
 
+                        <IconButton  onClick={()=>{
+                            mixpanel.track(
+                                "naverShoppingLinkClick",
+                                {
+                                    "hotDealId": hotDeal.hotDealId,
+                                    "hotDealTitle": hotDeal.title,
+                                    "productId": hotDeal.productId,
+                                    "productName": hotDeal.modelName
+                                }
+                            );
+                            window.open(`https://search.shopping.naver.com/search/all?query=${hotDeal.modelName}`, '_blank')
+                        }}
+                                >
+                            <img style={{width:"25px", cursor:"pointer", borderRadius:"4px"}} src={require("../image/naver_logo.png")}
+                                 onClick={e=>{}}
+                            />
+                        </IconButton>
+
                         <IconButton>
                             <SvgIcon color={"primary"}
                                      onClick={async (e) => {
