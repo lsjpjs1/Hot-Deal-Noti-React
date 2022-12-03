@@ -182,39 +182,39 @@ const HotDealListView = (props: Props) => {
                             />
                         </IconButton>
 
-                        <IconButton>
-                            <SvgIcon color={"primary"}
-                                     onClick={async (e) => {
-                                         mixpanel.track(
-                                             "copyProductNameButtonClick",
-                                             {
-                                                 "hotDealId": hotDeal.hotDealId,
-                                                 "hotDealTitle": hotDeal.title,
-                                                 "productId": hotDeal.productId,
-                                                 "productName": hotDeal.modelName
-                                             }
-                                         );
-                                         ReactGA.event({
-                                             category: "버튼",
-                                             action: "모델명 복사",
-                                             label: hotDeal.productId + "-" + hotDeal.modelName,
-                                         });
+                        {/*<IconButton>*/}
+                        {/*    <SvgIcon color={"primary"}*/}
+                        {/*             onClick={async (e) => {*/}
+                        {/*                 mixpanel.track(*/}
+                        {/*                     "copyProductNameButtonClick",*/}
+                        {/*                     {*/}
+                        {/*                         "hotDealId": hotDeal.hotDealId,*/}
+                        {/*                         "hotDealTitle": hotDeal.title,*/}
+                        {/*                         "productId": hotDeal.productId,*/}
+                        {/*                         "productName": hotDeal.modelName*/}
+                        {/*                     }*/}
+                        {/*                 );*/}
+                        {/*                 ReactGA.event({*/}
+                        {/*                     category: "버튼",*/}
+                        {/*                     action: "모델명 복사",*/}
+                        {/*                     label: hotDeal.productId + "-" + hotDeal.modelName,*/}
+                        {/*                 });*/}
 
-                                         const $textarea = document.createElement('textarea');
-                                         document.body.appendChild($textarea);
-                                         // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)
-                                         $textarea.value = hotDeal.modelName;
-                                         $textarea.select();
-                                         // 3. execCommand 함수를 이용해 클립보드에 복사
-                                         document.execCommand('copy');
-                                         // 4. 임시 textarea 요소 제거
-                                         document.body.removeChild($textarea);
-                                         alert('모델명이 복사되었습니다.');
-                                     }}>
-                                <path
-                                    d="M22,16A2,2 0 0,1 20,18H8C6.89,18 6,17.1 6,16V4C6,2.89 6.89,2 8,2H20A2,2 0 0,1 22,4V16M16,20V22H4A2,2 0 0,1 2,20V7H4V20H16Z"/>
-                            </SvgIcon>
-                        </IconButton>
+                        {/*                 const $textarea = document.createElement('textarea');*/}
+                        {/*                 document.body.appendChild($textarea);*/}
+                        {/*                 // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)*/}
+                        {/*                 $textarea.value = hotDeal.modelName;*/}
+                        {/*                 $textarea.select();*/}
+                        {/*                 // 3. execCommand 함수를 이용해 클립보드에 복사*/}
+                        {/*                 document.execCommand('copy');*/}
+                        {/*                 // 4. 임시 textarea 요소 제거*/}
+                        {/*                 document.body.removeChild($textarea);*/}
+                        {/*                 alert('모델명이 복사되었습니다.');*/}
+                        {/*             }}>*/}
+                        {/*        <path*/}
+                        {/*            d="M22,16A2,2 0 0,1 20,18H8C6.89,18 6,17.1 6,16V4C6,2.89 6.89,2 8,2H20A2,2 0 0,1 22,4V16M16,20V22H4A2,2 0 0,1 2,20V7H4V20H16Z"/>*/}
+                        {/*    </SvgIcon>*/}
+                        {/*</IconButton>*/}
 
 
                         {/*{hotDeal.productId != 1 && <div>*/}
