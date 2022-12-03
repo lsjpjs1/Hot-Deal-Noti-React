@@ -24,6 +24,7 @@ import ProductPurposeSelect from "./ProductPurposeSelect";
 import ManufacturerSelect from "./ManufacturerSelect";
 import SourceSiteCheckBoxGroup from "./SourceSiteCheckBoxGroup";
 import FilterListIcon from '@material-ui/icons/FilterList';
+import mixpanel from "mixpanel-browser";
 
 type SearchBarProps = {
     onSearch: (s: string) => void;
@@ -136,6 +137,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
             />
             <IconButton style={{color: "black"}}
                         onClick={() => {
+                            mixpanel.track(
+                                "filterClick"
+                            );
                             setIsOpenFilter(true)
                         }}
             >

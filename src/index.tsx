@@ -19,7 +19,7 @@ import {createMuiTheme, MuiThemeProvider} from "@material-ui/core";
 import LoginContainer from "./containers/LoginContainer";
 import KaKaoOauthCallbackContainer from "./components/login/KaKaoOauthCallbackContainer";
 import MyFavoriteContainer from "./containers/MyFavoriteContainer"; // GA4
-
+import mixpanel from 'mixpanel-browser';
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -34,6 +34,17 @@ const THEME = createMuiTheme({
         fontFamily: "line"
     }
 });
+
+//mixpanel setup
+const mixpanelProjectToken = process.env["REACT_APP_MIXPANEL_PROJECT_TOKEN"];
+mixpanel.init(mixpanelProjectToken);
+mixpanel.people.set_once({
+    "firstView": new Date().toISOString()
+});
+mixpanel.people.set({
+    "lastView": new Date().toISOString()
+});
+
 root.render(
     <MuiThemeProvider theme={THEME}>
         <Provider store={store}>

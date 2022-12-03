@@ -10,6 +10,7 @@ import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {getFavoriteHotDeals} from "../../api/hotDealApi";
 import {kakaoLogin} from "../../api/authApi";
+import mixpanel from "mixpanel-browser";
 const MainHeader = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -25,16 +26,25 @@ const MainHeader = () => {
     }
 
     const onSearch = (s: string) => {
+        mixpanel.track(
+            "search",
+            {"searchBody": s}
+        );
         dispatch(setSearchBody(s))
         goFirstPage()
         getHotDeals()
     }
 
     const logout = () => {
+        mixpanel.track(
+            "logoutButtonClick"
+        );
         localStorage.removeItem("authToken")
         window.location.reload()
     }
 
+    mixpanel.track_links("#star-btn .header-manu-text", "starButtonClick");
+    mixpanel.track_links("#login-btn a.header-manu-text", "loginButtonClick");
 
 
     return(
@@ -42,6 +52,10 @@ const MainHeader = () => {
             <div className={"main-header-container"}>
                 <div className={"logo-image-container"}>
                     <img className={"logo-image"} onClick={() => {
+                        mixpanel.track(
+                            "logoButtonClick",
+                            {"currentPage": window.location.href}
+                        );
                         window.location.href = "/"
                     }} src={require("../../image/IMG_0385_2.png")}/>
                 </div>
@@ -52,7 +66,14 @@ const MainHeader = () => {
 
                 <div className={"header-manu-container"}>
 
-                    <div id={"faq-btn"}  onClick={()=>{window.open("https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2", '_blank')}}>
+                    <div id={"faq-btn"}  onClick={()=>{
+                        mixpanel.track(
+                            "faqClick"
+                        );
+                        window.open("https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2", '_blank')
+                    }
+                    }
+                    >
                         <HelpOutlineRoundedIcon/>
                         <Typography className={"header-manu-text"} > FAQ</Typography>
                     </div>

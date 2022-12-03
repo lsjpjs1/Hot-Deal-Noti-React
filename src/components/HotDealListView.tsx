@@ -20,6 +20,7 @@ import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import "./HotDealListView.css"
+import mixpanel from "mixpanel-browser";
 
 moment.locale("ko");
 
@@ -99,6 +100,15 @@ const HotDealListView = (props: Props) => {
                         {props.pageType != "FAVORITE" &&
                             <IconButton style={{color: "black", width: 3, height: 3, marginRight: "5px"}}
                                         onClick={() => {
+                                            mixpanel.track(
+                                                "postStarButtonClick",
+                                                {
+                                                    "hotDealId": hotDeal.hotDealId,
+                                                    "hotDealTitle": hotDeal.title,
+                                                    "productId": hotDeal.productId,
+                                                    "productName": hotDeal.modelName
+                                                }
+                                            );
                                             if (localStorage.getItem("authToken") == null) {
                                                 navigate("/login")
                                             } else {
@@ -113,6 +123,15 @@ const HotDealListView = (props: Props) => {
                         {props.pageType == "FAVORITE" &&
                             <IconButton style={{color: "black", width: 3, height: 3, marginRight: "5px"}}
                                         onClick={() => {
+                                            mixpanel.track(
+                                                "deleteStarButtonClick",
+                                                {
+                                                    "hotDealId": hotDeal.hotDealId,
+                                                    "hotDealTitle": hotDeal.title,
+                                                    "productId": hotDeal.productId,
+                                                    "productName": hotDeal.modelName
+                                                }
+                                            );
                                             if (localStorage.getItem("authToken") == null) {
                                                 navigate("/login")
                                             } else {
@@ -127,6 +146,15 @@ const HotDealListView = (props: Props) => {
                             className={"model-name-button"}
                             label={hotDeal.modelName}
                             onClick={() => {
+                                mixpanel.track(
+                                    "showProductPriceHistoryButtonClick",
+                                    {
+                                        "hotDealId": hotDeal.hotDealId,
+                                        "hotDealTitle": hotDeal.title,
+                                        "productId": hotDeal.productId,
+                                        "productName": hotDeal.modelName
+                                    }
+                                );
                                 ReactGA.event({
                                     category: "버튼",
                                     action: "모델 역대가 조회",
@@ -139,6 +167,15 @@ const HotDealListView = (props: Props) => {
                         <IconButton>
                             <SvgIcon color={"primary"}
                                      onClick={async (e) => {
+                                         mixpanel.track(
+                                             "copyProductNameButtonClick",
+                                             {
+                                                 "hotDealId": hotDeal.hotDealId,
+                                                 "hotDealTitle": hotDeal.title,
+                                                 "productId": hotDeal.productId,
+                                                 "productName": hotDeal.modelName
+                                             }
+                                         );
                                          ReactGA.event({
                                              category: "버튼",
                                              action: "모델명 복사",
@@ -175,6 +212,15 @@ const HotDealListView = (props: Props) => {
                     <div className={"hot-deal-clickable-container"}
                          style={{cursor: "pointer"}}
                          onClick={(e) => {
+                             mixpanel.track(
+                                 "hotDealLinkClick",
+                                 {
+                                     "hotDealId": hotDeal.hotDealId,
+                                     "hotDealTitle": hotDeal.title,
+                                     "productId": hotDeal.productId,
+                                     "productName": hotDeal.modelName
+                                 }
+                             );
                              window.open(hotDeal.link, '_blank')
                              props.hotDealLinkOnClick(hotDeal.hotDealId)
                              ReactGA.event({
