@@ -4,6 +4,7 @@ import "./HotDealSortingSelect.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useState} from "react";
+import mixpanel from "mixpanel-browser";
 type ManufacturerSelectProps = {
     onSelect:(value:number)=>void
 }
@@ -30,7 +31,14 @@ const ManufacturerSelect = (props: ManufacturerSelectProps) => {
                 </InputLabel>
                 <NativeSelect
                     defaultValue={null}
-                    onChange={(event)=>props.onSelect(parseInt(event.target.value))}
+                    onChange={(event)=>{
+                        const selectedTarget = event.target
+                        mixpanel.track(
+                            "manufacturerSelect",
+                            {
+                                "manufacturerName": selectedTarget.options[selectedTarget.selectedIndex].innerHTML}
+                        );
+                        props.onSelect(parseInt(event.target.value))}}
                     inputProps={{
                         name: '제조사',
                         id: 'uncontrolled-native',

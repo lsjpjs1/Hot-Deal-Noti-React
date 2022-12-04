@@ -4,6 +4,7 @@ import "./HotDealSortingSelect.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useState} from "react";
+import mixpanel from "mixpanel-browser";
 type ProductPurposeSelectProps = {
     onSelect:(value:number)=>void
 }
@@ -30,7 +31,15 @@ const ProductPurposeSelect = (props: ProductPurposeSelectProps) => {
                 </InputLabel>
                 <NativeSelect
                     defaultValue={null}
-                    onChange={(event)=>props.onSelect(parseInt(event.target.value))}
+                    onChange={(event)=>{
+
+                        const selectedTarget = event.target
+                        mixpanel.track(
+                            "productPurposeSelect",
+                            {
+                                "productPurposeName": selectedTarget.options[selectedTarget.selectedIndex].innerHTML}
+                        );
+                        props.onSelect(parseInt(event.target.value))}}
                     inputProps={{
                         name: '제품 용도',
                         id: 'uncontrolled-native',

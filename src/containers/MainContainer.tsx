@@ -36,6 +36,7 @@ import {Typography} from "@material-ui/core";
 import ReactGA from "react-ga4";
 import MainHeader from "../components/header/MainHeader";
 import {HotDealPreview} from "../common/hotDealDto";
+import mixpanel from "mixpanel-browser";
 
 const MainContainer = () => {
 
@@ -76,6 +77,12 @@ const MainContainer = () => {
 
 
     const onPageChange = (page: { selected: number }) => {
+        mixpanel.track(
+            "pageChange",
+            {
+                "selectedPage": page.selected
+            }
+        );
         dispatch(setPage(page.selected))
         getHotDeals()
         window.scrollTo(0, 0);

@@ -1,6 +1,7 @@
 import {Box, FormControl, InputLabel, NativeSelect} from "@material-ui/core";
 import SortingType from "../enum/SortingType";
 import "./HotDealSortingSelect.css"
+import mixpanel from "mixpanel-browser";
 type HotDealSortingSelectProps = {
     onSelect:(value:string)=>void
 }
@@ -12,7 +13,15 @@ const HotDealSortingSelect = (props: HotDealSortingSelectProps) => {
                     정렬
                 </InputLabel>
                 <NativeSelect
-                    onChange={(event)=>props.onSelect(event.target.value)}
+                    onChange={(event)=>{
+
+                        mixpanel.track(
+                            "hotDealSortingSelect",
+                            {
+                                "sortingOptionName": event.target.value}
+                        );
+                        props.onSelect(event.target.value)
+                    }}
                     defaultValue={SortingType.DISCOUNT_RATE_DESC}
                     inputProps={{
                         name: '정렬',

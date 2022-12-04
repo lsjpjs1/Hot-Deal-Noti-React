@@ -48,6 +48,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onProductPurposeSelect = (productPurposeId: number) => {
+
         dispatch(setProductPurposeId(productPurposeId))
         goFirstPage()
         getHotDeals()
@@ -60,6 +61,15 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onCheckBoxClick = (checked: boolean, sourceSite: string) => {
+        if (checked){
+            mixpanel.track(
+                "sourceSiteSelect",
+                {
+                    "sourceSiteName": sourceSite
+                }
+            );
+        }
+
         dispatch(setSourceSites(checked, sourceSite))
         goFirstPage()
         getHotDeals()
