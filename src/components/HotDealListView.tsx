@@ -13,6 +13,7 @@ import {SvgIcon} from "@mui/material";
 import {useEffect} from "react";
 import {callGetProductInitData} from "../modules/product";
 import ReactGA from "react-ga4";
+import mixpanel from "mixpanel-browser";
 
 moment.locale("ko");
 
@@ -42,6 +43,15 @@ const HotDealListView = (props: Props) => {
                         <Chip
                             label={hotDeal.modelName}
                             onClick={() => {
+                                mixpanel.track(
+                                    "showProductPriceHistoryButtonClick",
+                                    {
+                                        "hotDealId": hotDeal.hotDealId,
+                                        "hotDealTitle": hotDeal.title,
+                                        "productId": hotDeal.productId,
+                                        "productName": hotDeal.modelName
+                                    }
+                                );
                                 ReactGA.event({
                                     category: "버튼",
                                     action: "모델 역대가 조회",
@@ -51,6 +61,15 @@ const HotDealListView = (props: Props) => {
                             }}>
                         </Chip><br/>
                         <Button onClick={async (e) => {
+                            mixpanel.track(
+                                "copyProductNameButtonClick",
+                                {
+                                    "hotDealId": hotDeal.hotDealId,
+                                    "hotDealTitle": hotDeal.title,
+                                    "productId": hotDeal.productId,
+                                    "productName": hotDeal.modelName
+                                }
+                            );
                             ReactGA.event({
                                 category: "버튼",
                                 action: "모델명 복사",
@@ -91,6 +110,15 @@ const HotDealListView = (props: Props) => {
                     {hotDeal.hotDealThumbnailUrl != "" &&
                         <div>
                             <img onClick={(e) => {
+                                mixpanel.track(
+                                    "hotDealLinkClick",
+                                    {
+                                        "hotDealId": hotDeal.hotDealId,
+                                        "hotDealTitle": hotDeal.title,
+                                        "productId": hotDeal.productId,
+                                        "productName": hotDeal.modelName
+                                    }
+                                );
                                 window.open(hotDeal.link, '_blank')
                                 props.hotDealLinkOnClick(hotDeal.hotDealId)
                                 ReactGA.event({
@@ -129,6 +157,15 @@ const HotDealListView = (props: Props) => {
                             <del>
                                 <a style={{color: "gray"}} href={hotDeal.link}
                                    onClick={() =>{
+                                       mixpanel.track(
+                                           "hotDealLinkClick",
+                                           {
+                                               "hotDealId": hotDeal.hotDealId,
+                                               "hotDealTitle": hotDeal.title,
+                                               "productId": hotDeal.productId,
+                                               "productName": hotDeal.modelName
+                                           }
+                                       );
                                        ReactGA.event({
                                            category: "버튼",
                                            action: "특가 링크로 이동",
@@ -147,6 +184,15 @@ const HotDealListView = (props: Props) => {
                         <h2 style={{fontSize: "1em"}}>
                             <a href={hotDeal.link}
                                onClick={() =>{
+                                   mixpanel.track(
+                                       "hotDealLinkClick",
+                                       {
+                                           "hotDealId": hotDeal.hotDealId,
+                                           "hotDealTitle": hotDeal.title,
+                                           "productId": hotDeal.productId,
+                                           "productName": hotDeal.modelName
+                                       }
+                                   );
                                    ReactGA.event({
                                        category: "버튼",
                                        action: "특가 링크로 이동",
@@ -161,6 +207,15 @@ const HotDealListView = (props: Props) => {
                         </h2>
                 }
                 <Button onClick={async (e) => {
+                    mixpanel.track(
+                        "hotDealLinkShare",
+                        {
+                            "hotDealId": hotDeal.hotDealId,
+                            "hotDealTitle": hotDeal.title,
+                            "productId": hotDeal.productId,
+                            "productName": hotDeal.modelName
+                        }
+                    );
                     ReactGA.event({
                         category: "버튼",
                         action: "특가 링크 공유하기",

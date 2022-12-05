@@ -34,6 +34,7 @@ import CustomerRequirementInput from "../components/CustomerRequirementInput";
 import {useParams} from "react-router";
 import {Typography} from "@material-ui/core";
 import ReactGA from "react-ga4";
+import mixpanel from "mixpanel-browser";
 
 const MainContainer = () => {
 
@@ -71,6 +72,12 @@ const MainContainer = () => {
 
 
     const onPageChange = (page: { selected: number }) => {
+        mixpanel.track(
+            "pageChange",
+            {
+                "selectedPage": page.selected
+            }
+        );
         dispatch(setPage(page.selected))
         getHotDeals()
         window.scrollTo(0, 0);
@@ -82,6 +89,10 @@ const MainContainer = () => {
     }
 
     const onSearch = (s: string) => {
+        mixpanel.track(
+            "search",
+            {"searchBody": s}
+        );
         dispatch(setSearchBody(s))
         goFirstPage()
         getHotDeals()
@@ -118,6 +129,14 @@ const MainContainer = () => {
     }
 
     const onCheckBoxClick = (checked: boolean, sourceSite: string) => {
+        if (checked){
+            mixpanel.track(
+                "sourceSiteSelect",
+                {
+                    "sourceSiteName": sourceSite
+                }
+            );
+        }
         dispatch(setSourceSites(checked, sourceSite))
         goFirstPage()
         getHotDeals()
@@ -142,6 +161,10 @@ const MainContainer = () => {
             <div style={{textAlign: "center", marginTop: "50px", marginBottom: "50px"}}>
                 <Button>
                     <img onClick={() => {
+                        mixpanel.track(
+                            "logoButtonClick",
+                            {"currentPage": window.location.href}
+                        );
                         ReactGA.event({
                             category: "이미지 버튼",
                             action: "홈 이미지 클릭",
@@ -155,6 +178,9 @@ const MainContainer = () => {
                         <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}
                            target={"_blank"}
                            onClick={(e) => {
+                               mixpanel.track(
+                                   "faqClick"
+                               );
                                ReactGA.event({
                                    category: "버튼",
                                    action: "노션 공지사항 링크 클릭",
@@ -175,6 +201,9 @@ const MainContainer = () => {
                         <Typography>{"공지사항: 특가 키워드 알림 앱이 출시되었습니다!"}</Typography>
                         <a href={"https://play.google.com/store/apps/details?id=com.hotdealnoti"}
                            onClick={(e) => {
+                               mixpanel.track(
+                                   "androidLinkClick"
+                               );
                                ReactGA.event({
                                    category: "버튼",
                                    action: "안드로이드 앱 링크 클릭",
