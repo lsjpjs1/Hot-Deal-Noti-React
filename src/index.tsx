@@ -10,7 +10,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainContainer from "./containers/MainContainer";
 import ServerMaintenanceContainer from "./containers/ServerMaintenanceContainer";
 import ReactGA from 'react-ga4';
-import ProductClassifyContainer from "./containers/ProductClassifyContainer";
+import HotDealClassifyContainer from "./containers/HotDealClassifyContainer";
 import ManageHotDealsContainer from "./containers/ManageHotDealsContainer";
 import AddHotDealContainer from "./containers/AddHotDealContainer";
 import RecommendationContainer from "./containers/RecommendationContainer";
@@ -20,6 +20,7 @@ import LoginContainer from "./containers/LoginContainer";
 import KaKaoOauthCallbackContainer from "./components/login/KaKaoOauthCallbackContainer";
 import MyFavoriteContainer from "./containers/MyFavoriteContainer"; // GA4
 import mixpanel from 'mixpanel-browser';
+import ProductClassifyContainer from "./containers/ProductClassifyContainer";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -60,7 +61,8 @@ root.render(
 
 
                     <Route path='/hoon/recommendation' element={<ManageRecommendationContainer/>} />
-                    <Route path="/hoon/980320" element={<ProductClassifyContainer/>}/>
+                    <Route path="/hoon/980320" element={<HotDealClassifyContainer/>}/>
+                    <Route path="/hoon/980320/product-classify" element={<ProductClassifyContainer/>}/>
                     <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
                     <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>
 

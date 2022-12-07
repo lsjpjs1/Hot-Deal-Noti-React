@@ -7,11 +7,13 @@
      align-items: center;
      padding-inline: 50px;
      padding-top: 15px;
+    flex-wrap: wrap;
  }
 
+
 .logo-image{
-    width: 126px;
-    height: 91px;
+    max-width: 126px;
+    min-height: 91px;
     cursor: pointer;
 }
 

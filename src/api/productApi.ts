@@ -5,6 +5,10 @@ export const getProductInitData = () =>
     axiosInstance.get("/products/classify/init-data"
     )
 
+export const getClassifyProduct = () =>
+    axiosInstance.get("/products/classify"
+    )
+
 export const getProducts = (getProductsRequest:GetProductsRequest) =>
     axiosInstance.get("/products",
         {params:getProductsRequest}

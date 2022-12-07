@@ -45,3 +45,9 @@ export interface ProductDto {
     manufacturer: string,
     manufacturerId: number
 }
+
+export interface ClassifyProduct {
+    productId: number,
+    modelName: string,
+    productInfoCandidateHtml: string
+}

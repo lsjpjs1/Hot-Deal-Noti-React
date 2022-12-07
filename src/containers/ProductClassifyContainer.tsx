@@ -1,31 +1,32 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../modules";
-import {useEffect} from "react";
-import {callGetInitData, callGetNotClassifiedHotDeals, callPostConnectionHistory} from "../modules/hotDeal";
-import NotClassifiedHotDealListView from "../components/classifyproduct/NotClassifiedHotDealListView";
-import {callGetProductInitData, callGetProducts} from "../modules/product";
+import {useEffect, useState} from "react";
+import {getClassifyProduct} from "../api/productApi";
+import {ClassifyProduct} from "../common/productDto";
 
 const ProductClassifyContainer = () => {
 
-    const dispatch = useDispatch();
-    const notClassifiedHotDeals = useSelector((state: RootState) => state.hotDealReducer.notClassifiedHotDeals);
-    const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
-    const products = useSelector((state: RootState) => state.productReducer.products);
-
+    const [classifyProducts, setClassifyProducts] = useState<ClassifyProduct[]>([]);
 
     useEffect(() => {
-        // @ts-ignore
-        dispatch(callGetNotClassifiedHotDeals())
-        // @ts-ignore
-        dispatch(callGetProductInitData())
-
+        getClassifyProduct().then((res) => {
+            setClassifyProducts(res.data.classifyProducts)
+        }).catch((error) => {
+            console.log(error.response.data)
+        })
     }, []);
 
-    return (
-        <div>
-            <NotClassifiedHotDealListView products={products} notClassifiedHotDeals={notClassifiedHotDeals} productInitData={productInitData}></NotClassifiedHotDealListView>
-        </div>
-    )
+    const classifyProductElements = classifyProducts.map((classifyProduct)=>{
+        return (<div>
+            {classifyProduct.modelName}
+            <div dangerouslySetInnerHTML={{
+                __html: classifyProduct.productInfoCandidateHtml
+            }}>
+            </div>
+        </div>)
+    })
+
+    return (<div>
+        {classifyProductElements}
+    </div>)
 }
 
-export default ProductClassifyContainer;
+export default ProductClassifyContainer
