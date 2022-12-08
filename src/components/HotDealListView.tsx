@@ -106,7 +106,10 @@ const HotDealListView = (props: Props) => {
                                                     "hotDealId": hotDeal.hotDealId,
                                                     "hotDealTitle": hotDeal.title,
                                                     "productId": hotDeal.productId,
-                                                    "productName": hotDeal.modelName
+                                                    "productName": hotDeal.modelName,
+                                                    "discountRate": hotDeal.discountRate,
+                                                    "originalPrice": hotDeal.originalPrice,
+                                                    "discountPrice": hotDeal.discountPrice
                                                 }
                                             );
                                             if (localStorage.getItem("authToken") == null) {
@@ -129,7 +132,10 @@ const HotDealListView = (props: Props) => {
                                                     "hotDealId": hotDeal.hotDealId,
                                                     "hotDealTitle": hotDeal.title,
                                                     "productId": hotDeal.productId,
-                                                    "productName": hotDeal.modelName
+                                                    "productName": hotDeal.modelName,
+                                                    "discountRate": hotDeal.discountRate,
+                                                    "originalPrice": hotDeal.originalPrice,
+                                                    "discountPrice": hotDeal.discountPrice
                                                 }
                                             );
                                             if (localStorage.getItem("authToken") == null) {
@@ -152,7 +158,10 @@ const HotDealListView = (props: Props) => {
                                         "hotDealId": hotDeal.hotDealId,
                                         "hotDealTitle": hotDeal.title,
                                         "productId": hotDeal.productId,
-                                        "productName": hotDeal.modelName
+                                        "productName": hotDeal.modelName,
+                                        "discountRate": hotDeal.discountRate,
+                                        "originalPrice": hotDeal.originalPrice,
+                                        "discountPrice": hotDeal.discountPrice
                                     }
                                 );
                                 ReactGA.event({
@@ -164,21 +173,26 @@ const HotDealListView = (props: Props) => {
                             }}>
                         </Chip>
 
-                        <IconButton  onClick={()=>{
+                        <IconButton onClick={() => {
                             mixpanel.track(
                                 "naverShoppingLinkClick",
                                 {
                                     "hotDealId": hotDeal.hotDealId,
                                     "hotDealTitle": hotDeal.title,
                                     "productId": hotDeal.productId,
-                                    "productName": hotDeal.modelName
+                                    "productName": hotDeal.modelName,
+                                    "discountRate": hotDeal.discountRate,
+                                    "originalPrice": hotDeal.originalPrice,
+                                    "discountPrice": hotDeal.discountPrice
                                 }
                             );
                             window.open(`https://search.shopping.naver.com/search/all?query=${hotDeal.modelName}`, '_blank')
                         }}
-                                >
-                            <img style={{width:"25px", cursor:"pointer", borderRadius:"4px"}} src={require("../image/naver_logo.png")}
-                                 onClick={e=>{}}
+                        >
+                            <img style={{width: "25px", cursor: "pointer", borderRadius: "4px"}}
+                                 src={require("../image/naver_logo.png")}
+                                 onClick={e => {
+                                 }}
                             />
                         </IconButton>
 
@@ -236,7 +250,10 @@ const HotDealListView = (props: Props) => {
                                      "hotDealId": hotDeal.hotDealId,
                                      "hotDealTitle": hotDeal.title,
                                      "productId": hotDeal.productId,
-                                     "productName": hotDeal.modelName
+                                     "productName": hotDeal.modelName,
+                                     "discountRate": hotDeal.discountRate,
+                                     "originalPrice": hotDeal.originalPrice,
+                                     "discountPrice": hotDeal.discountPrice
                                  }
                              );
                              window.open(hotDeal.link, '_blank')
