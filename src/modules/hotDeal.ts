@@ -337,7 +337,7 @@ const initialState: HotDealState = {
     getHotDealRequest: {
         pageRequest: {
             page: 0,
-            sort: SortingType.DISCOUNT_RATE_DESC,
+            sort: SortingType.UPLOAD_TIME_DESC,
             size: 40
         },
         filter: {
