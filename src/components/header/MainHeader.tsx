@@ -66,6 +66,17 @@ const MainHeader = () => {
 
                 <div className={"header-manu-container"}>
 
+                    <div id={"real-hot-deal-distinction-btn"}  onClick={()=>{
+                        mixpanel.track(
+                            "realHotDealDistinctionClick"
+                        );
+                        window.open("https://bush-thorn-7ed.notion.site/924639f9727e400ebb3eeed6c086d8d6", '_blank')
+                    }
+                    }
+                    >
+                        <Typography className={"header-manu-text"} > 찐 특가 구별법</Typography>
+                    </div>
+
                     <div id={"faq-btn"}  onClick={()=>{
                         mixpanel.track(
                             "faqClick"
