@@ -244,18 +244,34 @@ const HotDealListView = (props: Props) => {
                     <div className={"hot-deal-clickable-container"}
                          style={{cursor: "pointer"}}
                          onClick={(e) => {
-                             mixpanel.track(
-                                 "hotDealLinkClick",
-                                 {
-                                     "hotDealId": hotDeal.hotDealId,
-                                     "hotDealTitle": hotDeal.title,
-                                     "productId": hotDeal.productId,
-                                     "productName": hotDeal.modelName,
-                                     "discountRate": hotDeal.discountRate,
-                                     "originalPrice": hotDeal.originalPrice,
-                                     "discountPrice": hotDeal.discountPrice
-                                 }
-                             );
+                             if (props.title=="추천 특가 👍"){
+                                 mixpanel.track(
+                                     "recommendationHotDealLinkClick",
+                                     {
+                                         "hotDealId": hotDeal.hotDealId,
+                                         "hotDealTitle": hotDeal.title,
+                                         "productId": hotDeal.productId,
+                                         "productName": hotDeal.modelName,
+                                         "discountRate": hotDeal.discountRate,
+                                         "originalPrice": hotDeal.originalPrice,
+                                         "discountPrice": hotDeal.discountPrice
+                                     }
+                                 );
+                             }else{
+                                 mixpanel.track(
+                                     "hotDealLinkClick",
+                                     {
+                                         "hotDealId": hotDeal.hotDealId,
+                                         "hotDealTitle": hotDeal.title,
+                                         "productId": hotDeal.productId,
+                                         "productName": hotDeal.modelName,
+                                         "discountRate": hotDeal.discountRate,
+                                         "originalPrice": hotDeal.originalPrice,
+                                         "discountPrice": hotDeal.discountPrice
+                                     }
+                                 );
+                             }
+
                              window.open(hotDeal.link, '_blank')
                              props.hotDealLinkOnClick(hotDeal.hotDealId)
                              ReactGA.event({
