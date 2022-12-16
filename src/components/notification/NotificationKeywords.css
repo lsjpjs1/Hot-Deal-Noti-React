@@ -1,0 +1,27 @@
+.notification-keyword-item{
+    padding: 10px;
+    margin-block: 10px;
+    background: white !important;
+    display: flex;
+    max-width: 400px;
+}
+
+.price-limit-text{
+    font-size: 13px !important;
+    color: darkgrey;
+}
+
+.notification-keyword-item-delete-button-container{
+    margin-left: auto;
+}
+
+.notification-keywords-container{
+    margin-top: 15px;
+}
+
+#notification-keyword-item-delete-button{
+    color: black;
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+}

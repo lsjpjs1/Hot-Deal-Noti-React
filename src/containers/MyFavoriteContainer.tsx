@@ -31,7 +31,6 @@ const MyFavoriteContainer = () => {
     }
     return(
         <div>
-            <MainHeader/>
             <HotDealListView title={"★ 즐겨찾기"} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={"FAVORITE"}/>
 
 

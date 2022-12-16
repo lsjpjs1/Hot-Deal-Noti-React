@@ -1,0 +1,76 @@
+
+.email-verification-modal{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+
+.email-channel-container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.android-channel-container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+
+.android-link-image{
+    max-width: 160px;
+    min-height: 62px;
+    cursor: pointer;
+}
+
+
+
+
+.email-verification-modal{
+    alignItems:center;
+    display:flex;
+    justifyContent:center;
+    top:-50% !important
+}
+
+.email-verification-modal-inner{
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+
+.email-verification-container{
+    alignItems:center;
+    display:flex;
+    justifyContent:center;
+    margin-top: 15px;
+}
+
+
+.email-verification-code-validate-container{
+    alignItems:center;
+    display:flex;
+    justifyContent:center;
+    margin-top: 15px;
+}
+
+.email-verification-container-text-field{
+    margin-inline: 10px !important;
+    width: 300px;
+}
+
+#email-verification-open-button{
+    margin-left: 10px;
+}
+
+#register-email-text{
+    font-size: 19px;
+}
+
+.channel-title-text{
+    font-weight: bold !important;
+}

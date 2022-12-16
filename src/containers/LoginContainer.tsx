@@ -5,7 +5,6 @@ import {Typography} from "@material-ui/core";
 const LoginContainer = () => {
     return(
         <div>
-            <MainHeader/>
 
 
             <div className={"login-buttons-container"}>

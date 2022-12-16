@@ -66,6 +66,17 @@ const MainHeader = () => {
 
                 <div className={"header-manu-container"}>
 
+                    <div id={"notification-btn"}  onClick={()=>{
+                        mixpanel.track(
+                            "notificationPageClick"
+                        );
+
+                    }
+                    }
+                    >
+                        <Link className={"header-manu-text"} to={"/notifications"} > 🔔 특가 알림</Link>
+                    </div>
+
                     <div id={"real-hot-deal-distinction-btn"}  onClick={()=>{
                         mixpanel.track(
                             "realHotDealDistinctionClick"

@@ -21,6 +21,8 @@ import KaKaoOauthCallbackContainer from "./components/login/KaKaoOauthCallbackCo
 import MyFavoriteContainer from "./containers/MyFavoriteContainer"; // GA4
 import mixpanel from 'mixpanel-browser';
 import ProductClassifyContainer from "./containers/ProductClassifyContainer";
+import NotificationContainer from "./containers/NotificationContainer";
+import MainHeader from "./components/header/MainHeader";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -48,8 +50,10 @@ mixpanel.people.set({
 
 root.render(
     <MuiThemeProvider theme={THEME}>
+
         <Provider store={store}>
             <BrowserRouter>
+                <MainHeader/>
                 <Routes>
                     <Route path="/" element={<MainContainer/>}/>
                     <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
@@ -58,6 +62,7 @@ root.render(
                     <Route path='/favorite' element={<MyFavoriteContainer/>} />
                     <Route path={"/oauth/callback/kakao"} element={<KaKaoOauthCallbackContainer/>} />
                     <Route path='/recommendation' element={<RecommendationContainer/>} />
+                    <Route path='/notifications' element={<NotificationContainer/>} />
 
 
                     <Route path='/hoon/recommendation' element={<ManageRecommendationContainer/>} />

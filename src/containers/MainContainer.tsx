@@ -147,7 +147,6 @@ const MainContainer = () => {
     // @ts-ignore
     return (
         <div>
-            <MainHeader/>
             {/*<CustomerRequirementInput></CustomerRequirementInput>*/}
             <div style={{textAlign: "center", marginBottom: "50px"}}>
                 {/*<Button>*/}

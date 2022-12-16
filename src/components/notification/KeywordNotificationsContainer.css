@@ -1,0 +1,85 @@
+.keyword-notifications-container{
+    background: #eeeeee !important;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    min-width: 200px;
+    flex-direction: column;
+    padding: 20px;
+    margin: 20px;
+}
+
+.keyword-list-header{
+    align-items:center;
+    display:flex;
+    justify-content:center;
+}
+
+.keyword-list-text-container{
+    display: flex;
+    align-items: center;
+}
+
+.notification-keywords-list-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-keyword-modal{
+    align-items:center;
+    display:flex;
+    justify-content:center;
+    top:-50% !important
+}
+
+.add-keyword-modal-inner{
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.add-keyword-input-container{
+    alignItems:center;
+    display:flex;
+    justifyContent:center;
+    margin-top: 15px;
+}
+.price-limit-input-container{
+    alignItems:center;
+    display:flex;
+    justifyContent:center;
+    margin-top: 15px;
+}
+.add-keyword-button-container{
+    align-items: center;
+    display:flex;
+    justify-content:flex-end;
+    margin-top: 15px;
+}
+
+.add-keyword-input-text-field{
+    margin-inline: 10px !important;
+    width: 200px;
+
+}
+
+.price-limit-input-text-field{
+    margin-inline: 10px !important;
+    width: 100px;
+
+}
+
+#open-add-keyword-modal-button{
+    color: black;
+    width: 35px;
+    height: 35px;
+}
+
+#keyword-list-text{
+    font-weight: bold;
+}
+
+#register-keyword-text{
+    font-size: 19px;
+}

@@ -21,6 +21,8 @@
     margin-left: auto;
     vertical-align: middle;
     display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
 }
 
 .search-bar-container{
@@ -47,6 +49,12 @@
 }
 
 #real-hot-deal-distinction-btn{
+    cursor: pointer;
+    display: flex;
+    margin-right: 25px;
+}
+
+#notification-btn{
     cursor: pointer;
     display: flex;
     margin-right: 25px;

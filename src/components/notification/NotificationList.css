@@ -1,0 +1,29 @@
+.notification-list-container{
+    background: #eeeeee !important;
+    width: fit-content;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-inline: 20px;
+
+}
+
+.notification-item{
+    padding: 10px;
+    margin-block: 10px;
+    background: white !important;
+    display: flex;
+    max-width: 400px;
+    cursor: pointer;
+}
+
+#notification-title-text{
+    font-size: 14px;
+    color: darkgrey;
+}
+
+#notification-title-body{
+    font-size: 14px;
+    color: black;
+}
