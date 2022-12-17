@@ -7,6 +7,7 @@ import "./NotificationContainer.css"
 import KeywordNotificationsContainer from "../components/notification/KeywordNotificationsContainer";
 import NotificationList from "../components/notification/NotificationList";
 import {Typography} from "@material-ui/core";
+import mixpanel from "mixpanel-browser";
 const NotificationContainer = () => {
 
     const navigate = useNavigate()
@@ -20,6 +21,9 @@ const NotificationContainer = () => {
         <div className={"notification-container"}>
             <Typography style={{fontWeight:"bold",marginBottom:"10px",cursor:"pointer"}}
             onClick={()=>{
+                mixpanel.track(
+                    "notificationDescriptionPageClick"
+                );
                 window.open(`https://bush-thorn-7ed.notion.site/2c4a74ce40a0496fac7f281c9efb96f2`, '_blank')
             }}
             >

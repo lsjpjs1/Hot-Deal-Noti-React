@@ -1,20 +1,29 @@
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
 import {HotDealPreview} from "../common/hotDealDto";
+import {useSelector} from "react-redux";
+import {RootState} from "../modules";
 
 type Props = {
     onCheckBoxClick:(checked:boolean,sourceSite:string) => void
 }
 const SourceSiteCheckBoxGroup = (props: Props) => {
+
+    const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
+
+    const checkBoxes = Array.from(getHotDealRequest.sourceSitesMap).map(([key, value])=>{
+        return (
+            <FormControlLabel
+                checked={value}
+            control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,key)} />}
+            label={key}
+            />
+        )
+    })
     return (
         <FormGroup >
             <div>
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"11번가")} />} label="11번가" />
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"G마켓")} />} label="G마켓" />
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"쿠팡")} />} label="쿠팡" />
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"하이마트")} />} label="하이마트" />
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"롯데ON")} />} label="롯데ON" />
-                <FormControlLabel control={<Checkbox onChange={(event)=>props.onCheckBoxClick(event.target.checked,"옥션")} />} label="옥션" />
-            </div>
+                {checkBoxes}
+                 </div>
         </FormGroup>
 
     )

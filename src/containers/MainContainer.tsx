@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {
     callGetHotDeals,
     callGetHotDealsByHotDealId,
@@ -37,6 +37,7 @@ import ReactGA from "react-ga4";
 import MainHeader from "../components/header/MainHeader";
 import {HotDealPreview} from "../common/hotDealDto";
 import mixpanel from "mixpanel-browser";
+import {Link} from "react-router-dom";
 
 const MainContainer = () => {
 
@@ -221,9 +222,27 @@ const MainContainer = () => {
                 {recommendationHotDeals.length>0&&
                 <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
-
                 <HotDealListView title={hotDealPageTitle()} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}
                                  pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>
+                {hotDeals.length==0&&
+                <div>
+                    <Typography style={{ fontSize:"18px"}}>
+                        원하시는 제품의 특가가 아직 없나요?<br/>
+                        키워드 등록하고, 특가 알림을 받아보세요!
+                    </Typography>
+                    <div  onClick={()=>{
+                        mixpanel.track(
+                            "notificationPageClickInSearchResult"
+                        );
+
+                    }
+                    }
+                    >
+                        <Link className={"header-manu-text"} to={"/notifications"} > 🔔 특가 알림 받기</Link>
+                    </div>
+
+                </div>
+                }
                 <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
                           totalPageCount={totalPages}></PageView>
                 <p><b>Email : whendiscount@gmail.com</b><br/>

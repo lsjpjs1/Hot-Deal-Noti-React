@@ -33,6 +33,9 @@ const NotificationChannelContainer = () => {
     const emailRE = new RegExp("^([\\w\\.\\_\\-])*[a-zA-Z0-9]+([\\w\\.\\_\\-])*([a-zA-Z0-9])+([\\w\\.\\_\\-])+@([a-zA-Z0-9]+\\.)+[a-zA-Z0-9]{2,8}$")
 
     const openEmailVerificationModal = () => {
+        mixpanel.track(
+            "emailVerificationModalButtonClick"
+        );
         if (localStorage.getItem("authToken")==null){
             navigate("/login")
         }else{
@@ -49,6 +52,12 @@ const NotificationChannelContainer = () => {
     }
 
     const onEmailVerificationButtonClick = () => {
+        mixpanel.track(
+            "sendEmailVerificationCodeClick",
+            {
+                "email":targetUserEmail
+            }
+        );
         if (emailRE.exec(targetUserEmail) != null) {
             setShowVerificationCodeContainer(true)
             callSendEmailVerificationCode()
@@ -58,10 +67,23 @@ const NotificationChannelContainer = () => {
     }
 
     const onEmailVerificationCodeResendButtonClick = () => {
+        mixpanel.track(
+            "resendEmailVerificationCodeClick",
+            {
+                "email":targetUserEmail
+            }
+        );
         callSendEmailVerificationCode()
     }
 
     const onEmailVerificationCodeCheckButtonClick = async () => {
+        mixpanel.track(
+            "checkEmailVerificationCodeClick",
+            {
+                "email":targetUserEmail,
+                "verificationCode":emailVerificationCode
+            }
+        );
         if (emailVerificationCode != "") {
             await checkEmailVerificationCode(emailVerificationCode)
                 .then((res) => {
@@ -135,6 +157,9 @@ const NotificationChannelContainer = () => {
                 </Typography>
 
                 <img className={"android-link-image"} onClick={() => {
+                    mixpanel.track(
+                        "androidLinkClickInNotificationPage"
+                    );
                     window.open("https://play.google.com/store/apps/details?id=com.hotdealnoti", '_blank')
                 }} src={require("../../image/get_it_on_google_play.png")}/>
 

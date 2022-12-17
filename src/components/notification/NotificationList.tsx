@@ -8,6 +8,8 @@ import {RootState} from "../../modules";
 import {callGetNotificationKeywords, callGetNotifications} from "../../modules/keywordNotification";
 import {deleteKeyword} from "../../api/notificationApi";
 import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import mixpanel from "mixpanel-browser";
+import {KeywordNotification} from "../../common/notificationDto";
 
 const NotificationList = () =>{
 
@@ -22,15 +24,25 @@ const NotificationList = () =>{
         }
     }, []);
 
-    const onNotificationCardClick = (hotDealId: number) =>{
-        window.open(`/hot-deals/${hotDealId}`, '_blank')
+    const onNotificationCardClick = (notification: KeywordNotification) =>{
+        mixpanel.track(
+            "notificationCardClick",
+            {
+                "notificationId":notification.notificationId,
+                "notificationTitle": notification.notificationTitle,
+                "notificationBody": notification.notificationBody,
+                "accountId": notification.accountId,
+                "hotDealId":notification.notificationItemId
+            }
+        );
+        window.open(`/hot-deals/${notification.notificationItemId}`, '_blank')
     }
 
     const notificationElements = notifications.map((notification) => {
         return (
             <Card className={"notification-item"}
             onClick={()=>{
-                onNotificationCardClick(notification.notificationItemId)
+                onNotificationCardClick(notification)
             }}
             >
                 <div className={"notification-keyword-item-text-container"}>

@@ -9,7 +9,7 @@ type ProductPurposeSelectProps = {
     onSelect:(value:number)=>void
 }
 const ProductPurposeSelect = (props: ProductPurposeSelectProps) => {
-
+    const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
     let options
     if(productInitData!=null){
@@ -30,7 +30,7 @@ const ProductPurposeSelect = (props: ProductPurposeSelectProps) => {
                     제품 용도
                 </InputLabel>
                 <NativeSelect
-                    defaultValue={null}
+                    defaultValue={getHotDealRequest.filter.productPurposeId}
                     onChange={(event)=>{
 
                         const selectedTarget = event.target

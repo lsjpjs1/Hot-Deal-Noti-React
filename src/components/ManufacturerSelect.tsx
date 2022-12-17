@@ -9,7 +9,7 @@ type ManufacturerSelectProps = {
     onSelect:(value:number)=>void
 }
 const ManufacturerSelect = (props: ManufacturerSelectProps) => {
-
+    const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
     let options
     if(productInitData!=null){
@@ -30,7 +30,7 @@ const ManufacturerSelect = (props: ManufacturerSelectProps) => {
                     제조사
                 </InputLabel>
                 <NativeSelect
-                    defaultValue={null}
+                    defaultValue={getHotDealRequest.filter.manufacturerId}
                     onChange={(event)=>{
                         const selectedTarget = event.target
                         mixpanel.track(

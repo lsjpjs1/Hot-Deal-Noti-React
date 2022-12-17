@@ -5,6 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import {postKeyword} from "../../api/notificationApi";
 import NotificationKeywords from "./NotificationKeywords";
 import {useNavigate} from "react-router";
+import mixpanel from "mixpanel-browser";
 
 const KeywordNotificationsContainer = () => {
 
@@ -28,6 +29,9 @@ const KeywordNotificationsContainer = () => {
     }
 
     const openAddKeywordModal = () =>{
+        mixpanel.track(
+            "addKeywordModalButtonClick"
+        );
         if (localStorage.getItem("authToken")==null){
             navigate("/login")
         }else{
@@ -56,6 +60,15 @@ const KeywordNotificationsContainer = () => {
     }
 
     const onAddKeywordButtonClick = async () =>{
+
+        mixpanel.track(
+            "postKeywordClick",
+            {
+                "keyword":keyword,
+                "minPrice":minPrice.toLocaleString(),
+                "maxPrice":maxPrice.toLocaleString()
+            }
+        );
         await postKeyword({
             keyword: keyword,
             minPrice: minPrice,

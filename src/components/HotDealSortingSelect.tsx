@@ -2,10 +2,14 @@ import {Box, FormControl, InputLabel, NativeSelect} from "@material-ui/core";
 import SortingType from "../enum/SortingType";
 import "./HotDealSortingSelect.css"
 import mixpanel from "mixpanel-browser";
+import {useSelector} from "react-redux";
+import {RootState} from "../modules";
 type HotDealSortingSelectProps = {
     onSelect:(value:string)=>void
 }
 const HotDealSortingSelect = (props: HotDealSortingSelectProps) => {
+
+    const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     return (
         <Box style={{display:'inline-block', marginLeft:"20px"}} sx={{ minWidth: 50,maxWidth:130 }}>
             <FormControl fullWidth>
@@ -22,7 +26,7 @@ const HotDealSortingSelect = (props: HotDealSortingSelectProps) => {
                         );
                         props.onSelect(event.target.value)
                     }}
-                    defaultValue={SortingType.DISCOUNT_RATE_DESC}
+                    defaultValue={getHotDealRequest.pageRequest.sort}
                     inputProps={{
                         name: '정렬',
                         id: 'uncontrolled-native',
