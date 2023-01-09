@@ -23,6 +23,7 @@ import mixpanel from 'mixpanel-browser';
 import ProductClassifyContainer from "./containers/ProductClassifyContainer";
 import NotificationContainer from "./containers/NotificationContainer";
 import MainHeader from "./components/header/MainHeader";
+import RecommendationHotDealsContainer from "./containers/RecommendationHotDealsContainer";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -58,6 +59,7 @@ root.render(
                     <Route path="/" element={<MainContainer/>}/>
                     <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
                     <Route path='/hot-deals/product/:productId' element={<MainContainer/>} />
+                    <Route path='/hot-deals/recommendation' element={<RecommendationHotDealsContainer/>} />
                     <Route path='/login' element={<LoginContainer/>} />
                     <Route path='/favorite' element={<MyFavoriteContainer/>} />
                     <Route path={"/oauth/callback/kakao"} element={<KaKaoOauthCallbackContainer/>} />
