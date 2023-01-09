@@ -106,9 +106,14 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 getOptionLabel={(option: ProductDto | string) => typeof option == "object" ? option.fullModelName : option}
                 // @ts-ignore
                 onChange={(event, value: ProductDto) => {
-                    dispatch(setProductIdForSearch(value.productId))
-                    // @ts-ignore
-                    dispatch(callGetHotDealsByProductId())
+                    mixpanel.track(
+                        "showProductPriceHistoryInSearch",
+                        {
+                            "productId": value.productId,
+                            "productName": value.modelName
+                        }
+                    );
+                    window.open(`/hot-deals/product/${value.productId}`, '_blank')
                 }}
                 inputValue={searchBody}
                 onInputChange={(event, inputValue: string) => {
