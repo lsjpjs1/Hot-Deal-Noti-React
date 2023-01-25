@@ -303,13 +303,10 @@ const HotDealListView = (props: Props) => {
                                     // backgroundClip: "content-box, border-box"}}
                                     src={hotDeal.hotDealThumbnailUrl} width={230} height={230}/><br/>
                             </div>}
-                        {/*<Typography style={{display: 'inline-block'}}>{hotDeal.sourceSite}</Typography>*/}
 
-                        {/*<Typography*/}
-                        {/*    style={{display: 'inline-block', marginLeft: '10px'}}>{"조회: " + hotDeal.viewCount}</Typography>*/}
-
-                        {/*{Math.min(...props.hotDeals.map((hotdeal)=>hotdeal.discountPrice))==hotDeal.discountPrice&&*/}
-                        {/*    <Chip label="🔥역대가" color="primary" style={{marginRight: 5}} />}*/}
+                        {hotDeal.returnItemId!=0 && hotDeal.returnItemId!=null &&
+                                <Chip label={hotDeal.returnItemQuality+" / "+hotDeal.returnItemQualityDetail} size={"small"}  variant={"outlined"} style={{margin:"3px"}} />
+                        }
 
                         {
                             hotDeal.isDelete

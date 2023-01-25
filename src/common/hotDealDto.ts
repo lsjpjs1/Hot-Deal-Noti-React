@@ -19,6 +19,12 @@ export interface HotDealPreview {
     isDelete: boolean
 
     hotDealThumbnailUrl: string
+
+    returnItemId: number
+    returnItemQuality: string
+    returnItemQualityDetail: string
+    returnItemSaleStatus: string
+
 }
 
 export interface NotClassifiedHotDeal {
