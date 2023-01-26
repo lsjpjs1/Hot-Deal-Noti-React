@@ -8,7 +8,7 @@ import {
     callGetInitData, callGetRecommendationHotDeals,
     callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
-    callViewHotDeal,
+    callViewHotDeal, setIsShowReturnItem,
     setManufacturerId,
     setPage,
     setProductIdForSearch,
@@ -45,11 +45,13 @@ const MainContainer = () => {
     const PAGE_SIZE = 40;
     const dispatch = useDispatch();
     const hotDeals = useSelector((state: RootState) => state.hotDealReducer.hotDeals);
+    const returnHotDeals = useSelector((state: RootState) => state.hotDealReducer.returnHotDeals);
     const recommendationHotDeals = useSelector((state: RootState) => state.hotDealReducer.recommendationHotDeals);
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
 
+    console.log(["returnHotDeals",returnHotDeals])
 
     useEffect(() => {
 
@@ -73,6 +75,7 @@ const MainContainer = () => {
             getHotDeals()
             // @ts-ignore
             dispatch(callGetRecommendationHotDeals())
+            getReturnHotDeals()
         }
     }, []);
 
@@ -90,6 +93,12 @@ const MainContainer = () => {
     }
 
     const getHotDeals = () => {
+        // @ts-ignore
+        dispatch(callGetHotDeals())
+    }
+
+    const getReturnHotDeals = () => {
+        dispatch(setIsShowReturnItem(true))
         // @ts-ignore
         dispatch(callGetHotDeals())
     }
@@ -221,6 +230,9 @@ const MainContainer = () => {
                     </div>}
                 {recommendationHotDeals.length>0&&
                 <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
+                    pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
+                {returnHotDeals.length>0&&
+                <HotDealListView title={"반품 특가 💸"} hotDeals={returnHotDeals.slice(0,4)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 <HotDealListView title={hotDealPageTitle()} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}
                                  pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>

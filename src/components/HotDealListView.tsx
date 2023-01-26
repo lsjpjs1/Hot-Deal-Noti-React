@@ -57,14 +57,26 @@ const HotDealListView = (props: Props) => {
                     &nbsp;&nbsp;
                     {props.title=="추천 특가 👍"&&
                         <Chip
-                        className={"model-name-button"}
-                        label={"전체보기"}
-                        onClick={() => {
-                            mixpanel.track(
-                                "showEntireRecommendationHotDeals"
-                            );
-                            window.open(`/hot-deals/recommendation`, '_blank')
-                        }}
+                            className={"model-name-button"}
+                            label={"전체보기"}
+                            onClick={() => {
+                                mixpanel.track(
+                                    "showEntireRecommendationHotDeals"
+                                );
+                                window.open(`/hot-deals/recommendation`, '_blank')
+                            }}
+                        />
+                    }
+                    {props.title=="반품 특가 💸"&&
+                        <Chip
+                            className={"model-name-button"}
+                            label={"전체보기"}
+                            onClick={() => {
+                                mixpanel.track(
+                                    "showEntireReturnHotDeals"
+                                );
+                                window.open(`/hot-deals/return`, '_blank')
+                            }}
                         />
                     }
 

@@ -21,16 +21,19 @@ import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
 import {useDispatch} from "react-redux";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
+const GET_RETURN_HOT_DEALS_SUCCESS = "GET_RETURN_HOT_DEALS_SUCCESS" as const;
 const GET_RECOMMENDATION_HOT_DEALS_SUCCESS = "GET_RECOMMENDATION_HOT_DEALS_SUCCESS" as const;
 const GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS = "GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS" as const;
 const GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS = "GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS" as const;
 const GET_INIT_DATA_SUCCESS = "GET_INIT_DATA_SUCCESS" as const;
 
 const SET_SEARCH_BODY = 'SET_SEARCH_BODY' as const;
+const SET_SEARCH_MODE = 'SET_SEARCH_MODE' as const;
 const SET_SORT = 'SET_SORT' as const;
 const SET_PRODUCT_PURPOSE_ID = 'SET_PRODUCT_PURPOSE_ID' as const;
 const SET_MANUFACTURER_ID = 'SET_MANUFACTURER_ID' as const;
 const SET_PAGE = 'SET_PAGE' as const;
+const SET_IS_SHOW_RETURN_ITEM = 'SET_IS_SHOW_RETURN_ITEM' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
 const SET_CUSTOMER_REQUIREMENT_BODY = "SET_CUSTOMER_REQUIREMENT_BODY" as const;
@@ -47,6 +50,12 @@ export const setAddHotDealSite = (site: string) => ({
     type: SET_ADD_HOT_DEAL_SITE,
     site: site
 });
+
+export const setSearchMode = (searchMode: string) => ({
+    type: SET_SEARCH_MODE,
+    searchMode: searchMode
+});
+
 
 export const setAddHotDealOriginalPrice = (originalPrice: number) => ({
     type: SET_ADD_HOT_DEAL_ORIGINAL_PRICE,
@@ -77,6 +86,13 @@ export const getHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: numbe
     type: GET_HOT_DEALS_SUCCESS,
     hotDeals: hotDeals,
     totalPages: totalPages
+});
+
+export const getReturnHotDealsSuccess = (hotDeals: HotDealPreview[], totalPages: number, isReturnHotDealMode: boolean) => ({
+    type: GET_RETURN_HOT_DEALS_SUCCESS,
+    hotDeals: hotDeals,
+    totalPages: totalPages,
+    isReturnHotDealMode: isReturnHotDealMode
 });
 
 export const getRecommendationHotDealsSuccess = (recommendationHotDeals: HotDealPreview[]) => ({
@@ -128,6 +144,11 @@ export const setPage = (page: number) => ({
     page: page
 });
 
+export const setIsShowReturnItem = (isShow: boolean) => ({
+    type: SET_IS_SHOW_RETURN_ITEM,
+    isShow: isShow
+});
+
 export const setCustomerRequirementBody = (customerRequirementBody: string) => ({
     type: SET_CUSTOMER_REQUIREMENT_BODY,
     customerRequirementBody: customerRequirementBody
@@ -143,11 +164,18 @@ export const setSourceSites = (checked:boolean, sourceSite: string) => ({
 
 
 export const callGetHotDeals =
-    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+    (isReturnHotDealMode:boolean = false): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
+            const isShowReturnItem = getState().hotDealReducer.getHotDealRequest.filter.isShowReturnItem
             await getHotDeals(getState().hotDealReducer.getHotDealRequest).then((res) => {
                 const page: Page<HotDealPreview> = res.data
-                dispatch(getHotDealsSuccess(page.content, page.totalPages))
+                if (isShowReturnItem==true){
+                    console.log(page.content)
+                    dispatch(getReturnHotDealsSuccess(page.content, page.totalPages, isReturnHotDealMode))
+                    dispatch(setIsShowReturnItem(null))
+                }else{
+                    dispatch(getHotDealsSuccess(page.content, page.totalPages))
+                }
             }).catch((error) => {
                 console.log(error.response.data)
             })
@@ -297,17 +325,20 @@ export const callPostConnectionHistory =
 
 type HotDealAction =
     | ReturnType<typeof getHotDealsSuccess>
+    | ReturnType<typeof getReturnHotDealsSuccess>
     | ReturnType<typeof getRecommendationHotDealsSuccess>
     | ReturnType<typeof getHotDealsByProductIdSuccess>
     | ReturnType<typeof getNotClassifiedHotDealsSuccess>
     | ReturnType<typeof getInitDataSuccess>
     | ReturnType<typeof setSearchBody>
+    | ReturnType<typeof setSearchMode>
     | ReturnType<typeof setSort>
     | ReturnType<typeof setProductPurposeId>
     | ReturnType<typeof setManufacturerId>
     | ReturnType<typeof setPage>
     | ReturnType<typeof setSourceSites>
     | ReturnType<typeof setProductIdForSearch>
+    | ReturnType<typeof setIsShowReturnItem>
     | ReturnType<typeof setCustomerRequirementBody>
     | ReturnType<typeof setAddHotDealTitle>
     | ReturnType<typeof setAddHotDealLink>
@@ -318,6 +349,7 @@ type HotDealAction =
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
+    returnHotDeals: HotDealPreview[],
     recommendationHotDeals: HotDealPreview[],
     notClassifiedHotDeals: NotClassifiedHotDeal[],
     initData:  InitData
@@ -325,11 +357,13 @@ type HotDealState = {
     getHotDealRequest: GetHotDealsRequest,
     productIdForSearch: number,
     postCustomerRequirementRequest:PostCustomerRequirementRequest,
-    postHotDealRequest: PostHotDealRequest
+    postHotDealRequest: PostHotDealRequest,
+    searchMode: string
 }
 
 const initialState: HotDealState = {
     hotDeals: [],
+    returnHotDeals: [],
     recommendationHotDeals: [],
     notClassifiedHotDeals: [],
     initData: null,
@@ -343,7 +377,8 @@ const initialState: HotDealState = {
         filter: {
             searchBody: null,
             productPurposeId: null,
-            manufacturerId: null
+            manufacturerId: null,
+            isShowReturnItem: null
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
@@ -366,7 +401,8 @@ const initialState: HotDealState = {
         title: null,
         url: null,
         sourceSite: null
-    }
+    },
+    searchMode: null
 }
 
 function hotDealReducer(
@@ -379,6 +415,19 @@ function hotDealReducer(
                 ...state,
                 hotDeals: action.hotDeals,
                 totalPages: action.totalPages
+            }
+        case "GET_RETURN_HOT_DEALS_SUCCESS":
+            if (action.isReturnHotDealMode){
+                return {
+                    ...state,
+                    returnHotDeals: action.hotDeals,
+                    totalPages: action.totalPages
+                }
+            } else {
+                return {
+                    ...state,
+                    returnHotDeals: action.hotDeals
+                }
             }
         case "GET_RECOMMENDATION_HOT_DEALS_SUCCESS":
             return {
@@ -412,6 +461,11 @@ function hotDealReducer(
                     }
                 }
             }
+        case "SET_SEARCH_MODE":
+            return {
+                ...state,
+                searchMode: action.searchMode
+            }
         case SET_SORT:
             return {
                 ...state,
@@ -420,6 +474,17 @@ function hotDealReducer(
                     pageRequest: {
                         ...state.getHotDealRequest.pageRequest,
                         sort: action.sort
+                    }
+                }
+            }
+        case "SET_IS_SHOW_RETURN_ITEM":
+            return {
+                ...state,
+                getHotDealRequest: {
+                    ...state.getHotDealRequest,
+                    filter: {
+                        ...state.getHotDealRequest.filter,
+                        isShowReturnItem: action.isShow
                     }
                 }
             }

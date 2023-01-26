@@ -1,16 +1,28 @@
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@material-ui/core/Button";
 import "./SearchBar.css"
 import {ProductDto} from "../common/productDto";
-import {callGetProducts, setManufacturerId, setManufacturerName, setModelName} from "../modules/product";
+import {
+    callGetProductInitData,
+    callGetProducts,
+    setManufacturerId,
+    setManufacturerName,
+    setModelName
+} from "../modules/product";
 import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callGetHotDeals,
-    callGetHotDealsByProductId, setPage,
+    callGetHotDealsByHotDealId,
+    callGetHotDealsByProductId,
+    callGetInitData,
+    callGetRecommendationHotDeals,
+    callPostConnectionHistory,
+    setIsShowReturnItem,
+    setPage,
     setProductIdForSearch,
     setProductPurposeId,
     setSort,
@@ -25,6 +37,7 @@ import ManufacturerSelect from "./ManufacturerSelect";
 import SourceSiteCheckBoxGroup from "./SourceSiteCheckBoxGroup";
 import FilterListIcon from '@material-ui/icons/FilterList';
 import mixpanel from "mixpanel-browser";
+import {RETURN_ITEM_SEARCH_MODE} from "../containers/ReturnHotDealsContainer";
 
 type SearchBarProps = {
     onSearch: (s: string) => void;
@@ -35,29 +48,48 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
     const dispatch = useDispatch();
     const products = useSelector((state: RootState) => state.productReducer.products);
+    const searchMode = useSelector((state: RootState) => state.hotDealReducer.searchMode);
     const [searchBody, setSearchBody] = useState("");
     const [isOpenFilter, setIsOpenFilter] = useState(false);
     const [open, setOpen] = useState(false);
     const closePopper = () => setOpen(false);
     const openPopper = () => setOpen(true);
 
+    const getReturnHotDeals = () => {
+        dispatch(setIsShowReturnItem(true))
+        // @ts-ignore
+        dispatch(callGetHotDeals(true))
+    }
+
     const onHotDealSortingSelect = (sort: string) => {
         dispatch(setSort(sort))
         goFirstPage()
-        getHotDeals()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
     }
 
     const onProductPurposeSelect = (productPurposeId: number) => {
 
         dispatch(setProductPurposeId(productPurposeId))
         goFirstPage()
-        getHotDeals()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
     }
 
     const onManufacturerSelect = (manufacturerId: number) => {
         dispatch(setManufacturerId(manufacturerId))
         goFirstPage()
-        getHotDeals()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
     }
 
     const onCheckBoxClick = (checked: boolean, sourceSite: string) => {
@@ -72,7 +104,11 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
         dispatch(setSourceSites(checked, sourceSite))
         goFirstPage()
-        getHotDeals()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
     }
 
     const goFirstPage = () => {
@@ -94,6 +130,16 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
             <SearchIcon/>
         </InputAdornment>
     )
+
+    useEffect(() => {
+
+        // @ts-ignore
+        dispatch(callGetInitData())
+
+        // @ts-ignore
+        dispatch(callGetProductInitData())
+
+    }, []);
 
     return (
         <div className={"search"}>

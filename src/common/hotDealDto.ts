@@ -43,6 +43,7 @@ export interface HotDealsQueryFilter {
     searchBody: string
     productPurposeId: number
     manufacturerId: number
+    isShowReturnItem: boolean
 }
 
 export interface PostHotDealRequest {
