@@ -4,17 +4,19 @@ import React from "react";
 import StarBorderRoundedIcon from '@material-ui/icons/StarBorderRounded';
 import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import SearchBar from "../SearchBar";
-import {useDispatch} from "react-redux";
-import {callGetHotDeals, setPage, setSearchBody} from "../../modules/hotDeal";
+import {useDispatch, useSelector} from "react-redux";
+import {callGetHotDeals, setIsShowReturnItem, setPage, setSearchBody} from "../../modules/hotDeal";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
 import {getFavoriteHotDeals} from "../../api/hotDealApi";
 import {kakaoLogin} from "../../api/authApi";
 import mixpanel from "mixpanel-browser";
+import {RootState} from "../../modules";
+import {RETURN_ITEM_SEARCH_MODE} from "../../containers/ReturnHotDealsContainer";
 const MainHeader = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
-
+    const searchMode = useSelector((state: RootState) => state.hotDealReducer.searchMode);
 
     const getHotDeals = () => {
         // @ts-ignore
@@ -32,7 +34,17 @@ const MainHeader = () => {
         );
         dispatch(setSearchBody(s))
         goFirstPage()
-        getHotDeals()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
+    }
+
+    const getReturnHotDeals = () => {
+        dispatch(setIsShowReturnItem(true))
+        // @ts-ignore
+        dispatch(callGetHotDeals(true))
     }
 
     const logout = () => {
