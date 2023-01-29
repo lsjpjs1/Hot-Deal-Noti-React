@@ -1,10 +1,11 @@
 import {HotDealPreview} from "../common/hotDealDto";
 import moment from "moment";
 import {
+    callDeletePermanentHotDeal, callGetHotDeals,
     callGetHotDealsByHotDealId,
     callGetHotDealsByProductId,
     callGetInitData,
-    callPostConnectionHistory, callPostFavoriteHotDeal,
+    callPostConnectionHistory, callPostFavoriteHotDeal, setIsShowReturnItem,
     setProductIdForSearch
 } from "../modules/hotDeal";
 import {useDispatch} from "react-redux";
@@ -106,6 +107,16 @@ const HotDealListView = (props: Props) => {
                                 color: "rgba(17,17,17,0.68)",
                                 whiteSpace: "nowrap"
                             }}>{moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}</Typography>
+                            {hotDeal.productRanking!=null&&
+                                <Chip label={""+hotDeal.productPurpose+" "+hotDeal.productRanking+"위👑"} size={"small"}  variant={"outlined"} style={{margin:"3px"}}
+                                onClick={()=>{
+                                    mixpanel.track(
+                                        "showEntireRanking"
+                                    );
+                                    window.open(`/products/ranking`, '_blank')
+                                }}
+                                />
+                            }
                             <div style={{
                                 display: 'inline-flex',
                                 justifyContent: "center",
@@ -199,6 +210,24 @@ const HotDealListView = (props: Props) => {
                             }}>
                         </Chip>
 
+                        {props.pageType=="MANAGE_RETURN"&&<Button
+                            style={{
+                                display: 'inline-block',
+                                marginLeft: '40px',
+                                color: 'red'
+                            }}
+                            onClick={() => {
+                                // @ts-ignore
+                                dispatch(callDeletePermanentHotDeal(hotDeal.hotDealId))
+                                dispatch(setIsShowReturnItem(true))
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                                dispatch(setIsShowReturnItem(true))
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                            }}>
+                            영구 삭제
+                        </Button>}
                         <IconButton onClick={() => {
                             mixpanel.track(
                                 "naverShoppingLinkClick",

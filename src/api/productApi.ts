@@ -1,5 +1,5 @@
 import axiosInstance from "./index";
-import {GetProductsRequest, ClassifyHotDealRequest} from "../common/productDto";
+import {GetProductsRequest, ClassifyHotDealRequest, GetProductsRankingRequest} from "../common/productDto";
 
 export const getProductInitData = () =>
     axiosInstance.get("/products/classify/init-data"
@@ -13,6 +13,12 @@ export const getProducts = (getProductsRequest:GetProductsRequest) =>
     axiosInstance.get("/products",
         {params:getProductsRequest}
     )
+
+export const getProductsRanking = (getProductsRankingRequest:GetProductsRankingRequest) =>
+    axiosInstance.get("/products/ranking",
+        {params:getProductsRankingRequest}
+    )
+
 
 export const classifyHotDeal = (classifyHotDealRequest:ClassifyHotDealRequest) =>
     axiosInstance.patch("/hot-deals/classify",

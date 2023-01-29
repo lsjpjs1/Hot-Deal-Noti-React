@@ -22,6 +22,10 @@ export interface GetProductsRequest {
     manufacturer: string
 }
 
+export interface GetProductsRankingRequest {
+    productPurposeId: number
+}
+
 export interface ClassifyHotDealRequest {
     hotDealId: number,
     productId: number,
@@ -35,6 +39,18 @@ export interface ClassifyHotDealRequest {
 
 export interface GetProductsResponse {
     products: ProductDto[]
+}
+
+export interface GetProductsRankingResponse {
+    productsRankingDTOList: GetProductsRankingDTO[]
+}
+
+export interface GetProductsRankingDTO {
+    productId: number,
+    modelName: string,
+    productPurposeId: number,
+    productPurpose: string,
+    productRankingNumber: number
 }
 
 export interface ProductDto {

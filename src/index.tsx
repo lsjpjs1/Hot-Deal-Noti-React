@@ -25,6 +25,8 @@ import NotificationContainer from "./containers/NotificationContainer";
 import MainHeader from "./components/header/MainHeader";
 import RecommendationHotDealsContainer from "./containers/RecommendationHotDealsContainer";
 import ReturnHotDealsContainer from "./containers/ReturnHotDealsContainer";
+import ManageReturnHotDealsContainer from "./containers/ManageReturnHotDealsContainer";
+import HotDealsRankingContainer from "./containers/HotDealsRankingContainer";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -62,6 +64,7 @@ root.render(
                     <Route path='/hot-deals/product/:productId' element={<MainContainer/>} />
                     <Route path='/hot-deals/recommendation' element={<RecommendationHotDealsContainer/>} />
                     <Route path='/hot-deals/return' element={<ReturnHotDealsContainer/>} />
+                    <Route path='/products/ranking' element={<HotDealsRankingContainer/>} />
                     <Route path='/login' element={<LoginContainer/>} />
                     <Route path='/favorite' element={<MyFavoriteContainer/>} />
                     <Route path={"/oauth/callback/kakao"} element={<KaKaoOauthCallbackContainer/>} />
@@ -73,6 +76,7 @@ root.render(
                     <Route path="/hoon/980320" element={<HotDealClassifyContainer/>}/>
                     <Route path="/hoon/980320/product-classify" element={<ProductClassifyContainer/>}/>
                     <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
+                    <Route path="/hoon/980320/manage/return" element={<ManageReturnHotDealsContainer/>}/>
                     <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>
 
                     {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}

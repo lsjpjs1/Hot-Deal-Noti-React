@@ -30,6 +30,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
 
     const dispatch = useDispatch();
     const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
+    const classifyHotDealRequest = useSelector((state: RootState) => state.productReducer.classifyHotDealRequest);
 
     const [hotDealsIsShowingMap, setHotDealsIsShowingMap] = React.useState(new Map<number, boolean>());
 
@@ -161,6 +162,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                 <TextField {...params}
                                            label="모델명" variant={"standard"}/>}
                         />
+                        <Button onClick={()=>{window.open(`https://search.danawa.com/dsearch.php?k1=${inputValueMap.get(notClassifiedHotDeals.hotDealId)}&module=goods&act=dispMain`, '_blank')}}>다나와검색</Button>
                         <Autocomplete
                             freeSolo={true}
                             options={props.products}

@@ -25,6 +25,8 @@ export interface HotDealPreview {
     returnItemQualityDetail: string
     returnItemSaleStatus: string
 
+    productRanking: number,
+    productPurposeId: number
 }
 
 export interface NotClassifiedHotDeal {
