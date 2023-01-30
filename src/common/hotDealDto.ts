@@ -46,6 +46,8 @@ export interface HotDealsQueryFilter {
     productPurposeId: number
     manufacturerId: number
     isShowReturnItem: boolean
+    minDiscountRate: number
+    maxDiscountRate: number
 }
 
 export interface PostHotDealRequest {

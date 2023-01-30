@@ -20,7 +20,7 @@ import {
     callGetHotDealsByProductId,
     callGetInitData,
     callGetRecommendationHotDeals,
-    callPostConnectionHistory,
+    callPostConnectionHistory, setDiscountRateFilter,
     setIsShowReturnItem,
     setPage,
     setProductIdForSearch,
@@ -38,6 +38,7 @@ import SourceSiteCheckBoxGroup from "./SourceSiteCheckBoxGroup";
 import FilterListIcon from '@material-ui/icons/FilterList';
 import mixpanel from "mixpanel-browser";
 import {RETURN_ITEM_SEARCH_MODE} from "../containers/ReturnHotDealsContainer";
+import DiscountRateFilter from "./DiscountRateFilter";
 
 type SearchBarProps = {
     onSearch: (s: string) => void;
@@ -63,6 +64,18 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
     const onHotDealSortingSelect = (sort: string) => {
         dispatch(setSort(sort))
+        goFirstPage()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
+    }
+
+    const onSliderChange = (valueList: number|number[]) => {
+
+        // @ts-ignore
+        dispatch(setDiscountRateFilter(valueList[0],valueList[1]))
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
@@ -225,7 +238,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                             <ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>
                             <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
                             <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
-
+                            <DiscountRateFilter onSliderChange={onSliderChange}></DiscountRateFilter>
                         </Container>
                     </div>
 

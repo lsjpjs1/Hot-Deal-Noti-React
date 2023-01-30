@@ -37,6 +37,7 @@ const SET_IS_SHOW_RETURN_ITEM = 'SET_IS_SHOW_RETURN_ITEM' as const;
 const SET_SOURCE_SITES = 'SET_SOURCE_SITES' as const;
 const SET_PRODUCT_ID_FOR_SEARCH = "SET_PRODUCT_ID_FOR_SEARCH" as const;
 const SET_CUSTOMER_REQUIREMENT_BODY = "SET_CUSTOMER_REQUIREMENT_BODY" as const;
+const SET_DISCOUNT_RATE_FILTER = "SET_DISCOUNT_RATE_FILTER" as const;
 
 
 const SET_ADD_HOT_DEAL_TITLE = "SET_ADD_HOT_DEAL_TITLE" as const;
@@ -75,6 +76,12 @@ export const setAddHotDealDiscountRate = (discountRate: number) => ({
 export const setAddHotDealLink = (link: string) => ({
     type: SET_ADD_HOT_DEAL_LINK,
     link: link
+});
+
+export const setDiscountRateFilter = (minDiscountRate: number, maxDiscountRate: number) => ({
+    type: SET_DISCOUNT_RATE_FILTER,
+    minDiscountRate: minDiscountRate,
+    maxDiscountRate: maxDiscountRate
 });
 
 export const setAddHotDealTitle = (hotDealTitle: string) => ({
@@ -340,6 +347,7 @@ type HotDealAction =
     | ReturnType<typeof setProductIdForSearch>
     | ReturnType<typeof setIsShowReturnItem>
     | ReturnType<typeof setCustomerRequirementBody>
+    | ReturnType<typeof setDiscountRateFilter>
     | ReturnType<typeof setAddHotDealTitle>
     | ReturnType<typeof setAddHotDealLink>
     | ReturnType<typeof setAddHotDealSite>
@@ -378,7 +386,9 @@ const initialState: HotDealState = {
             searchBody: null,
             productPurposeId: null,
             manufacturerId: null,
-            isShowReturnItem: null
+            isShowReturnItem: null,
+            minDiscountRate: null,
+            maxDiscountRate: null
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
@@ -465,6 +475,18 @@ function hotDealReducer(
             return {
                 ...state,
                 searchMode: action.searchMode
+            }
+        case SET_DISCOUNT_RATE_FILTER:
+            return {
+                ...state,
+                getHotDealRequest: {
+                    ...state.getHotDealRequest,
+                    filter: {
+                        ...state.getHotDealRequest.filter,
+                        minDiscountRate: action.minDiscountRate,
+                        maxDiscountRate: action.maxDiscountRate
+                    }
+                }
             }
         case SET_SORT:
             return {
