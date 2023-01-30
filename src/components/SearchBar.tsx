@@ -75,6 +75,8 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     const onSliderChange = (valueList: number|number[]) => {
 
         // @ts-ignore
+        mixpanel.track("discountFilterChange", {"minDiscountRate": valueList[0], "maxDiscountRate":valueList[1]});
+        // @ts-ignore
         dispatch(setDiscountRateFilter(valueList[0],valueList[1]))
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
