@@ -19,12 +19,12 @@ type DiscountRateFilterProps = {
 }
 const DiscountRateFilter = (props: DiscountRateFilterProps) => {
 
-
-    const [value, setValue] = useState<number|number[]>([15, 100]);
+    const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
+    const [value, setValue] = useState<number|number[]>([getHotDealRequest.filter.minDiscountRate, getHotDealRequest.filter.maxDiscountRate]);
     const marks = [
         {
-            value: 15,
-            label: '15%',
+            value: 0,
+            label: '0%',
         },
         {
             value: 100,
@@ -41,7 +41,7 @@ const DiscountRateFilter = (props: DiscountRateFilterProps) => {
             <Slider
                 style={{maxWidth:"80%"}}
                 value={value}
-                min={15}
+                min={0}
                 max={100}
                 step={5}
                 marks={marks}

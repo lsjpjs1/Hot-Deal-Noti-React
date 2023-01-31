@@ -387,8 +387,8 @@ const initialState: HotDealState = {
             productPurposeId: null,
             manufacturerId: null,
             isShowReturnItem: null,
-            minDiscountRate: null,
-            maxDiscountRate: null
+            minDiscountRate: 0,
+            maxDiscountRate: 100
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
