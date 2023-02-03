@@ -58,7 +58,7 @@ const RecommendationHotDealsContainer = () => {
     }
     return(
         <div  style={{textAlign: "center", marginBottom: "50px"}}>
-            <HotDealListView title={"반품 특가(공사중) 💸"} hotDeals={returnHotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={"MANAGE_RETURN"}/>
+            <HotDealListView title={"반품 특가(Beta) 💸"} hotDeals={returnHotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={"MANAGE_RETURN"}/>
 
             <PageView currentPage={getHotDealRequest.pageRequest.page} onPageChange={onPageChange}
                       totalPageCount={totalPages}></PageView>
