@@ -219,7 +219,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                             setIsOpenFilter(true)
                         }}
             >
-                <FilterListIcon/><Typography>고급</Typography>
+                <FilterListIcon/><Typography>필터</Typography>
             </IconButton>
 
             <Modal
