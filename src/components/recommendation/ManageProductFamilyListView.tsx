@@ -66,7 +66,6 @@ const ManageProductFamilyListView = (productFamilyProps: Props) => {
                         />
                         <Button
                         onClick={async (e)=>{
-                            console.log(productFamilies.productFamily.productFamilyId)
                             await callUpdateProductFamily({
                                 productFamilyId: productFamilies.productFamily.productFamilyId,
                                 productFamilyDescription: productFamilyDescriptionMap.get(productFamilies.productFamily.productFamilyId)

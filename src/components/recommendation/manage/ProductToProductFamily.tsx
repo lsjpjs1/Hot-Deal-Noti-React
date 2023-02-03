@@ -28,7 +28,6 @@ const ProductToProductFamily = () => {
 
     const callGetProductFamily = async (productFamilyName:string) =>{
         await getProductFamilies({productFamilyName:productFamilyName}).then((res) => {
-            console.log( res.data.productFamilies)
             setProductFamilies(res.data.productFamilies)
         }).catch((error) => {
             console.log(error.response.data)

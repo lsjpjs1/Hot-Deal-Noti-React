@@ -340,6 +340,7 @@ const HotDealListView = (props: Props) => {
                                  label: hotDeal.hotDealId + "-" + hotDeal.modelName + "-" + hotDeal.title,
                              });
                          }}>
+
                         {hotDeal.hotDealThumbnailUrl != "" &&
                             <div>
                                 <img
@@ -347,7 +348,9 @@ const HotDealListView = (props: Props) => {
                                     //     borderImage: "linear-gradient(#8CD1C8, #8CD1C8), linear-gradient(#8ACFC6, #6DB8B6,#58A8AB,#4C9EA4, #489BA2)",
                                     //     backgroundOrigin: "border-box",
                                     // backgroundClip: "content-box, border-box"}}
-                                    src={hotDeal.hotDealThumbnailUrl} width={230} height={230}/><br/>
+                                    src={hotDeal.hotDealThumbnailUrl} width={230} height={230}
+                                style={hotDeal.isDelete?{filter:"brightness(60%)"}:{}}
+                                /><br/>
                             </div>}
 
                         {hotDeal.returnItemId!=0 && hotDeal.returnItemId!=null &&

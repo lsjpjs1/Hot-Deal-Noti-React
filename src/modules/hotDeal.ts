@@ -177,7 +177,6 @@ export const callGetHotDeals =
             await getHotDeals(getState().hotDealReducer.getHotDealRequest).then((res) => {
                 const page: Page<HotDealPreview> = res.data
                 if (isShowReturnItem==true){
-                    console.log(page.content)
                     dispatch(getReturnHotDealsSuccess(page.content, page.totalPages, isReturnHotDealMode))
                     dispatch(setIsShowReturnItem(null))
                 }else{
@@ -610,7 +609,6 @@ function hotDealReducer(
             }
         case "SET_ADD_HOT_DEAL_DISCOUNT_PRICE":
             if (state.postHotDealRequest.originalPrice!=null&& state.postHotDealRequest.discountPrice!=null){
-                console.log((action.discountPrice/state.postHotDealRequest.originalPrice))
                 return {
                     ...state,
                     postHotDealRequest: {
