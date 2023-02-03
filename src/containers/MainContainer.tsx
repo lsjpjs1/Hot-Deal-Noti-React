@@ -232,7 +232,7 @@ const MainContainer = () => {
                 <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 {returnHotDeals.length>0&&
-                <HotDealListView title={"반품 특가(Beta) 💸"} hotDeals={returnHotDeals.slice(0,4)} hotDealLinkOnClick={hotDealLinkOnClick}
+                <HotDealListView title={"반품 특가(공사중) 💸"} hotDeals={returnHotDeals.slice(0,4)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 <HotDealListView title={hotDealPageTitle()} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}
                                  pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>
