@@ -1,6 +1,8 @@
 import {HotDealPreview, NotClassifiedHotDeal} from "../../common/hotDealDto";
 import moment from "moment";
-import {Autocomplete, Button, createFilterOptions, MenuItem, Select, TextField} from "@mui/material";
+import { Button, MenuItem, Select, TextField} from "@material-ui/core";
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {createFilterOptions} from "@material-ui/lab/Autocomplete";
 import {ClassifyHotDealRequest, ProductDto, ProductInitData} from "../../common/productDto";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
@@ -157,7 +159,7 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                 // @ts-ignore
                                 dispatch(callGetProducts())
                             }}
-                            sx={{width: 600}}
+                            style={{width:"600px"}}
                             renderInput={(params) =>
                                 <TextField {...params}
                                            label="모델명" variant={"standard"}/>}
@@ -179,21 +181,23 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                     dispatch(callGetProducts())
                                 }
                             }}
-                            sx={{width: 300}}
+                            style={{width:"600px"}}
                             renderInput={(params) => <TextField {...params} label="제조사" variant={"standard"}/>}
                         />
 
                         <Select defaultValue={""}
+                                style={{marginRight:"50px",width:"100px"}}
                                 onChange={(event, child) => {
-                                    dispatch(setProductPurposeId(parseInt(event.target.value)))
+                                    dispatch(setProductPurposeId(parseInt(event.target.value as string)))
                                 }}
                         >
                             {productPurposeMenuItems}
                         </Select>
 
                         <Select defaultValue={""}
+                                style={{width:"100px"}}
                                 onChange={(event, child) => {
-                                    dispatch(setProductTypeId(parseInt(event.target.value)))
+                                    dispatch(setProductTypeId(parseInt(event.target.value as string)))
                                 }}
                         >
                             {productTypeMenuItems}
