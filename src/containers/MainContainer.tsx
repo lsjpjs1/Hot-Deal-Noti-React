@@ -219,9 +219,9 @@ const MainContainer = () => {
 
                 {/*    </Container>*/}
                 {/*</div>*/}
-                <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
-                    11번가, G마켓의 신학기 할인, 디지털 빅세일은 2월 6일(월)부터 시작입니다 ~^~^~
-                </Typography>
+                {/*<Typography style={{fontWeight:"bold",marginTop:"10px"}}>*/}
+                {/*    11번가, G마켓의 신학기 할인, 디지털 빅세일은 2월 6일(월)부터 시작입니다 ~^~^~*/}
+                {/*</Typography>*/}
                 {params.productId != null && hotDeals.length > 0 &&
                     <div>
                         <h1>
