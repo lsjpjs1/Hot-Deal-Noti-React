@@ -68,7 +68,7 @@ const HotDealListView = (props: Props) => {
                             }}
                         />
                     }
-                    {props.title=="반품 특가(Beta) 💸"&&
+                    {props.title=="반품 특가 💸"&&
                         <Chip
                             className={"model-name-button"}
                             label={"전체보기"}
