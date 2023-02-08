@@ -18,7 +18,7 @@ import {
     setSourceSites
 } from "../modules/hotDeal";
 import '../App.css'
-import HotDealListView from "../components/HotDealListView";
+import HotDealListView from "../components/hotdeallist/HotDealListView";
 import PageView from "../components/PageView";
 import SearchBar from "../components/SearchBar";
 import Button from "@material-ui/core/Button";

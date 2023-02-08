@@ -6,7 +6,7 @@ import {useNavigate} from "react-router";
 import {callGetFavoriteHotDeals, callViewHotDeal} from "../modules/hotDeal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
-import HotDealListView from "../components/HotDealListView";
+import HotDealListView from "../components/hotdeallist/HotDealListView";
 
 const MyFavoriteContainer = () => {
     const navigate = useNavigate();

@@ -12,7 +12,7 @@ import {
 } from "../modules/hotDeal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
-import HotDealListView from "../components/HotDealListView";
+import HotDealListView from "../components/hotdeallist/HotDealListView";
 import {callGetProductInitData} from "../modules/product";
 
 const RecommendationHotDealsContainer = () => {

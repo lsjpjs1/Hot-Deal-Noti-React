@@ -1,0 +1,206 @@
+.mobile-container{
+    margin-left: 14px;
+    margin-right: 20px;
+}
+
+.model-name-button{
+    background: linear-gradient(0.25turn, rgba(0, 0, 0, 0.21), rgba(0, 0, 0, 0.06));
+}
+
+.mobile-hot-deal-header-container{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+}
+
+.mobile-hot-deal-header-second-line-container{
+    cursor: pointer;
+    background: #F2F2F2;
+    width: 100%;
+    border-radius: 4px;
+    height: 30px;
+    left: 6px;
+    top: 26px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-favorite-image{
+    border: 1.5px;
+    height: 12.680000305175781px;
+    width: 13.333333969116211px;
+    left: 1.33349609375px;
+    top: 1.3333740234375px;
+}
+
+.mobile-favorite-icon-button{
+    height: 12.680000305175781px;
+    width: 13.333333969116211px;
+    z-index: 10;
+}
+
+.mobile-model-name-text{
+    font-size: 12px;
+    font-weight: 700 !important;
+    line-height: 14px;
+    color: #1A1A1A;
+}
+
+.mobile-model-name-delete-text{
+    font-size: 12px;
+    font-weight: 700 !important;
+    line-height: 14px;
+    color: #CCCCCC;
+}
+
+.mobile-hot-deal-clickable-container{
+    cursor: pointer;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.mobile-hot-deal-thumbnail-container{
+    width: 100px;
+    height: 100px;
+}
+
+.mobile-hot-deal-info-container{
+    margin-left: 10px;
+    width: 100%;
+}
+
+.mobile-hot-deal-title-text{
+    font-size: 12px!important;
+    font-weight: 500!important;
+    line-height: 18px!important;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #1A1A1A;
+}
+
+.mobile-hot-deal-title-delete-text{
+    font-size: 12px!important;
+    font-weight: 500!important;
+    line-height: 18px!important;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #CCCCCC;
+
+}
+
+.mobile-discount-original-price-container{
+    display: flex;
+    align-items: center;
+    margin-top: 2px;
+}
+
+.mobile-hot-deal-discount-rate-text{
+    font-weight: 700 !important;
+    font-size: 14px!important;
+    line-height: 17px!important;
+    color: #1A1A1A;
+
+}
+
+.mobile-hot-deal-original-price-text{
+    margin-left: 10px !important;
+    font-weight: 400!important;
+    font-size: 12px !important;
+    line-height: 14px!important;
+    text-decoration-line: line-through;
+    color: #808080;
+
+}
+
+.mobile-discount-price-naver-container{
+    display: flex;
+    align-items: center;
+    margin-top: 4px;
+
+}
+
+
+.mobile-hot-deal-discount-price-text{
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    color: #F92626;
+}
+
+.mobile-hot-deal-return-info-text{
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    line-height: 19px !important;
+    color: #1A1A1A;
+    margin-left: 10px !important;
+}
+
+.naver-logo-image{
+    width: 24px;
+    height: 24px;
+    left: 302px;
+    top: 123px;
+}
+
+.naver-logo-button{
+    width: 24px;
+    height: 24px;
+    margin-left: auto !important;
+}
+
+.mobile-hot-deal-metadata-container{
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+
+}
+
+.mobile-hot-deal-upload-time-text{
+    font-weight: 400!important;
+    font-size: 12px!important;
+    line-height: 14px !important;
+    color: #808080;
+    margin-left: 4px!important;
+}
+
+.mobile-hot-deal-view-count-text{
+    font-weight: 400!important;
+    font-size: 12px!important;
+    line-height: 14px !important;
+    color: #808080;
+    margin-left: 4px!important;
+}
+
+.mobile-clock-image{
+    width: 12px;
+    height: 12px;
+}
+.mobile-eye-image{
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+}
+
+.mobile-arrow-image{
+    width: 5.33px;
+    height: 10.67px;
+    margin-left: auto !important;
+    margin-right: 15.33px;
+}
+
+.mobile-product-ranking-button{
+    margin-left: 22px !important;
+    margin-bottom: 3px !important;
+    height: 20px;
+    width: 105px;
+}
+
+.mobile-product-ranking-text{
+    font-weight: 700!important;
+    font-size: 12px!important;
+    line-height: 14px !important;
+    color: #1A1A1A;
+}
