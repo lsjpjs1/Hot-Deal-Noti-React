@@ -1,10 +1,9 @@
-import {Box, Checkbox, FormControl, FormControlLabel, InputLabel, NativeSelect} from "@material-ui/core";
-import SortingType from "../enum/SortingType";
+import {Box, FormControl, InputLabel, NativeSelect} from "@material-ui/core";
 import "./HotDealSortingSelect.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
-import {useState} from "react";
 import mixpanel from "mixpanel-browser";
+
 type ProductPurposeSelectProps = {
     onSelect:(value:number)=>void
 }

@@ -8,7 +8,6 @@ import rootReducer from "./modules";
 import {Provider} from "react-redux";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import MainContainer from "./containers/MainContainer";
-import ServerMaintenanceContainer from "./containers/ServerMaintenanceContainer";
 import ReactGA from 'react-ga4';
 import HotDealClassifyContainer from "./containers/HotDealClassifyContainer";
 import ManageHotDealsContainer from "./containers/ManageHotDealsContainer";

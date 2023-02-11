@@ -1,7 +1,4 @@
-import MainHeader from "../components/header/MainHeader";
-import KakaoLoginButton from "../components/login/KakaoLoginButton";
 import {useEffect} from "react";
-import {kakaoLogin} from "../api/authApi";
 import {useNavigate} from "react-router";
 import {callGetFavoriteHotDeals, callViewHotDeal} from "../modules/hotDeal";
 import {useDispatch, useSelector} from "react-redux";

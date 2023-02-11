@@ -2,28 +2,17 @@ import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import React, {useEffect, useState} from "react";
-import Button from "@material-ui/core/Button";
 import "./SearchBar.css"
 import {ProductDto} from "../common/productDto";
-import {
-    callGetProductInitData,
-    callGetProducts,
-    setManufacturerId,
-    setManufacturerName,
-    setModelName
-} from "../modules/product";
+import {callGetProductInitData, callGetProducts, setManufacturerId, setModelName} from "../modules/product";
 import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {
     callGetHotDeals,
-    callGetHotDealsByHotDealId,
-    callGetHotDealsByProductId,
     callGetInitData,
-    callGetRecommendationHotDeals,
-    callPostConnectionHistory, setDiscountRateFilter,
+    setDiscountRateFilter,
     setIsShowReturnItem,
     setPage,
-    setProductIdForSearch,
     setProductPurposeId,
     setSort,
     setSourceSites

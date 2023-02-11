@@ -1,18 +1,14 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import moment from "moment";
 import {
-    callDeletePermanentHotDeal, callGetHotDeals,
-    callGetHotDealsByHotDealId,
-    callGetHotDealsByProductId,
-    callGetInitData,
-    callPostConnectionHistory, callPostFavoriteHotDeal, setIsShowReturnItem,
-    setProductIdForSearch
+    callDeletePermanentHotDeal,
+    callGetHotDeals,
+    callPostFavoriteHotDeal,
+    setIsShowReturnItem
 } from "../../modules/hotDeal";
 import {useDispatch} from "react-redux";
 import {Button, Chip, Grid, Typography} from "@material-ui/core";
-import {SvgIcon} from "@mui/material";
-import React, {useEffect} from "react";
-import {callGetProductInitData} from "../../modules/product";
+import React from "react";
 import ReactGA from "react-ga4";
 import IconButton from "@material-ui/core/IconButton";
 import {deleteFavoriteHotDeal} from "../../api/hotDealApi";

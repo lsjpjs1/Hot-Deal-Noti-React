@@ -1,5 +1,4 @@
 import {Checkbox, FormControlLabel, FormGroup} from "@material-ui/core";
-import {HotDealPreview} from "../common/hotDealDto";
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
 

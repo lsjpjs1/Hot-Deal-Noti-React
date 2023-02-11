@@ -1,5 +1,5 @@
 import axiosInstance from "./index";
-import {GetProductsRequest, ClassifyHotDealRequest, GetProductsRankingRequest} from "../common/productDto";
+import {ClassifyHotDealRequest, GetProductsRankingRequest, GetProductsRequest} from "../common/productDto";
 
 export const getProductInitData = () =>
     axiosInstance.get("/products/classify/init-data"

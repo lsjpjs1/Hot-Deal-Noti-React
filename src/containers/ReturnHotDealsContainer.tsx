@@ -1,21 +1,12 @@
-import MainHeader from "../components/header/MainHeader";
-import KakaoLoginButton from "../components/login/KakaoLoginButton";
 import React, {useEffect} from "react";
-import {kakaoLogin} from "../api/authApi";
 import {useNavigate} from "react-router";
-import {
-    callGetFavoriteHotDeals, callGetHotDeals,
-    callGetHotDealsByHotDealId, callGetHotDealsByProductId,
-    callGetInitData, callGetRecommendationHotDeals,
-    callPostConnectionHistory,
-    callViewHotDeal, setIsShowReturnItem, setPage, setProductIdForSearch, setSearchMode
-} from "../modules/hotDeal";
+import {callGetHotDeals, callViewHotDeal, setIsShowReturnItem, setPage, setSearchMode} from "../modules/hotDeal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import HotDealListView from "../components/hotdeallist/HotDealListView";
-import {callGetProductInitData} from "../modules/product";
 import PageView from "../components/PageView";
 import mixpanel from "mixpanel-browser";
+
 export const RETURN_ITEM_SEARCH_MODE = "RETURN_ITEM"
 const RecommendationHotDealsContainer = () => {
     const navigate = useNavigate();

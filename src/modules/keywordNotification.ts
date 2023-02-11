@@ -1,24 +1,6 @@
-import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal} from "../common/hotDealDto";
-import {
-    getHotDeals,
-    GetHotDealsRequest, getNotClassifiedHotDeals,
-    getWeeklyPopularHotDeals,
-    viewHotDeal,
-    ViewHotDealRequest
-} from "../api/hotDealApi";
 import {AnyAction} from "redux";
 import {RootState} from "./index";
 import {ThunkAction} from "redux-thunk";
-import {Page, PageRequest} from "../common/page";
-import exp from "constants";
-import {postConnectionHistory} from "../api/connectionHistoryApi";
-import SortingType from "../enum/SortingType";
-import {getInitData} from "../api/getInitDataApi";
-import {InitData} from "../common/InitData";
-import {ClassifyHotDealRequest, GetProductsRequest, ProductDto, ProductInitData} from "../common/productDto";
-import {classifyHotDeal, getProductInitData, getProducts} from "../api/productApi";
-import {getRecommendations, postProductFamily} from "../api/recommendationApi";
-import RecommendationDto, {PostProductFamilyRequest} from "../common/recommendationDto";
 import {KeywordNotification, NotificationKeyword} from "../common/notificationDto";
 import {getKeywords, getNotifications} from "../api/notificationApi";
 

@@ -1,19 +1,9 @@
-import {
-    Box,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    InputLabel,
-    NativeSelect,
-    Slider,
-    Typography
-} from "@material-ui/core";
-import SortingType from "../enum/SortingType";
+import {Slider, Typography} from "@material-ui/core";
 import "./HotDealSortingSelect.css"
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useState} from "react";
-import mixpanel from "mixpanel-browser";
+
 type DiscountRateFilterProps = {
     onSliderChange:(valueList: number|number[])=>void
 }

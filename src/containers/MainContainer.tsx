@@ -5,36 +5,24 @@ import {
     callGetHotDeals,
     callGetHotDealsByHotDealId,
     callGetHotDealsByProductId,
-    callGetInitData, callGetRecommendationHotDeals,
+    callGetInitData,
+    callGetRecommendationHotDeals,
     callGetWeeklyPopularHotDeals,
     callPostConnectionHistory,
-    callViewHotDeal, setIsShowReturnItem,
-    setManufacturerId,
+    callViewHotDeal,
+    setIsShowReturnItem,
     setPage,
     setProductIdForSearch,
-    setProductPurposeId,
-    setSearchBody,
-    setSort,
-    setSourceSites
+    setSearchBody
 } from "../modules/hotDeal";
 import '../App.css'
 import HotDealListView from "../components/hotdeallist/HotDealListView";
 import PageView from "../components/PageView";
-import SearchBar from "../components/SearchBar";
-import Button from "@material-ui/core/Button";
-import HotDealSortingSelect from "../components/HotDealSortingSelect";
-import moment from 'moment';
 import 'moment/locale/ko';
-import SourceSiteCheckBoxGroup from "../components/SourceSiteCheckBoxGroup";
-import ProductPurposeSelect from "../components/ProductPurposeSelect";
 import {callGetProductInitData} from "../modules/product";
-import ManufacturerSelect from "../components/ManufacturerSelect";
-import {Container} from "@mui/material";
-import CustomerRequirementInput from "../components/CustomerRequirementInput";
 import {useParams} from "react-router";
 import {Typography} from "@material-ui/core";
 import ReactGA from "react-ga4";
-import MainHeader from "../components/header/MainHeader";
 import {HotDealPreview} from "../common/hotDealDto";
 import mixpanel from "mixpanel-browser";
 import {Link} from "react-router-dom";

@@ -1,7 +1,7 @@
-import MainHeader from "../components/header/MainHeader";
 import KakaoLoginButton from "../components/login/KakaoLoginButton";
 import "./LoginContainer.css"
 import {Typography} from "@material-ui/core";
+
 const LoginContainer = () => {
     return(
         <div>

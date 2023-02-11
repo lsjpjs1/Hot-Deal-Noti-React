@@ -1,21 +1,10 @@
-import {HotDealPreview} from "../../common/hotDealDto";
-import moment from "moment";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    callDeleteHotDeal,
-    callDeletePermanentHotDeal,
-    callGetHotDeals, callGetHotDealsByProductId,
-    setProductIdForSearch
-} from "../../modules/hotDeal";
-import {Button, Card, CardContent, TextareaAutosize, TextField} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {Button, Card, CardContent, TextField, Typography} from "@mui/material";
 import React, {useEffect} from "react";
-import {Accordion, AccordionDetails, AccordionSummary, Typography} from "@mui/material";
-import {RootState} from "../../modules";
-import recommendation, {callGetRecommendations} from "../../modules/recommendation";
 import {ProductFamilies, UpdateProductFamilyRequest} from "../../common/recommendationDto";
-import RecommendationProductListView from "./RecommendationProductListView";
-import {getProductFamilies, updateProductFamily} from "../../api/recommendationApi";
+import {updateProductFamily} from "../../api/recommendationApi";
 import ManageRecommendationProductListView from "./ManageRecommendationProductListView";
+
 type Props = {
     productFamilies: ProductFamilies[]
 }

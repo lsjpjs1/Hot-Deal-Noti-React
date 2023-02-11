@@ -1,7 +1,6 @@
 import axiosInstance from "./index";
 import {PageRequest} from "../common/page";
 import {HotDealsQueryFilter, PostHotDealRequest} from "../common/hotDealDto";
-import qs from "qs";
 
 export type GetHotDealsRequest = {
     pageRequest: PageRequest,

@@ -1,6 +1,4 @@
-import MainHeader from "../components/header/MainHeader";
 import {useEffect} from "react";
-import {callGetFavoriteHotDeals} from "../modules/hotDeal";
 import {useNavigate} from "react-router";
 import NotificationChannelContainer from "../components/notification/NotificationChannelContainer";
 import "./NotificationContainer.css"
@@ -8,6 +6,7 @@ import KeywordNotificationsContainer from "../components/notification/KeywordNot
 import NotificationList from "../components/notification/NotificationList";
 import {Typography} from "@material-ui/core";
 import mixpanel from "mixpanel-browser";
+
 const NotificationContainer = () => {
 
     const navigate = useNavigate()

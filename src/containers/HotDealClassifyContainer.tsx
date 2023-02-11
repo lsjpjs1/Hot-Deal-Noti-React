@@ -1,9 +1,9 @@
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
-import {callGetInitData, callGetNotClassifiedHotDeals, callPostConnectionHistory} from "../modules/hotDeal";
+import {callGetNotClassifiedHotDeals} from "../modules/hotDeal";
 import NotClassifiedHotDealListView from "../components/classifyproduct/NotClassifiedHotDealListView";
-import {callGetProductInitData, callGetProducts} from "../modules/product";
+import {callGetProductInitData} from "../modules/product";
 
 const HotDealClassifyContainer = () => {
 

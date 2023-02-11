@@ -1,13 +1,9 @@
 import "./NotificationList.css"
-import {Card, IconButton, Typography} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import {Card, Typography} from "@material-ui/core";
 import React, {useEffect} from "react";
-import NotificationKeywords from "./NotificationKeywords";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../modules";
-import {callGetNotificationKeywords, callGetNotifications} from "../../modules/keywordNotification";
-import {deleteKeyword} from "../../api/notificationApi";
-import CloseRoundedIcon from "@material-ui/icons/CloseRounded";
+import {callGetNotifications} from "../../modules/keywordNotification";
 import mixpanel from "mixpanel-browser";
 import {KeywordNotification} from "../../common/notificationDto";
 

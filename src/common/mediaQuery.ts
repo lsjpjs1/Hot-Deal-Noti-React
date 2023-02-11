@@ -1,4 +1,4 @@
-import { useMediaQuery } from "react-responsive";
+import {useMediaQuery} from "react-responsive";
 
 export const Desktop = ({children}: {children: JSX.Element}): JSX.Element | null => {
     const isDesktop = useMediaQuery({ minWidth: 768 });

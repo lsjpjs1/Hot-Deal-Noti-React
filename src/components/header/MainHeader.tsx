@@ -8,11 +8,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {callGetHotDeals, setIsShowReturnItem, setPage, setSearchBody} from "../../modules/hotDeal";
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router";
-import {getFavoriteHotDeals} from "../../api/hotDealApi";
-import {kakaoLogin} from "../../api/authApi";
 import mixpanel from "mixpanel-browser";
 import {RootState} from "../../modules";
 import {RETURN_ITEM_SEARCH_MODE} from "../../containers/ReturnHotDealsContainer";
+
 const MainHeader = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();

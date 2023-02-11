@@ -1,24 +1,30 @@
-import {HotDealPreview, HotDealsQueryFilter, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
+import {HotDealPreview, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
 import {
-    deleteHotDeal, deletePermanentHotDeal, getFavoriteHotDeals,
-    getHotDeals, getHotDealsByHotDealId, getHotDealsByProductId,
-    GetHotDealsRequest, getNotClassifiedHotDeals, getRecommendationHotDeals,
-    getWeeklyPopularHotDeals, postFavoriteHotDeal, postHotDeal,
+    deleteHotDeal,
+    deletePermanentHotDeal,
+    getFavoriteHotDeals,
+    getHotDeals,
+    getHotDealsByHotDealId,
+    getHotDealsByProductId,
+    GetHotDealsRequest,
+    getNotClassifiedHotDeals,
+    getRecommendationHotDeals,
+    getWeeklyPopularHotDeals,
+    postFavoriteHotDeal,
+    postHotDeal,
     viewHotDeal,
     ViewHotDealRequest
 } from "../api/hotDealApi";
 import {AnyAction} from "redux";
 import {RootState} from "./index";
 import {ThunkAction} from "redux-thunk";
-import {Page, PageRequest} from "../common/page";
-import exp from "constants";
+import {Page} from "../common/page";
 import {postConnectionHistory} from "../api/connectionHistoryApi";
 import SortingType from "../enum/SortingType";
 import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 import {postCustomerRequirement} from "../api/customerRequirementApi";
 import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
-import {useDispatch} from "react-redux";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 const GET_RETURN_HOT_DEALS_SUCCESS = "GET_RETURN_HOT_DEALS_SUCCESS" as const;

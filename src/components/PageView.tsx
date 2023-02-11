@@ -2,6 +2,7 @@ import classnames from "classnames";
 import ReactPaginate from "react-paginate";
 import './PageView.css'
 import styles from './PageView.module.css'
+
 type Props = {
     onPageChange : (page:{selected:number}) => void,
     totalPageCount: number,

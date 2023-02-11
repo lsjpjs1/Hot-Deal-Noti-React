@@ -1,12 +1,7 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import moment from "moment";
 import {useDispatch} from "react-redux";
-import {
-    callDeleteHotDeal,
-    callDeletePermanentHotDeal,
-    callGetHotDeals, callGetHotDealsByProductId,
-    setProductIdForSearch
-} from "../../modules/hotDeal";
+import {callDeleteHotDeal, callDeletePermanentHotDeal, callGetHotDeals} from "../../modules/hotDeal";
 import {Button, SvgIcon} from "@mui/material";
 import React from "react";
 import {Chip, Grid, Typography} from "@material-ui/core";

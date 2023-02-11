@@ -1,4 +1,3 @@
-
 import {useDispatch} from "react-redux";
 import {callPostCustomerRequirement, setCustomerRequirementBody} from "../modules/hotDeal";
 import {useState} from "react";

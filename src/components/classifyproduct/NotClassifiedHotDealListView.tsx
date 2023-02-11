@@ -1,22 +1,24 @@
-import {HotDealPreview, NotClassifiedHotDeal} from "../../common/hotDealDto";
+import {NotClassifiedHotDeal} from "../../common/hotDealDto";
 import moment from "moment";
 import {Autocomplete, Button, createFilterOptions, MenuItem, Select, TextField} from "@mui/material";
-import {ClassifyHotDealRequest, ProductDto, ProductInitData} from "../../common/productDto";
+import {ProductDto, ProductInitData} from "../../common/productDto";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    callClassifyHotDeal, callGetProducts,
+    callClassifyHotDeal,
+    callGetProducts,
     setHotDealId,
     setManufacturerId,
     setManufacturerName,
     setModelName,
-    setProductId, setProductPurposeId, setProductTypeId
+    setProductId,
+    setProductPurposeId,
+    setProductTypeId
 } from "../../modules/product";
 import {RootState} from "../../modules";
 import {callDeleteHotDeal, callDeletePermanentHotDeal} from "../../modules/hotDeal";
-import {Chip, Typography} from "@material-ui/core";
+import {Typography} from "@material-ui/core";
 import {postRecommendationHotDeal} from "../../api/hotDealApi";
-import ReactGA from "react-ga4";
 
 moment.locale("ko");
 

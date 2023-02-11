@@ -1,12 +1,11 @@
 import "./NotificationKeywords.css"
 import {useEffect} from "react";
-import {deleteKeyword, getKeywords, getUserEmail} from "../../api/notificationApi";
+import {deleteKeyword} from "../../api/notificationApi";
 import {useDispatch, useSelector} from "react-redux";
 import {callGetNotificationKeywords} from "../../modules/keywordNotification";
 import {RootState} from "../../modules";
-import {Button, Card, IconButton, Typography} from "@material-ui/core";
+import {Card, IconButton, Typography} from "@material-ui/core";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
-import {notDeepEqual} from "assert";
 
 const NotificationKeywords = () => {
 

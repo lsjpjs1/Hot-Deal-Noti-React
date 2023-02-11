@@ -4,6 +4,7 @@ import "./HotDealSortingSelect.css"
 import mixpanel from "mixpanel-browser";
 import {useSelector} from "react-redux";
 import {RootState} from "../modules";
+
 type HotDealSortingSelectProps = {
     onSelect:(value:string)=>void
 }

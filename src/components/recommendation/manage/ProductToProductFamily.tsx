@@ -1,13 +1,10 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import React, {useEffect, useState} from "react";
-import {PostProductFamilyRequest, ProductFamilies, ProductFamily} from "../../../common/recommendationDto";
+import {ProductFamily} from "../../../common/recommendationDto";
 import {Autocomplete, Button, createFilterOptions, TextField} from "@mui/material";
-import {callPostProductFamily, getRecommendationsSuccess} from "../../../modules/recommendation";
-import {GetProductsRequest, ProductDto} from "../../../common/productDto";
-import {callGetProducts, setModelName, setProductId} from "../../../modules/product";
-import {getProductFamilies, getRecommendations, setProductFamily} from "../../../api/recommendationApi";
+import {ProductDto} from "../../../common/productDto";
+import {getProductFamilies, setProductFamily} from "../../../api/recommendationApi";
 import {getProducts} from "../../../api/productApi";
-
 
 
 const ProductToProductFamily = () => {

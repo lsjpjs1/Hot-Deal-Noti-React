@@ -4,13 +4,10 @@ import {ProductFamily, ProductPurposeDetail} from "../../../common/recommendatio
 import {
     getProductFamilies,
     getProductPurposeDetails,
-    postRecommendationProductFamily,
-    setProductFamily
+    postRecommendationProductFamily
 } from "../../../api/recommendationApi";
 import {Autocomplete, Button, createFilterOptions, TextField} from "@mui/material";
-import {FormControl, InputLabel, NativeSelect} from "@material-ui/core";
-import SortingType from "../../../enum/SortingType";
-import productToProductFamily from "./ProductToProductFamily";
+import {FormControl, NativeSelect} from "@material-ui/core";
 
 const AddRecommendationProductFamily = () => {
 

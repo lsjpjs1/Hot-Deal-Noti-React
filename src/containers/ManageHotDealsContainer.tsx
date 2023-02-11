@@ -2,15 +2,18 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../modules";
 import {useEffect} from "react";
 import {
-    callGetHotDeals, callGetInitData, callGetWeeklyPopularHotDeals,
-    callPostConnectionHistory,
-    callViewHotDeal, setManufacturerId,
-    setPage, setProductPurposeId,
+    callGetHotDeals,
+    callGetInitData,
+    callGetWeeklyPopularHotDeals,
+    callViewHotDeal,
+    setManufacturerId,
+    setPage,
+    setProductPurposeId,
     setSearchBody,
-    setSort, setSourceSites
+    setSort,
+    setSourceSites
 } from "../modules/hotDeal";
 import '../App.css'
-import HotDealListView from "../components/hotdeallist/HotDealListView";
 import PageView from "../components/PageView";
 import SearchBar from "../components/SearchBar";
 import Button from "@material-ui/core/Button";

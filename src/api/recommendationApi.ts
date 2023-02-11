@@ -1,9 +1,10 @@
 import axiosInstance from "./index";
-import {GetProductsRequest, ClassifyHotDealRequest} from "../common/productDto";
 import {
     GetProductFamiliesRequest,
-    PostProductFamilyRequest, PostRecommendationProductFamilyRequest,
-    SetProductFamilyRequest, UpdateProductFamilyRequest
+    PostProductFamilyRequest,
+    PostRecommendationProductFamilyRequest,
+    SetProductFamilyRequest,
+    UpdateProductFamilyRequest
 } from "../common/recommendationDto";
 
 export const getRecommendations = () =>
