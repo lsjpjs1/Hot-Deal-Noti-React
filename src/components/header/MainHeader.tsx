@@ -69,7 +69,7 @@ const MainHeader = () => {
                             {"currentPage": window.location.href}
                         );
                         window.location.href = "/"
-                    }} src={require("../../image/IMG_0385_2.png")}/>
+                    }} src={"/image/IMG_0385_2.png"} />
                 </div>
 
                 <div className={"search-bar-container"}>

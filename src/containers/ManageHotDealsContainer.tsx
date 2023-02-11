@@ -113,7 +113,7 @@ const ManageHotDealsContainer = () => {
                 <Button>
                     <img onClick={() => {
                         window.location.reload()
-                    }} style={{width: "300px", height: "200"}} src={require("../image/IMG_0385.PNG")}/>
+                    }} style={{width: "300px", height: "200"}} src={"/image/IMG_0385.PNG"}/>
                 </Button>
                 {initData != null &&
                     <div>

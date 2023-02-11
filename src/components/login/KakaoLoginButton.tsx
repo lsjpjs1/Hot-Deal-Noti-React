@@ -8,7 +8,7 @@ const KakaoLoginButton = () => {
 
     return (
         <div style={{textAlign:"center"}}>
-            <img style={{width:"200px", cursor:"pointer"}} src={require("../../image/kakao_login_large_narrow.png")}
+            <img style={{width:"200px", cursor:"pointer"}} src={"/image/kakao_login_large_narrow.png"}
                  onClick={e=>{e.preventDefault()
                      window.location.href=kakaoLoginUrl}}
             />

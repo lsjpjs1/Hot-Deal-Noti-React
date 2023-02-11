@@ -379,7 +379,7 @@ const initialState: HotDealState = {
         pageRequest: {
             page: 0,
             sort: SortingType.UPLOAD_TIME_DESC,
-            size: 40
+            size: 20
         },
         filter: {
             searchBody: null,

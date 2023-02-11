@@ -12,8 +12,8 @@
 
 
 .logo-image{
-    max-width: 126px;
-    min-height: 91px;
+    width: 126px;
+    height: 91px;
     cursor: pointer;
 }
 

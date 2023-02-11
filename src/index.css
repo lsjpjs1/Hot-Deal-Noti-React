@@ -17,11 +17,11 @@ code {
 }
 @font-face {
   font-family: "Line";
-  src: url("./fonts/LINESeedKR-Rg.otf") format('opentype');
+  src: url("../public/fonts/LINESeedKR-Rg.otf") format('opentype');
 }
 
 @font-face {
   font-family: "Line";
   font-weight: 700;
-  src: url("./fonts/LINESeedKR-Bd.otf") format('opentype');
+  src: url("../public/fonts/LINESeedKR-Bd.otf") format('opentype');
 }

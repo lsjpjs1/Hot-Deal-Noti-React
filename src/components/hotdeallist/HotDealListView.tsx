@@ -24,12 +24,6 @@ import "./HotDealListView.css"
 import mixpanel from "mixpanel-browser";
 import {Desktop, Mobile} from "../../common/mediaQuery";
 
-import starImage from "../../image/icon/star_favorite.svg";
-import closeImage from "../../image/icon/close_favorite.svg";
-import clockImage from "../../image/icon/clock.svg";
-import eyeImage from "../../image/icon/eye.svg";
-import arrowImage from "../../image/icon/arrow.svg";
-
 moment.locale("ko");
 
 type Props = {
@@ -256,7 +250,7 @@ const HotDealListView = (props: Props) => {
                             }}
                             >
                                 <img style={{width: "25px", cursor: "pointer", borderRadius: "4px"}}
-                                     src={require("../../image/naver_logo.png")}
+                                     src={"/image/naver_logo.png"}
                                      onClick={e => {
                                      }}
                                 />
@@ -439,7 +433,7 @@ const HotDealListView = (props: Props) => {
                                                 }
                                             }}>
                                     <img className={"mobile-favorite-image"}
-                                         src={starImage}
+                                         src={"/image/icon/star_favorite.svg"}
                                     />
                                 </IconButton>
                                 :
@@ -466,7 +460,7 @@ const HotDealListView = (props: Props) => {
                                                 }
                                             }}>
                                     <img className={"mobile-favorite-image"}
-                                         src={closeImage}
+                                         src={"/image/icon/close_favorite.svg"}
                                     />
                                 </IconButton>
                             }
@@ -479,7 +473,7 @@ const HotDealListView = (props: Props) => {
                             </Typography>
 
                             <img className={"mobile-arrow-image"}
-                                 src={arrowImage}
+                                 src={"/image/icon/arrow.svg"}
                             />
 
                         </div>
@@ -586,7 +580,7 @@ const HotDealListView = (props: Props) => {
                                         }}
                                     >
                                         <img className={"naver-logo-image"}
-                                             src={require("../../image/naver_logo.png")}
+                                             src={"/image/naver_logo.png"}
                                         />
                                     </IconButton>
                                 }
@@ -595,14 +589,14 @@ const HotDealListView = (props: Props) => {
 
                             <div className={"mobile-hot-deal-metadata-container"}>
                                 <img className={"mobile-clock-image"}
-                                     src={clockImage}
+                                     src={"/image/icon/clock.svg"}
                                 />
                                 <Typography className={"mobile-hot-deal-upload-time-text"}>
                                     {moment(hotDeal.uploadTime, 'YYYYMMDDHHmmss z').add(9, "h").fromNow()}
                                 </Typography>
 
                                 <img className={"mobile-eye-image"}
-                                     src={eyeImage}
+                                     src={"/image/icon/eye.svg"}
                                 />
                                 <Typography className={"mobile-hot-deal-view-count-text"}>
                                     {hotDeal.viewCount}

@@ -161,7 +161,7 @@ const NotificationChannelContainer = () => {
                         "androidLinkClickInNotificationPage"
                     );
                     window.open("https://play.google.com/store/apps/details?id=com.hotdealnoti", '_blank')
-                }} src={require("../../image/get_it_on_google_play.png")}/>
+                }} src={"/image/get_it_on_google_play.png"}/>
 
 
             </div>
