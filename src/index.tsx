@@ -26,12 +26,13 @@ import RecommendationHotDealsContainer from "./containers/RecommendationHotDeals
 import ReturnHotDealsContainer from "./containers/ReturnHotDealsContainer";
 import ManageReturnHotDealsContainer from "./containers/ManageReturnHotDealsContainer";
 import HotDealsRankingContainer from "./containers/HotDealsRankingContainer";
+import {callGetNotifications} from "./modules/keywordNotification";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
 ReactGA.send("pageview");
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -44,12 +45,17 @@ const THEME = createMuiTheme({
 //mixpanel setup
 const mixpanelProjectToken = process.env["REACT_APP_MIXPANEL_PROJECT_TOKEN"];
 mixpanel.init(mixpanelProjectToken);
-mixpanel.people.set_once({
-    "firstView": new Date().toISOString()
-});
-mixpanel.people.set({
-    "lastView": new Date().toISOString()
-});
+
+if (localStorage.getItem("distinctID") != null) {
+    const distinctID = localStorage.getItem("distinctID")
+    mixpanel.identify(distinctID);
+} else {
+    const distinctID = Math.random().toString(36).substring(2, 12);
+    localStorage.setItem("distinctID", distinctID)
+    mixpanel.alias(distinctID)
+    mixpanel.identify(distinctID);
+}
+
 
 root.render(
     <MuiThemeProvider theme={THEME}>
@@ -59,19 +65,19 @@ root.render(
                 <MainHeader/>
                 <Routes>
                     <Route path="/" element={<MainContainer/>}/>
-                    <Route path='/hot-deals/:hotDealId' element={<MainContainer/>} />
-                    <Route path='/hot-deals/product/:productId' element={<MainContainer/>} />
-                    <Route path='/hot-deals/recommendation' element={<RecommendationHotDealsContainer/>} />
-                    <Route path='/hot-deals/return' element={<ReturnHotDealsContainer/>} />
-                    <Route path='/products/ranking' element={<HotDealsRankingContainer/>} />
-                    <Route path='/login' element={<LoginContainer/>} />
-                    <Route path='/favorite' element={<MyFavoriteContainer/>} />
-                    <Route path={"/oauth/callback/kakao"} element={<KaKaoOauthCallbackContainer/>} />
-                    <Route path='/recommendation' element={<RecommendationContainer/>} />
-                    <Route path='/notifications' element={<NotificationContainer/>} />
+                    <Route path='/hot-deals/:hotDealId' element={<MainContainer/>}/>
+                    <Route path='/hot-deals/product/:productId' element={<MainContainer/>}/>
+                    <Route path='/hot-deals/recommendation' element={<RecommendationHotDealsContainer/>}/>
+                    <Route path='/hot-deals/return' element={<ReturnHotDealsContainer/>}/>
+                    <Route path='/products/ranking' element={<HotDealsRankingContainer/>}/>
+                    <Route path='/login' element={<LoginContainer/>}/>
+                    <Route path='/favorite' element={<MyFavoriteContainer/>}/>
+                    <Route path={"/oauth/callback/kakao"} element={<KaKaoOauthCallbackContainer/>}/>
+                    <Route path='/recommendation' element={<RecommendationContainer/>}/>
+                    <Route path='/notifications' element={<NotificationContainer/>}/>
 
 
-                    <Route path='/hoon/recommendation' element={<ManageRecommendationContainer/>} />
+                    <Route path='/hoon/recommendation' element={<ManageRecommendationContainer/>}/>
                     <Route path="/hoon/980320" element={<HotDealClassifyContainer/>}/>
                     <Route path="/hoon/980320/product-classify" element={<ProductClassifyContainer/>}/>
                     <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
@@ -83,7 +89,6 @@ root.render(
             </BrowserRouter>
         </Provider>
     </MuiThemeProvider>
-
 );
 
 // If you want to start measuring performance in your app, pass a function
