@@ -207,11 +207,10 @@ const MainContainer = () => {
 
                 {/*    </Container>*/}
                 {/*</div>*/}
-                {/*<Typography style={{fontWeight:"bold",marginTop:"10px"}}>*/}
-                {/*    현재 지마켓 일부 상품의 가격이 잘못 표기되어 있습니다.(제목에 최종가 안적혀있는 상품들) {<br/>}*/}
-                {/*    이용에 불편을 드려 정말 죄송합니다. ㅠ{<br/>}*/}
-                {/*    빠르게 수정토록 하겠습니다.*/}
-                {/*</Typography>*/}
+                <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
+                    쿠폰 적용이 제대로 안될 때는 해당 오픈마켓 앱으로 확인해보시면 가장 확실합니다! {<br/>}
+                    <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}>표시된 금액과 가격이 달라요!</a> {<br/>}
+                </Typography>
                 {params.productId != null && hotDeals.length > 0 &&
                     <div>
                         <h1>
