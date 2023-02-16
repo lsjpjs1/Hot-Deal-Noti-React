@@ -216,7 +216,9 @@ const MainContainer = () => {
                         <h1>
                             {hotDeals[0].modelName}
                             <br/>
-                            {"역대 최저가 : " + Math.min(...hotDeals.map((hotdeal) => hotdeal.discountPrice)).toLocaleString() + "원"}
+                            {"역대 최저가 : " + Math.min(...hotDeals.map((hotdeal) => {
+                                return hotdeal.isCandidateProduct?1000000000:hotdeal.discountPrice
+                            })).toLocaleString() + "원"}
                         </h1>
                     </div>}
                 {recommendationHotDeals.length>0&&

@@ -7,7 +7,7 @@ import {
     setIsShowReturnItem
 } from "../../modules/hotDeal";
 import {useDispatch} from "react-redux";
-import {Button, Chip, Grid, Typography} from "@material-ui/core";
+import {Badge, Button, Chip, Grid, Tooltip, Typography} from "@material-ui/core";
 import React from "react";
 import ReactGA from "react-ga4";
 import IconButton from "@material-ui/core/IconButton";
@@ -16,6 +16,7 @@ import {useNavigate} from "react-router";
 import StarBorderRoundedIcon from "@material-ui/icons/StarBorderRounded";
 import CloseRoundedIcon from '@material-ui/icons/CloseRounded';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import "./HotDealListView.css"
 import mixpanel from "mixpanel-browser";
 import {Desktop, Mobile} from "../../common/mediaQuery";
@@ -36,7 +37,12 @@ const HotDealListView = (props: Props) => {
 
     if (props.pageType == "PRODUCT") {
         const htmlTitle = document.querySelector("title");
-        htmlTitle.innerHTML = props.hotDeals.length > 0 ? props.hotDeals[0].modelName + " 특가 목록 | 역대가 " + Math.min(...props.hotDeals.map((hotdeal) => hotdeal.discountPrice)).toLocaleString() + "원" + " | 진짜 최저가 | 노트북 특가 | 특가 어디가" : htmlTitle.innerHTML;
+        htmlTitle.innerHTML = props.hotDeals.length > 0 ?
+            props.hotDeals[0].modelName + " 특가 목록 | 역대가 " + Math.min(...props.hotDeals.map((hotdeal) => {
+                return hotdeal.isCandidateProduct?1000000000:hotdeal.discountPrice
+            })).toLocaleString() + "원" + " | 진짜 최저가 | 노트북 특가 | 특가 어디가"
+            :
+            htmlTitle.innerHTML;
     }
 
     const title = () => {
@@ -182,31 +188,60 @@ const HotDealListView = (props: Props) => {
                                         }}>
                                 <CloseRoundedIcon/>
                             </IconButton>}
-                        {/*@ts-ignore*/}
-                        <Chip
-                            className={"model-name-button"}
-                            label={hotDeal.modelName}
-                            onClick={() => {
-                                mixpanel.track(
-                                    "showProductPriceHistoryButtonClick",
-                                    {
-                                        "hotDealId": hotDeal.hotDealId,
-                                        "hotDealTitle": hotDeal.title,
-                                        "productId": hotDeal.productId,
-                                        "productName": hotDeal.modelName,
-                                        "discountRate": hotDeal.discountRate,
-                                        "originalPrice": hotDeal.originalPrice,
-                                        "discountPrice": hotDeal.discountPrice
-                                    }
-                                );
-                                ReactGA.event({
-                                    category: "버튼",
-                                    action: "모델 역대가 조회",
-                                    label: hotDeal.productId + "-" + hotDeal.modelName,
-                                });
-                                window.open(`/hot-deals/product/${hotDeal.productId}`, '_blank')
-                            }}>
-                        </Chip>
+
+                        <Tooltip
+                            enterTouchDelay={0}
+                            onClick={(event)=>{
+                                event.stopPropagation();
+                            }}
+                            title={
+                                hotDeal.isCandidateProduct&&hotDeal.productId!=1?
+                                <div>
+                                    자동분류된 모델명으로 잘못 분류되어 있을 수 있습니다.
+                                    정확도는 약 90%입니다.
+                                </div>
+                                    :
+                                    ""
+                            }>
+                        <Badge badgeContent={"자동분류됨"} color="primary"
+                               invisible={!hotDeal.isCandidateProduct||hotDeal.productId==1}
+                               anchorOrigin={{
+                                   vertical: 'top',
+                                   horizontal: 'left',
+                               }}
+                        >
+                            {/*@ts-ignore*/}
+                            <Chip
+                                style={{left:"0px",top:"3px"}}
+                                className={"model-name-button"}
+                                label={hotDeal.modelName}
+                                onClick={() => {
+                                    mixpanel.track(
+                                        "showProductPriceHistoryButtonClick",
+                                        {
+                                            "hotDealId": hotDeal.hotDealId,
+                                            "hotDealTitle": hotDeal.title,
+                                            "productId": hotDeal.productId,
+                                            "productName": hotDeal.modelName,
+                                            "discountRate": hotDeal.discountRate,
+                                            "originalPrice": hotDeal.originalPrice,
+                                            "discountPrice": hotDeal.discountPrice
+                                        }
+                                    );
+                                    ReactGA.event({
+                                        category: "버튼",
+                                        action: "모델 역대가 조회",
+                                        label: hotDeal.productId + "-" + hotDeal.modelName,
+                                    });
+                                    window.open(`/hot-deals/product/${hotDeal.productId}`, '_blank')
+                                }}>
+                            </Chip>
+                        </Badge>
+                        </Tooltip>
+
+
+
+
 
                         {props.pageType == "MANAGE_RETURN" && <Button
                             style={{
@@ -299,7 +334,7 @@ const HotDealListView = (props: Props) => {
                             <div>
                                 <img
                                     src={hotDeal.hotDealThumbnailUrl} width={230} height={230}
-                                    style={hotDeal.isDelete ? {filter: "brightness(60%)"} : {}}
+                                    style={hotDeal.isDelete ? {filter: "brightness(60%)",zIndex:1} : {zIndex:1}}
                                 /><br/>
                             </div>}
 
@@ -387,6 +422,30 @@ const HotDealListView = (props: Props) => {
                             </Button>
                         }
 
+                        <Tooltip
+                            style={{width:"100%"}}
+                            enterTouchDelay={0}
+                            onClick={(event)=>{
+                                event.stopPropagation();
+                            }}
+                            title={
+                                hotDeal.isCandidateProduct&&hotDeal.productId!=1?
+                                    <div>
+                                        자동분류된 모델명으로 잘못 분류되어 있을 수 있습니다.
+                                        정확도는 약 90%입니다.
+                                    </div>
+                                    :
+                                    ""
+                            }>
+                            <Badge badgeContent={"자동분류됨"} color="primary"
+                                   invisible={!hotDeal.isCandidateProduct}
+                                   anchorOrigin={{
+                                       vertical: 'top',
+                                       horizontal: 'right',
+                                   }}
+                                   style={{marginRight:"50px",width:"95%"}}
+
+                            >
                         <div className={"mobile-hot-deal-header-second-line-container"}
                              onClick={() => {
                                  mixpanel.track(
@@ -473,6 +532,8 @@ const HotDealListView = (props: Props) => {
                             />
 
                         </div>
+                            </Badge>
+                        </Tooltip>
 
                     </div>
 

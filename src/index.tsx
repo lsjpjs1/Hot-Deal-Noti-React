@@ -27,6 +27,7 @@ import ReturnHotDealsContainer from "./containers/ReturnHotDealsContainer";
 import ManageReturnHotDealsContainer from "./containers/ManageReturnHotDealsContainer";
 import HotDealsRankingContainer from "./containers/HotDealsRankingContainer";
 import {callGetNotifications} from "./modules/keywordNotification";
+import TestContainer from "./containers/TestContainer";
 
 const TRACKING_ID = process.env["REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID"]; // 발급받은 추적ID를 환경 변수로 불러온다.
 ReactGA.initialize(TRACKING_ID); //new
@@ -83,6 +84,7 @@ root.render(
                     <Route path="/hoon/980320/manage" element={<ManageHotDealsContainer/>}/>
                     <Route path="/hoon/980320/manage/return" element={<ManageReturnHotDealsContainer/>}/>
                     <Route path="/hoon/980320/add" element={<AddHotDealContainer/>}/>
+                    <Route path="/hoon/980320/test" element={<TestContainer/>}/>
 
                     {/*<Route path="/" element={<ServerMaintenanceContainer/>}/>*/}
                 </Routes>
