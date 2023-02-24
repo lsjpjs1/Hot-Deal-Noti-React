@@ -190,7 +190,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 onOpen={openPopper}
                 onClose={closePopper}
                 disableClearable={true}
-                style={{display: 'inline-block', width: 300}}
+                style={{display: 'inline-block', width: "320px"}}
                 renderInput={(params) =>
                     <TextField {...params}
                                InputProps={{
@@ -200,7 +200,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                                variant={"outlined"} label="검색"/>
                 }
             />
-            <IconButton style={{color: "black"}}
+            <IconButton style={{color: "black", marginLeft: "22px"}}
                         onClick={() => {
                             mixpanel.track(
                                 "filterClick"
@@ -208,7 +208,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                             setIsOpenFilter(true)
                         }}
             >
-                <FilterListIcon/><Typography>필터</Typography>
+                <FilterListIcon/><Typography style={{color:"#4D4D4D", marginLeft:"6px"}}>필터</Typography>
             </IconButton>
 
             <Modal

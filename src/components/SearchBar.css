@@ -4,7 +4,9 @@ div.search {
     display: flex;
 }
 
-
+.MuiInputBase-input {
+    height: 20px !important;
+}
 
 
 

@@ -11,6 +11,7 @@ import {useNavigate} from "react-router";
 import mixpanel from "mixpanel-browser";
 import {RootState} from "../../modules";
 import {RETURN_ITEM_SEARCH_MODE} from "../../containers/ReturnHotDealsContainer";
+import FilterListIcon from '@material-ui/icons/FilterList';
 
 const MainHeader = () => {
     const navigate = useNavigate()
@@ -85,7 +86,9 @@ const MainHeader = () => {
                     }
                     }
                     >
-                        <Link className={"header-manu-text"} to={"/notifications"} > 🔔 특가 알림</Link>
+
+                    <img className={"naver-logo-image"} src={"/image/icon/alarm.png"}/>
+                    <Link className={"header-manu-text"} to={"/notifications"} >특가 알림</Link>
                     </div>
 
                     <div id={"real-hot-deal-distinction-btn"}  onClick={()=>{
@@ -96,7 +99,8 @@ const MainHeader = () => {
                     }
                     }
                     >
-                        <Typography className={"header-manu-text"} > 찐 특가 구별법</Typography>
+                        <img className={"naver-logo-image"} src={"/image/icon/check.png"}/>
+                        <Typography className={"header-manu-text"} >찐 특가 구별법</Typography>
                     </div>
 
                     <div id={"faq-btn"}  onClick={()=>{
@@ -108,12 +112,12 @@ const MainHeader = () => {
                     }
                     >
                         <HelpOutlineRoundedIcon/>
-                        <Typography className={"header-manu-text"} > FAQ</Typography>
+                        <Typography className={"header-manu-text"} >FAQ</Typography>
                     </div>
 
                     <div id={"star-btn"} >
                         <StarBorderRoundedIcon/>
-                        <Link className={"header-manu-text"} to={"/favorite"} > 즐겨찾기</Link>
+                        <Link className={"header-manu-text"} to={"/favorite"} >즐겨찾기</Link>
                     </div>
 
                     {localStorage.getItem("authToken")?
