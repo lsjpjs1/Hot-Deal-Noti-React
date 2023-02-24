@@ -207,9 +207,9 @@ const MainContainer = () => {
 
                 {/*    </Container>*/}
                 {/*</div>*/}
-                <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
-                   쿠팡상품 가격오류로 인해 쿠팡상품이 잠시 노출되지 않습니다. 죄송합니다.
-                </Typography>
+                {/*<Typography style={{fontWeight:"bold",marginTop:"10px"}}>*/}
+                {/*   쿠팡상품 가격오류로 인해 쿠팡상품이 잠시 노출되지 않습니다. 죄송합니다.*/}
+                {/*</Typography>*/}
                 {params.productId != null && hotDeals.length > 0 &&
                     <div>
                         <h1>
