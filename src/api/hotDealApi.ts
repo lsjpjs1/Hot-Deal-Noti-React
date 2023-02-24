@@ -53,6 +53,11 @@ export const deleteHotDeal = (hotDealId: number) =>{
     return axiosInstance.delete(`/hot-deals/${hotDealId}`)
 }
 
+export const deleteProductIdHotDeal = (hotDealId: number) =>{
+
+    return axiosInstance.delete(`/hot-deals/${hotDealId}/product`)
+}
+
 export const postFavoriteHotDeal = (hotDealId: number) =>{
 
     const authToken = localStorage.getItem("authToken") != null? localStorage.getItem("authToken"):""

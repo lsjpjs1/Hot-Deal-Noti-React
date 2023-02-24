@@ -1,7 +1,12 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import moment from "moment";
 import {useDispatch} from "react-redux";
-import {callDeleteHotDeal, callDeletePermanentHotDeal, callGetHotDeals} from "../../modules/hotDeal";
+import {
+    callDeleteHotDeal,
+    callDeletePermanentHotDeal,
+    callDeleteProductIdHotDeal,
+    callGetHotDeals
+} from "../../modules/hotDeal";
 import {Button, SvgIcon} from "@mui/material";
 import React from "react";
 import {Chip, Grid, Typography} from "@material-ui/core";
@@ -92,6 +97,23 @@ const HotDealListView = (props: Props) => {
                                 dispatch(callGetHotDeals())
                             }}>
                             영구 삭제
+                        </Button>
+
+                        <Button
+                            style={{
+                                display: 'inline-block',
+                                marginLeft: '40px',
+                                color: 'grey'
+                            }}
+                            onClick={() => {
+                                // @ts-ignore
+                                dispatch(callDeleteProductIdHotDeal(hotDeal.hotDealId))
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                                // @ts-ignore
+                                dispatch(callGetHotDeals())
+                            }}>
+                            매핑 제거
                         </Button>
                         {hotDeal.productId != 1 && <div>
                             <Typography style={{display: 'inline-block'}}>{hotDeal.manufacturer}</Typography>

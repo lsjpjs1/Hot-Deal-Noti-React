@@ -1,7 +1,7 @@
 import {HotDealPreview, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
 import {
     deleteHotDeal,
-    deletePermanentHotDeal,
+    deletePermanentHotDeal, deleteProductIdHotDeal,
     getFavoriteHotDeals,
     getHotDeals,
     getHotDealsByHotDealId,
@@ -241,6 +241,15 @@ export const callDeleteHotDeal =
     (deletedHotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             await deleteHotDeal(deletedHotDealId).then((res) => {
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
+export const callDeleteProductIdHotDeal =
+    (deletedHotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await deleteProductIdHotDeal(deletedHotDealId).then((res) => {
             }).catch((error) => {
                 console.log(error.response.data)
             })

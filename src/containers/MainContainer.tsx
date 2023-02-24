@@ -207,10 +207,10 @@ const MainContainer = () => {
 
                 {/*    </Container>*/}
                 {/*</div>*/}
-                <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
-                    쿠폰 적용이 제대로 안될 때는 해당 오픈마켓 앱으로 확인해보시면 가장 확실합니다! {<br/>}
-                    <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}>표시된 금액과 가격이 달라요!</a> {<br/>}
-                </Typography>
+                {/*<Typography style={{fontWeight:"bold",marginTop:"10px"}}>*/}
+                {/*    쿠폰 적용이 제대로 안될 때는 해당 오픈마켓 앱으로 확인해보시면 가장 확실합니다! {<br/>}*/}
+                {/*    <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}>표시된 금액과 가격이 달라요!</a> {<br/>}*/}
+                {/*</Typography>*/}
                 {params.productId != null && hotDeals.length > 0 &&
                     <div>
                         <h1>
@@ -221,6 +221,10 @@ const MainContainer = () => {
                             })).toLocaleString() + "원"}
                         </h1>
                     </div>}
+                {
+
+
+                }
                 {recommendationHotDeals.length>0&&
                 <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}

@@ -24,3 +24,11 @@ export const classifyHotDeal = (classifyHotDealRequest:ClassifyHotDealRequest) =
     axiosInstance.patch("/hot-deals/classify",
         classifyHotDealRequest
     )
+
+export const passHotDeal = (hotDealId: number) =>
+    axiosInstance.patch(`/hot-deals/${hotDealId}/pass`
+    )
+
+export const notClassifyHotDeal = (hotDealId: number) =>
+    axiosInstance.patch(`/hot-deals/${hotDealId}/not-classify`
+    )

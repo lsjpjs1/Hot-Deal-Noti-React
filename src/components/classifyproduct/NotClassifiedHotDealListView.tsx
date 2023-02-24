@@ -16,9 +16,11 @@ import {
     setProductTypeId
 } from "../../modules/product";
 import {RootState} from "../../modules";
-import {callDeleteHotDeal, callDeletePermanentHotDeal} from "../../modules/hotDeal";
+import {callDeleteHotDeal, callDeletePermanentHotDeal, callGetNotClassifiedHotDeals} from "../../modules/hotDeal";
 import {Typography} from "@material-ui/core";
 import {postRecommendationHotDeal} from "../../api/hotDealApi";
+import {getProductFamilies} from "../../api/recommendationApi";
+import {notClassifyHotDeal, passHotDeal} from "../../api/productApi";
 
 moment.locale("ko");
 
@@ -33,6 +35,22 @@ const NotClassifiedHotDealListView = (props: Props) => {
     const dispatch = useDispatch();
     const productInitData = useSelector((state: RootState) => state.productReducer.productInitData);
     const classifyHotDealRequest = useSelector((state: RootState) => state.productReducer.classifyHotDealRequest);
+
+    const callPassHotDeal = async (hotDealId: number) => {
+        await passHotDeal(hotDealId).then((res) => {
+
+        }).catch((error) => {
+            console.log(error.response.data)
+        })
+    }
+
+    const callNotClassifyHotDeal = async (hotDealId: number) => {
+        await notClassifyHotDeal(hotDealId).then((res) => {
+
+        }).catch((error) => {
+            console.log(error.response.data)
+        })
+    }
 
     const [hotDealsIsShowingMap, setHotDealsIsShowingMap] = React.useState(new Map<number, boolean>());
 
@@ -212,6 +230,32 @@ const NotClassifiedHotDealListView = (props: Props) => {
                                 setHotDealsIsShowingMap((prevState) => new Map(prevState).set(notClassifiedHotDeals.hotDealId, false))
                             }}>
                             등록
+                        </Button>
+
+                        <Button
+                            style={{marginLeft:"100px",color:"goldenrod"}}
+                            onClick={() => {
+                                dispatch(setHotDealId(notClassifiedHotDeals.hotDealId))
+
+                                callPassHotDeal(notClassifiedHotDeals.hotDealId)
+
+                                // @ts-ignore
+                                setHotDealsIsShowingMap((prevState) => new Map(prevState).set(notClassifiedHotDeals.hotDealId, false))
+                            }}>
+                            통과
+                        </Button>
+
+                        <Button
+                            style={{marginLeft:"100px",color:"grey"}}
+                            onClick={() => {
+                                dispatch(setHotDealId(notClassifiedHotDeals.hotDealId))
+
+                                callNotClassifyHotDeal(notClassifiedHotDeals.hotDealId)
+
+                                // @ts-ignore
+                                setHotDealsIsShowingMap((prevState) => new Map(prevState).set(notClassifiedHotDeals.hotDealId, false))
+                            }}>
+                            분류불가
                         </Button>
 
 
