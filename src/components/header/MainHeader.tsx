@@ -12,6 +12,8 @@ import mixpanel from "mixpanel-browser";
 import {RootState} from "../../modules";
 import {RETURN_ITEM_SEARCH_MODE} from "../../containers/ReturnHotDealsContainer";
 import FilterListIcon from '@material-ui/icons/FilterList';
+import { BrowserView, MobileView } from 'react-device-detect'
+import { red } from "@material-ui/core/colors";
 
 const MainHeader = () => {
     const navigate = useNavigate()
@@ -60,6 +62,8 @@ const MainHeader = () => {
 
 
     return(
+        <div className = {"main-wrapper"}>
+        <BrowserView>
         <div className={"shadow"}>
             <div className={"main-header-container"}>
                 <div className={"logo-image-container"}>
@@ -138,7 +142,94 @@ const MainHeader = () => {
 
             </div>
         </div>
+        </BrowserView>
+        <MobileView>
+        <div className={"shadow"}>
+            <div className={"main-header-container-mobile"}>
+                <div className={"header-top-container-mobile"}>
+                    <div className={"top-left-container-mobile"}></div>
+                    <img className={"logo-image-mobile"} onClick={() => {
+                        mixpanel.track(
+                            "logoButtonClick",
+                            {"currentPage": window.location.href}
+                        );
+                        window.location.href = "/"
+                    }} src={"/image/IMG_0385_2.png"} />
+                    
+
+                    <div className={"top-right-container-mobile"}>
+                    {localStorage.getItem("authToken")?
+                        <div id={"login-btn"}>
+                            <Typography className={"login-text-mobile"}
+                                        onClick={logout}
+                            > 로그아웃</Typography>
+                        </div>
+                        :
+                        <div id={"login-btn"} >
+                            <Link className={"login-text-mobile"} to={"/login"} ><img className={"naver-logo-image"} src={"/image/icon/login.png"}/></Link>
+                        </div>
+                    }
+                    </div>
+                </div>
+
+                <div className={"search-bar-container-mobile"}>
+                    <SearchBar onSearch={onSearch} onSearchTextChange={(e)=>{}}/>
+                </div>
+
+                <div className={"header-manu-container-mobile"}>
+
+                    <div id={"notification-btn-mobile"}  onClick={()=>{
+                        mixpanel.track(
+                            "notificationPageClick"
+                        );
+
+                    }
+                    }
+                    >
+
+                    <img className={"naver-logo-image"} src={"/image/icon/alarm.png"}/>
+                    <Link className={"header-manu-text-mobile-tmp"} to={"/notifications"} >특가 알림</Link>
+                    </div>
+
+                    <div id={"real-hot-deal-distinction-btn-mobile"}  onClick={()=>{
+                        mixpanel.track(
+                            "realHotDealDistinctionClick"
+                        );
+                        window.open("https://bush-thorn-7ed.notion.site/924639f9727e400ebb3eeed6c086d8d6", '_blank')
+                    }
+                    }
+                    >
+                        <img className={"naver-logo-image"} src={"/image/icon/check.png"}/>
+                        <Typography className={"header-manu-text-mobile"} >&nbsp;&nbsp;&nbsp;찐 특가 구별법&nbsp;&nbsp;&nbsp;</Typography>
+                    </div>
+
+                    <div id={"faq-btn-mobile"}  onClick={()=>{
+                        mixpanel.track(
+                            "faqClick"
+                        );
+                        window.open("https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2", '_blank')
+                    }
+                    }
+                    >
+                        <img className={"naver-logo-image"} src={"/image/icon/question.png"}/>
+                        <Typography className={"header-manu-text-mobile"} >&nbsp;&nbsp;&nbsp;FAQ&nbsp;&nbsp;&nbsp;</Typography>
+                    </div>
+
+                    <div id={"star-btn-mobile"} >
+                        <img className={"naver-logo-image"} src={"/image/icon/star.png"}/>
+                        <Link className={"header-manu-text-mobile"} to={"/favorite"} >즐겨찾기</Link>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+        </MobileView>
+        </div>
         )
+
 }
 
 export default MainHeader

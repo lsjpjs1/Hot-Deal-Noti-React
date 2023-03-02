@@ -7,6 +7,7 @@ import {ProductDto} from "../common/productDto";
 import {callGetProductInitData, callGetProducts, setManufacturerId, setModelName} from "../modules/product";
 import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
+import { BrowserView, MobileView } from 'react-device-detect'
 import {
     callGetHotDeals,
     callGetInitData,
@@ -146,6 +147,8 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }, []);
 
     return (
+        <div>
+        <BrowserView>
         <div className={"search"}>
 
             <Autocomplete
@@ -238,6 +241,103 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
             </Modal>
 
+        </div>
+        </BrowserView>
+        <MobileView>
+        <div className={"search"}>
+
+            <Autocomplete
+                freeSolo={true}
+                options={products}
+                groupBy={(option: ProductDto) => option.manufacturer}
+                // @ts-ignore
+                getOptionLabel={(option: ProductDto | string) => typeof option == "object" ? option.fullModelName : option}
+                // @ts-ignore
+                onChange={(event, value: ProductDto) => {
+                    mixpanel.track(
+                        "showProductPriceHistoryInSearch",
+                        {
+                            "productId": value.productId,
+                            "productName": value.modelName
+                        }
+                    );
+                    window.open(`/hot-deals/product/${value.productId}`, '_blank')
+                }}
+                inputValue={searchBody}
+                onInputChange={(event, inputValue: string) => {
+                    setSearchBody(inputValue)
+
+                    if (inputValue != "") {
+                        dispatch(setModelName(inputValue))
+                        // @ts-ignore
+                        dispatch(callGetProducts())
+                    }
+                }}
+                onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                        // Prevent's default 'Enter' behavior.
+                        // @ts-ignore
+                        event.defaultMuiPrevented = true;
+                        // your handler code
+                        searchBarProps.onSearch(searchBody)
+                        closePopper()
+                    }
+                }}
+
+                open={open}
+                onOpen={openPopper}
+                onClose={closePopper}
+                disableClearable={true}
+                style={{display: 'inline-block', width: "320px"}}
+                renderInput={(params) =>
+                    <TextField {...params}
+                               InputProps={{
+                                   ...params.InputProps,
+                                   endAdornment: <SearchButton/>
+                               }}
+                               variant={"outlined"} label="검색"/>
+                }
+            />
+            <IconButton style={{color: "black", marginLeft: "3px"}}
+                        onClick={() => {
+                            mixpanel.track(
+                                "filterClick"
+                            );
+                            setIsOpenFilter(true)
+                        }}
+            >
+                
+                <img className={"naver-logo-image"} src={"/image/icon/filter.png"}/>
+            </IconButton>
+
+            <Modal
+                open={isOpenFilter}
+                onClose={() => {
+                    setIsOpenFilter(false)
+                }}
+                style={{alignItems:"center",display:"flex",justifyContent:"center",top:"-50%"}}
+            >
+                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"20px"
+                    }}>
+
+
+                    <div>
+
+                        <Container maxWidth={"sm"}>
+                            <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
+                            <ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>
+                            <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
+                            <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
+                            <DiscountRateFilter onSliderChange={onSliderChange}></DiscountRateFilter>
+                        </Container>
+                    </div>
+
+                </div>
+
+            </Modal>
+
+        </div>
+        </MobileView>
         </div>
     )
 }

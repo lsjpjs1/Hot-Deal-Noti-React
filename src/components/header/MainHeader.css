@@ -10,6 +10,13 @@
     flex-wrap: wrap;
  }
 
+.main-header-container-mobile{
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
 
 .logo-image{
     width: 240px;
@@ -17,8 +24,29 @@
     cursor: pointer;
 }
 
+.logo-image-mobile{
+    width: 160px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.top-left-container-mobile{
+    flex: 1;
+}
+
+.top-right-container-mobile{
+    flex: 1;
+}
+
 .header-manu-container{
     margin-left: auto;
+    vertical-align: middle;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.header-manu-container-mobile{
     vertical-align: middle;
     display: flex;
     flex-wrap: wrap;
@@ -31,6 +59,12 @@
     margin-bottom: 42px;
 }
 
+
+.search-bar-container-mobile{
+    margin-top: 9px;
+    margin-bottom: 20px;
+}
+
 .header-manu-text{
     font-weight: bold !important;
     cursor: pointer;
@@ -39,9 +73,47 @@
     margin-left: 8px !important ;
 }
 
+.header-manu-text-mobile{
+    font-weight: bold !important;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    margin-left: 11px;
+    margin-right: 11px;
+}
+
+.header-manu-text-mobile-tmp{ /* 특가알림 세로정렬 issue */
+    font-weight: bold !important;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    margin-left: 11px;
+    margin-right: 11px;
+    margin-top: 1px;
+}
+
+.login-text-mobile{
+    float: inline-end;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.header-top-container-mobile{
+    flex-direction: row;
+    display: flex;
+    align-self: stretch;
+    margin-top: 10px;
+}
+
 #star-btn{
     display: flex;
     margin-right: 25px;
+}
+
+#star-btn-mobile{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -51,14 +123,35 @@
     margin-right: 25px;
 }
 
+#faq-btn-mobile{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 #real-hot-deal-distinction-btn{
     cursor: pointer;
     display: flex;
     margin-right: 25px;
 }
 
+#real-hot-deal-distinction-btn-mobile{
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #notification-btn{
     cursor: pointer;
     display: flex;
     margin-right: 25px;
+}
+
+#notification-btn-mobile{
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
