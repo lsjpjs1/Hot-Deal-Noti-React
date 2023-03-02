@@ -104,7 +104,7 @@ const MainHeader = () => {
                     }
                     >
                         <img className={"naver-logo-image"} src={"/image/icon/check.png"}/>
-                        <Typography className={"header-manu-text"} >찐 특가 구별법</Typography>
+                        <Typography className={"header-manu-text"} >찐특가 구별법</Typography>
                     </div>
 
                     <div id={"faq-btn"}  onClick={()=>{
@@ -200,7 +200,7 @@ const MainHeader = () => {
                     }
                     >
                         <img className={"naver-logo-image"} src={"/image/icon/check.png"}/>
-                        <Typography className={"header-manu-text-mobile"} >&nbsp;&nbsp;&nbsp;찐 특가 구별법&nbsp;&nbsp;&nbsp;</Typography>
+                        <Typography className={"header-manu-text-mobile"} >&nbsp;&nbsp;&nbsp;찐특가 구별법&nbsp;&nbsp;&nbsp;</Typography>
                     </div>
 
                     <div id={"faq-btn-mobile"}  onClick={()=>{
