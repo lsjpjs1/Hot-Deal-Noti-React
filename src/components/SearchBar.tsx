@@ -208,7 +208,8 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                             setIsOpenFilter(true)
                         }}
             >
-                <FilterListIcon/><Typography style={{color:"#4D4D4D", marginLeft:"6px"}}>필터</Typography>
+                
+                <img className={"naver-logo-image"} src={"/image/icon/filter.png"}/><Typography style={{color:"#4D4D4D", marginLeft:"6px"}}>필터</Typography>
             </IconButton>
 
             <Modal

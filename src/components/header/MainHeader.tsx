@@ -111,12 +111,12 @@ const MainHeader = () => {
                     }
                     }
                     >
-                        <HelpOutlineRoundedIcon/>
+                        <img className={"naver-logo-image"} src={"/image/icon/question.png"}/>
                         <Typography className={"header-manu-text"} >FAQ</Typography>
                     </div>
 
                     <div id={"star-btn"} >
-                        <StarBorderRoundedIcon/>
+                        <img className={"naver-logo-image"} src={"/image/icon/star.png"}/>
                         <Link className={"header-manu-text"} to={"/favorite"} >즐겨찾기</Link>
                     </div>
 
@@ -128,7 +128,7 @@ const MainHeader = () => {
                         </div>
                         :
                         <div id={"login-btn"}>
-                            <Link className={"header-manu-text"} to={"/login"} > 로그인</Link>
+                            <Link className={"header-manu-text"} to={"/login"} >로그인</Link>
                         </div>
                     }
 
