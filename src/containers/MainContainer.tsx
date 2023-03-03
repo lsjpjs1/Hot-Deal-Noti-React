@@ -224,7 +224,7 @@ const MainContainer = () => {
 
 
                 }
-                {recommendationHotDeals.length>0&&
+                {recommendationHotDeals.length>0&&getHotDealRequest.filter.searchBody==null&&
                 <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 {returnHotDeals.length>0&&
