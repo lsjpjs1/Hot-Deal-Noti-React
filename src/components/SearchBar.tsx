@@ -62,6 +62,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         }
     }
 
+
     const onSliderChange = (valueList: number|number[]) => {
 
         // @ts-ignore
