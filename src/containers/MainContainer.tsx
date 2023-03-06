@@ -207,9 +207,11 @@ const MainContainer = () => {
 
                 {/*    </Container>*/}
                 {/*</div>*/}
-                {/*<Typography style={{fontWeight:"bold",marginTop:"10px"}}>*/}
-                {/*   쿠팡상품 가격오류로 인해 쿠팡상품이 잠시 노출되지 않습니다. 죄송합니다.*/}
-                {/*</Typography>*/}
+                <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
+                   할인적용이 안되신다면 앱으로 접속해보세요!
+                    {<br/>}
+                    <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}>표시된 금액과 가격이 달라요!</a> {<br/>}
+                </Typography>
                 {params.productId != null && hotDeals.length > 0 &&
                     <div>
                         <h1>
