@@ -29,6 +29,16 @@ export interface HotDealPreview {
     productPurposeId: number
 
     isCandidateProduct: boolean
+
+    productAdditionalFunctionDTOList: ProductAdditionalFunctionDTO[]
+}
+
+export interface ProductAdditionalFunctionDTO {
+    productFunctionTypeId:number
+    productFunctionId:number
+    productFunctionTypeName:string
+    productFunctionName:string
+
 }
 
 export interface NotClassifiedHotDeal {

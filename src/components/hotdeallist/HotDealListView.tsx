@@ -98,7 +98,14 @@ const HotDealListView = (props: Props) => {
     }
 
     const hotDealElementsForPC = props.hotDeals.map((hotDeal) => {
-
+        const productAdditionalFunctions = hotDeal.productAdditionalFunctionDTOList.map((productAdditionalFunctionDTO)=>{
+            return(
+                <>
+                    {productAdditionalFunctionDTO.productFunctionTypeName} : {productAdditionalFunctionDTO.productFunctionName}
+                    <br/>
+                </>
+            )
+        });
         return (
             <Grid item={true} spacing={5} style={{
                 marginBottom: "30px", marginTop: "30px",
@@ -106,6 +113,7 @@ const HotDealListView = (props: Props) => {
             }} key={hotDeal.hotDealId}>
                 <div>
                     <div>
+                        {productAdditionalFunctions}
                         <div style={{display: "flex", justifyContent: "space-between", marginInline: "40px"}}>
                             <Typography style={{
                                 display: 'inline-block',
