@@ -266,7 +266,7 @@ const HotDealListView = (props: Props) => {
                         </Button>}
 
                         {
-                            hotDeal.productPurposeId != 0 &&
+                            (hotDeal.productId != 1 && hotDeal.productId !=0) &&
                             <IconButton onClick={() => {
                                 mixpanel.track(
                                     "naverShoppingLinkClick",
