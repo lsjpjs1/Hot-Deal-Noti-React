@@ -208,7 +208,7 @@ const MainContainer = () => {
                 {/*    </Container>*/}
                 {/*</div>*/}
                 <Typography style={{fontWeight:"bold",marginTop:"10px"}}>
-                   할인적용이 안되신다면 앱으로 접속해보세요!
+                   할인적용이 안되신다면 쇼핑몰 앱으로 접속해보세요!
                     {<br/>}
                     <a href={"https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2"}>표시된 금액과 가격이 달라요!</a> {<br/>}
                 </Typography>
