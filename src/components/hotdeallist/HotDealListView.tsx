@@ -7,7 +7,7 @@ import {
     setIsShowReturnItem
 } from "../../modules/hotDeal";
 import {useDispatch} from "react-redux";
-import {Badge, Button, Chip, Grid, Tooltip, Typography} from "@material-ui/core";
+import {Badge, Button, Chip, Grid, Modal, Tooltip, Typography} from "@material-ui/core";
 import React from "react";
 import ReactGA from "react-ga4";
 import IconButton from "@material-ui/core/IconButton";
@@ -20,6 +20,7 @@ import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import "./HotDealListView.css"
 import mixpanel from "mixpanel-browser";
 import {Desktop, Mobile} from "../../common/mediaQuery";
+import {useState} from "react"
 
 moment.locale("ko");
 
@@ -32,7 +33,9 @@ type Props = {
 
 const HotDealListView = (props: Props) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [isOpenPopup, setIsOpenPopup] = useState(false);
+    const [currentHotDealLink,setCurrentHotDealLink] = useState("")
 
 
     if (props.pageType == "PRODUCT") {
@@ -320,8 +323,13 @@ const HotDealListView = (props: Props) => {
                                      }
                                  );
                              }
-
-                             window.open(hotDeal.link, '_blank')
+                            
+                             if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
+                                setCurrentHotDealLink(hotDeal.link)
+                                setIsOpenPopup(true)
+                             }else{
+                                window.open(hotDeal.link, '_blank')
+                             }
                              props.hotDealLinkOnClick(hotDeal.hotDealId)
                              ReactGA.event({
                                  category: "버튼",
@@ -566,7 +574,14 @@ const HotDealListView = (props: Props) => {
                                      }
                                  );
                              }
-                             window.open(hotDeal.link, '_blank')
+                             //window.open(hotDeal.link, '_blank')
+
+                             if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
+                                setCurrentHotDealLink(hotDeal.link)
+                                setIsOpenPopup(true)
+                             }else{
+                                window.open(hotDeal.link, '_blank')
+                             }
                              props.hotDealLinkOnClick(hotDeal.hotDealId)
 
                          }}>
@@ -678,12 +693,31 @@ const HotDealListView = (props: Props) => {
 
     return (
         <div>
-
-
             <Desktop>
                 <div>
+                    <Modal
+                        open={isOpenPopup}
+                        onClose={() => {
+                            setIsOpenPopup(false)
+                        }}
+                        style={{alignItems:"center",display:"flex",justifyContent:"center"}}
+                    >
+                        <div className={"popup-modal"}>
+                            <p style={{fontWeight:"bold", color:"#000099", fontSize:"25px"}}>특가 적용 안내</p>
+                            <div style={{textAlign:"left"}}>
+                            &nbsp;11번가와 G마켓의 경우 쇼핑몰 정책에 따라 특가어디의 링크를 통해 접속 시 특가 적용이 안될 수도 있습니다.
+                            <br></br>&nbsp;아래 링크를 참고하시면 특가어디가에 표기된 가격대로 구매 가능합니다.
+                            </div>
+                            <a href="https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2" target="_blank" style={{textDecoration:"none"}}><p style={{marginBottom:0, marginTop:20, fontWeight:"bold"}}>특가 적용법</p></a>
+                            <Button onClick={()=>{window.open(currentHotDealLink, '_blank')}}><p style={{marginTop:0, fontWeight:"bold", fontSize:16, height:10}}>그냥 쇼핑몰 방문하기</p></Button>
+                            <br></br>
+                            <Button onClick={()=>setIsOpenPopup(false)} style={{marginTop:25, marginBottom:0, height: 24}}>닫기</Button>
+                        </div>
+                    </Modal>
                     {title()}
+                    
                     <Grid container={true} justifyContent={"center"}>
+                    
                         {hotDealElementsForPC}
                     </Grid>
                 </div>
@@ -691,6 +725,25 @@ const HotDealListView = (props: Props) => {
 
             <Mobile>
                 <div className={"mobile-container"}>
+                <Modal
+                        open={isOpenPopup}
+                        onClose={() => {
+                            setIsOpenPopup(false)
+                        }}
+                        style={{alignItems:"center",display:"flex",justifyContent:"center"}}
+                    >
+                        <div className={"popup-modal-mobile"}>
+                            <p style={{fontWeight:"bold", color:"#000099", fontSize:"25px"}}>특가 적용 안내</p>
+                            <div style={{textAlign:"left"}}>
+                            &nbsp;11번가와 G마켓의 경우 쇼핑몰 정책에 따라 특가어디의 링크를 통해 접속 시 특가 적용이 안될 수도 있습니다.
+                            <br></br>&nbsp;아래 링크를 참고하시면 특가어디가에 표기된 가격대로 구매 가능합니다.
+                            </div>
+                            <a href="https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2" target="_blank" style={{textDecoration:"none"}}><p style={{marginBottom:0, marginTop:20, fontWeight:"bold"}}>특가 적용법</p></a>
+                            <Button onClick={()=>{window.open(currentHotDealLink, '_blank')}}><p style={{marginTop:0, fontWeight:"bold", fontSize:16, height:10}}>그냥 쇼핑몰 방문하기</p></Button>
+                            <br></br>
+                            <Button onClick={()=>setIsOpenPopup(false)} style={{marginTop:25, marginBottom:0, height:24}}>닫기</Button>
+                        </div>
+                    </Modal>
                     {title()}
                     <Grid container={false} justifyContent={"center"}>
                         {hotDealElementsForMoblie}
