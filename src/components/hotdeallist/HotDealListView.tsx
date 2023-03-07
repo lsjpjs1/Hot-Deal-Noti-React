@@ -21,6 +21,11 @@ import "./HotDealListView.css"
 import mixpanel from "mixpanel-browser";
 import {Desktop, Mobile} from "../../common/mediaQuery";
 import {useState} from "react"
+import { textAlign } from "@mui/system";
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 moment.locale("ko");
 
@@ -133,19 +138,127 @@ const HotDealListView = (props: Props) => {
         const productAdditionalFunctions = hotDeal.productAdditionalFunctionDTOList.map((productAdditionalFunctionDTO)=>{
             return(
                 <>
-                    {productAdditionalFunctionDTO.productFunctionTypeName} : {productAdditionalFunctionDTO.productFunctionName}
+                    <span style={{fontWeight:"bold",color:"#434343"}}>{productAdditionalFunctionDTO.productFunctionTypeName}</span>  <span style={{color:"#434343"}}>&nbsp;{productAdditionalFunctionDTO.productFunctionName}</span>
                     <br/>
                 </>
             )
         });
         return (
             <Grid item={true} spacing={5} style={{
-                marginBottom: "30px", marginTop: "30px",
-                width: "300px"
+                padding:"30px",
+                width: "600px"
             }} key={hotDeal.hotDealId}>
-                <div>
-                    <div>
-                        {productAdditionalFunctions}
+                <div style={{display:"flex", flexDirection:"row"}}>
+                <div style={{width:300}}>
+                    <div className={"hot-deal-clickable-container"}
+                         style={{cursor: "pointer"}}
+                         onClick={(e) => {
+                             if (props.title == "추천 특가 👍") {
+                                 mixpanel.track(
+                                     "recommendationHotDealLinkClick",
+                                     {
+                                         "hotDealId": hotDeal.hotDealId,
+                                         "hotDealTitle": hotDeal.title,
+                                         "productId": hotDeal.productId,
+                                         "productName": hotDeal.modelName,
+                                         "discountRate": hotDeal.discountRate,
+                                         "originalPrice": hotDeal.originalPrice,
+                                         "discountPrice": hotDeal.discountPrice
+                                     }
+                                 );
+                             } else {
+                                 mixpanel.track(
+                                     "hotDealLinkClick",
+                                     {
+                                         "hotDealId": hotDeal.hotDealId,
+                                         "hotDealTitle": hotDeal.title,
+                                         "productId": hotDeal.productId,
+                                         "productName": hotDeal.modelName,
+                                         "discountRate": hotDeal.discountRate,
+                                         "originalPrice": hotDeal.originalPrice,
+                                         "discountPrice": hotDeal.discountPrice
+                                     }
+                                 );
+                             }
+                            
+                             if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
+
+                                if (shouldShowPopup()){
+                                    setCurrentHotDealLink(hotDeal.link)
+                                    setIsOpenPopup(true)
+                                }else{
+                                    window.open(hotDeal.link, '_blank')
+                                }
+                             }else{
+                                window.open(hotDeal.link, '_blank')
+                             }
+                             props.hotDealLinkOnClick(hotDeal.hotDealId)
+                             ReactGA.event({
+                                 category: "버튼",
+                                 action: "특가 링크로 이동",
+                                 label: hotDeal.hotDealId + "-" + hotDeal.modelName + "-" + hotDeal.title,
+                             });
+                         }}>
+
+                        {hotDeal.hotDealThumbnailUrl != "" &&
+                            <div>
+                                <img
+                                    src={hotDeal.hotDealThumbnailUrl} width={230} height={230}
+                                    style={hotDeal.isDelete ? {filter: "brightness(60%)",zIndex:1} : {zIndex:1}}
+                                /><br/>
+                            </div>}
+
+                        {hotDeal.returnItemId != 0 && hotDeal.returnItemId != null &&
+                            <Chip label={hotDeal.returnItemQuality + " / " + hotDeal.returnItemQualityDetail}
+                                  size={"small"} variant={"outlined"} style={{margin: "3px"}}/>
+                        }
+
+                        {
+                            hotDeal.isDelete
+                                ?
+
+                                <h2 style={{fontSize: "14px"}}>
+                                    <del>
+                                        <a style={{textDecoration: "none", color: "gray", fontWeight: "normal"}}
+                                           target={"_blank"}>
+                                            {hotDeal.title}
+                                        </a>
+                                    </del>
+                                </h2>
+
+                                :
+                                <h2 style={{fontSize: "14px"}}>
+                                    <a
+                                        style={{textDecoration: "none", color: "black", fontWeight: "normal"}}
+                                        target={"_blank"}>
+                                        {hotDeal.title}
+                                    </a>
+                                </h2>
+                        }
+
+                        <Typography style={{
+                            display: 'inline-block',
+                            textDecoration: "line-through",
+                            color: "gray",
+                            fontSize: "14px"
+                        }}>{hotDeal.originalPrice.toLocaleString()}</Typography>&nbsp;&nbsp;&nbsp;
+                        <Typography style={{
+                            display: 'inline-block',
+                            fontWeight: 'bold',
+                            color: "#E83342",
+                            fontSize: "18px"
+                        }}>{hotDeal.discountRate}{"%↓"}</Typography>
+
+                        <Typography style={{
+                            fontSize: "18px",
+                            fontWeight: 'bold'
+                        }}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
+
+                    </div>
+
+                </div>
+                <div style={{ width:300, height:100, textAlign: "left"}}>
+                <div style={{marginBottom:20}}>
                         <div style={{display: "flex", justifyContent: "space-between", marginInline: "40px"}}>
                             <Typography style={{
                                 display: 'inline-block',
@@ -332,114 +445,9 @@ const HotDealListView = (props: Props) => {
                         }
 
                     </div>
-
-                    <div className={"hot-deal-clickable-container"}
-                         style={{cursor: "pointer"}}
-                         onClick={(e) => {
-                             if (props.title == "추천 특가 👍") {
-                                 mixpanel.track(
-                                     "recommendationHotDealLinkClick",
-                                     {
-                                         "hotDealId": hotDeal.hotDealId,
-                                         "hotDealTitle": hotDeal.title,
-                                         "productId": hotDeal.productId,
-                                         "productName": hotDeal.modelName,
-                                         "discountRate": hotDeal.discountRate,
-                                         "originalPrice": hotDeal.originalPrice,
-                                         "discountPrice": hotDeal.discountPrice
-                                     }
-                                 );
-                             } else {
-                                 mixpanel.track(
-                                     "hotDealLinkClick",
-                                     {
-                                         "hotDealId": hotDeal.hotDealId,
-                                         "hotDealTitle": hotDeal.title,
-                                         "productId": hotDeal.productId,
-                                         "productName": hotDeal.modelName,
-                                         "discountRate": hotDeal.discountRate,
-                                         "originalPrice": hotDeal.originalPrice,
-                                         "discountPrice": hotDeal.discountPrice
-                                     }
-                                 );
-                             }
-                            
-                             if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
-
-                                if (shouldShowPopup()){
-                                    setCurrentHotDealLink(hotDeal.link)
-                                    setIsOpenPopup(true)
-                                }else{
-                                    window.open(hotDeal.link, '_blank')
-                                }
-                             }else{
-                                window.open(hotDeal.link, '_blank')
-                             }
-                             props.hotDealLinkOnClick(hotDeal.hotDealId)
-                             ReactGA.event({
-                                 category: "버튼",
-                                 action: "특가 링크로 이동",
-                                 label: hotDeal.hotDealId + "-" + hotDeal.modelName + "-" + hotDeal.title,
-                             });
-                         }}>
-
-                        {hotDeal.hotDealThumbnailUrl != "" &&
-                            <div>
-                                <img
-                                    src={hotDeal.hotDealThumbnailUrl} width={230} height={230}
-                                    style={hotDeal.isDelete ? {filter: "brightness(60%)",zIndex:1} : {zIndex:1}}
-                                /><br/>
-                            </div>}
-
-                        {hotDeal.returnItemId != 0 && hotDeal.returnItemId != null &&
-                            <Chip label={hotDeal.returnItemQuality + " / " + hotDeal.returnItemQualityDetail}
-                                  size={"small"} variant={"outlined"} style={{margin: "3px"}}/>
-                        }
-
-                        {
-                            hotDeal.isDelete
-                                ?
-
-                                <h2 style={{fontSize: "14px"}}>
-                                    <del>
-                                        <a style={{textDecoration: "none", color: "gray", fontWeight: "normal"}}
-                                           target={"_blank"}>
-                                            {hotDeal.title}
-                                        </a>
-                                    </del>
-                                </h2>
-
-                                :
-                                <h2 style={{fontSize: "14px"}}>
-                                    <a
-                                        style={{textDecoration: "none", color: "black", fontWeight: "normal"}}
-                                        target={"_blank"}>
-                                        {hotDeal.title}
-                                    </a>
-                                </h2>
-                        }
-
-                        <Typography style={{
-                            display: 'inline-block',
-                            textDecoration: "line-through",
-                            color: "gray",
-                            fontSize: "14px"
-                        }}>{hotDeal.originalPrice.toLocaleString()}</Typography>&nbsp;&nbsp;&nbsp;
-                        <Typography style={{
-                            display: 'inline-block',
-                            fontWeight: 'bold',
-                            color: "#E83342",
-                            fontSize: "18px"
-                        }}>{hotDeal.discountRate}{"%↓"}</Typography>
-
-                        <Typography style={{
-                            fontSize: "18px",
-                            fontWeight: 'bold'
-                        }}>{hotDeal.discountPrice.toLocaleString() + "원"}</Typography>
-
-                    </div>
-
-
+                    <div style={{marginLeft:20}}>{productAdditionalFunctions}</div>
+                
+                </div>
                 </div>
 
             </Grid>
@@ -447,7 +455,14 @@ const HotDealListView = (props: Props) => {
     })
 
     const hotDealElementsForMoblie = props.hotDeals.map((hotDeal) => {
-
+        const productAdditionalFunctions = hotDeal.productAdditionalFunctionDTOList.map((productAdditionalFunctionDTO)=>{
+            return(
+                <>
+                    <span style={{fontWeight:"bold",color:"#434343"}}>{productAdditionalFunctionDTO.productFunctionTypeName}</span>  <span style={{color:"#434343"}}>&nbsp;{productAdditionalFunctionDTO.productFunctionName}</span>
+                    <br/>
+                </>
+            )
+        });
         return (
             <Grid item={true} spacing={5} style={{
                 marginBottom: "30px", marginTop: "30px"
@@ -732,7 +747,20 @@ const HotDealListView = (props: Props) => {
                     </div>
 
 
-
+                    <Accordion style={{marginTop:13}} square={true}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon />}
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                                >
+                            <Typography style={{fontSize:14}}>세부 사양</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                            <Typography style={{textAlign:"left"}}>
+                                {productAdditionalFunctions}
+                            </Typography>
+                        </AccordionDetails>
+                    </Accordion>
 
                 </div>
 
