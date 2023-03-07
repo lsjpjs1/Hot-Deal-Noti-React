@@ -48,6 +48,10 @@ const HotDealListView = (props: Props) => {
             htmlTitle.innerHTML;
     }
 
+
+
+    
+
     const title = () => {
 
         if (props.title != "") {
@@ -95,6 +99,12 @@ const HotDealListView = (props: Props) => {
             )
         }
 
+    }
+
+    const shouldShowPopup = () => {
+        const noPopupExpireDay = localStorage.getItem("noPopupExpireDay")
+        
+        return true
     }
 
     const hotDealElementsForPC = props.hotDeals.map((hotDeal) => {
