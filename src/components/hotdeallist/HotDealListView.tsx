@@ -102,10 +102,32 @@ const HotDealListView = (props: Props) => {
     }
 
     const shouldShowPopup = () => {
-        const noPopupExpireDay = localStorage.getItem("noPopupExpireDay")
+
         
-        return true
+
+        if(localStorage.getItem("noPopupExpireTime") == null) return true
+        
+        const noPopupExpireTime = JSON.parse(localStorage.getItem("noPopupExpireTime"))
+        let nowTime = new Date()
+
+        console.log(nowTime.getTime())
+        console.log(noPopupExpireTime)
+
+        if(nowTime.getTime() > noPopupExpireTime){
+            return true
+        } else {
+            return false
+        }
     }
+
+    const noShowPopupClicked = () => {
+        let noPopupExpireTime = new Date()
+        noPopupExpireTime.setTime(noPopupExpireTime.getTime() + 24*60*60*1000)
+
+
+        localStorage.setItem("noPopupExpireTime",JSON.stringify(noPopupExpireTime.getTime()))
+        setIsOpenPopup(false)
+    }   
 
     const hotDealElementsForPC = props.hotDeals.map((hotDeal) => {
         const productAdditionalFunctions = hotDeal.productAdditionalFunctionDTOList.map((productAdditionalFunctionDTO)=>{
@@ -343,8 +365,13 @@ const HotDealListView = (props: Props) => {
                              }
                             
                              if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
-                                setCurrentHotDealLink(hotDeal.link)
-                                setIsOpenPopup(true)
+
+                                if (shouldShowPopup()){
+                                    setCurrentHotDealLink(hotDeal.link)
+                                    setIsOpenPopup(true)
+                                }else{
+                                    window.open(hotDeal.link, '_blank')
+                                }
                              }else{
                                 window.open(hotDeal.link, '_blank')
                              }
@@ -595,8 +622,12 @@ const HotDealListView = (props: Props) => {
                              //window.open(hotDeal.link, '_blank')
 
                              if (hotDeal.sourceSite == "11번가" || hotDeal.sourceSite == "G마켓") {
-                                setCurrentHotDealLink(hotDeal.link)
-                                setIsOpenPopup(true)
+                                if (shouldShowPopup()){
+                                    setCurrentHotDealLink(hotDeal.link)
+                                    setIsOpenPopup(true)
+                                }else{
+                                    window.open(hotDeal.link, '_blank')
+                                }
                              }else{
                                 window.open(hotDeal.link, '_blank')
                              }
@@ -723,13 +754,15 @@ const HotDealListView = (props: Props) => {
                         <div className={"popup-modal"}>
                             <p style={{fontWeight:"bold", color:"#000099", fontSize:"25px"}}>특가 적용 안내</p>
                             <div style={{textAlign:"left"}}>
-                            &nbsp;11번가와 G마켓의 경우 쇼핑몰 정책에 따라 특가어디의 링크를 통해 접속 시 특가 적용이 안될 수도 있습니다.
+                            &nbsp;11번가와 G마켓의 경우 쇼핑몰 정책에 따라 특가어디가의 링크를 통해 접속 시 특가 적용이 안될 수도 있습니다.
                             <br></br>&nbsp;아래 링크를 참고하시면 특가어디가에 표기된 가격대로 구매 가능합니다.
                             </div>
                             <a href="https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2" target="_blank" style={{textDecoration:"none"}}><p style={{marginBottom:0, marginTop:20, fontWeight:"bold"}}>특가 적용법</p></a>
                             <Button onClick={()=>{window.open(currentHotDealLink, '_blank')}}><p style={{marginTop:0, fontWeight:"bold", fontSize:16, height:10}}>그냥 쇼핑몰 방문하기</p></Button>
                             <br></br>
+                            <Button onClick={()=>noShowPopupClicked()} style={{marginTop:25, marginBottom:0, height: 24, color: "gray"}}>오늘 하루동안 보지 않기</Button>
                             <Button onClick={()=>setIsOpenPopup(false)} style={{marginTop:25, marginBottom:0, height: 24}}>닫기</Button>
+                           
                         </div>
                     </Modal>
                     {title()}
@@ -759,6 +792,7 @@ const HotDealListView = (props: Props) => {
                             <a href="https://bush-thorn-7ed.notion.site/77c65c69c1cf4176b313cd8b6eb7e3f2" target="_blank" style={{textDecoration:"none"}}><p style={{marginBottom:0, marginTop:20, fontWeight:"bold"}}>특가 적용법</p></a>
                             <Button onClick={()=>{window.open(currentHotDealLink, '_blank')}}><p style={{marginTop:0, fontWeight:"bold", fontSize:16, height:10}}>그냥 쇼핑몰 방문하기</p></Button>
                             <br></br>
+                            <Button onClick={()=>noShowPopupClicked()} style={{marginTop:25, marginBottom:0, height: 24, color: "gray"}}>오늘 하루동안 보지 않기</Button>
                             <Button onClick={()=>setIsOpenPopup(false)} style={{marginTop:25, marginBottom:0, height:24}}>닫기</Button>
                         </div>
                     </Modal>
