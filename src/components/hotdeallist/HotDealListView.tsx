@@ -747,20 +747,28 @@ const HotDealListView = (props: Props) => {
                     </div>
 
 
-                    <Accordion style={{marginTop:13}} square={true}>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                                >
-                            <Typography style={{fontSize:14}}>세부 사양</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography style={{textAlign:"left"}}>
-                                {productAdditionalFunctions}
-                            </Typography>
-                        </AccordionDetails>
-                    </Accordion>
+
+                    {hotDeal.productAdditionalFunctionDTOList.length>0&&
+                        <Accordion style={{marginTop:13}} square={true}>
+                            <AccordionSummary
+                                expandIcon={<ExpandMoreIcon />}
+                                aria-controls="panel1a-content"
+                                id="panel1a-header"
+                            >
+                                <Typography style={{fontSize:14}}>
+                                    {hotDeal.productAdditionalFunctionDTOList.map(
+                                        (productAdditionalFunction)=>productAdditionalFunction.productFunctionTypeName+":"+productAdditionalFunction.productFunctionName).join(" / ").slice(0,50).concat("...")
+                                    }
+                                </Typography>
+                            </AccordionSummary>
+                            <AccordionDetails>
+                                <Typography style={{textAlign:"left"}}>
+                                    {productAdditionalFunctions}
+                                </Typography>
+                            </AccordionDetails>
+                        </Accordion>
+                    }
+
 
                 </div>
 
