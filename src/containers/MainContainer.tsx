@@ -39,6 +39,7 @@ const MainContainer = () => {
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
 
+    const choochoo = <img src={"/image/icon/filter.png"}></img>
 
     useEffect(() => {
 
@@ -136,7 +137,7 @@ const MainContainer = () => {
         if (params.productId != null){
             return "역대 특가 🕰"
         }else {
-            return "실시간 특가 🔥"
+            return "실시간 특가"
         }
     }
 
@@ -227,10 +228,10 @@ const MainContainer = () => {
 
                 }
                 {recommendationHotDeals.length>0&&getHotDealRequest.filter.searchBody==null&&
-                <HotDealListView title={"추천 특가 👍"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
+                <HotDealListView title={"추천 특가"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 {returnHotDeals.length>0&&
-                <HotDealListView title={"반품 특가 💸"} hotDeals={returnHotDeals.slice(0,4)} hotDealLinkOnClick={hotDealLinkOnClick}
+                <HotDealListView title={"반품 특가"} hotDeals={returnHotDeals.slice(0,4)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 <HotDealListView title={hotDealPageTitle()} hotDeals={hotDeals} hotDealLinkOnClick={hotDealLinkOnClick}
                                  pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>
