@@ -115,6 +115,31 @@ const HotDealListView = (props: Props) => {
                             }}>
                             매핑 제거
                         </Button>
+
+                        <Button onClick={async (e)=>{
+                            try {
+                                await navigator.clipboard.writeText(`https://whendiscount.com/hot-deals/${hotDeal.hotDealId}`);
+                                alert('클립보드에 복사되었습니다.');
+                            } catch (error) {
+                                alert('복사에 실패하였습니다.');
+                            }
+                            // try {
+                            //     await navigator.clipboard.writeText(`https://whendiscount.com/hot-deals/${hotDeal.hotDealId}`);
+                            //     alert('클립보드에 복사되었습니다.');
+                            // } catch (error) {
+                            //     alert('복사에 실패하였습니다.');
+                            // }
+                            const $textarea = document.createElement('textarea');
+                            document.body.appendChild($textarea);
+                            // 2. props로 받은 text값을 textarea의 value로 대입하고 textarea 영역 내 모든 텍스트를 선택(드래그효과)
+                            $textarea.value = `https://whendiscount.com/hot-deals/${hotDeal.hotDealId}`;
+                            $textarea.select();
+                            // 3. execCommand 함수를 이용해 클립보드에 복사
+                            document.execCommand('copy');
+                            // 4. 임시 textarea 요소 제거
+                            document.body.removeChild($textarea);
+                            alert('클립보드에 복사되었습니다.');
+                        }}>공유하기</Button>
                         {hotDeal.productId != 1 && <div>
                             <Typography style={{display: 'inline-block'}}>{hotDeal.manufacturer}</Typography>
                             <Typography style={{display: 'inline-block', marginLeft: '10px'}}>{hotDeal.productPurpose}</Typography>

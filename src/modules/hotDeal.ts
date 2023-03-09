@@ -394,7 +394,7 @@ const initialState: HotDealState = {
         pageRequest: {
             page: 0,
             sort: SortingType.UPLOAD_TIME_DESC,
-            size: 20
+            size: 12
         },
         filter: {
             searchBody: null,
