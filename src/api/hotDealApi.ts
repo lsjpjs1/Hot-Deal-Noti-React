@@ -22,7 +22,25 @@ export const getHotDeals = (getHotDealsRequest: GetHotDealsRequest) =>{
         }
     )
     return axiosInstance.get(`/hot-deals?page=${getHotDealsRequest.pageRequest.page}&size=${getHotDealsRequest.pageRequest.size}&sort=${getHotDealsRequest.pageRequest.sort}${sourceSitesStr}`,
-        {params:getHotDealsRequest.filter}
+        {params:getHotDealsRequest.filter,
+            paramsSerializer:(params)=>{
+            try {
+                const urlSearchParams = new URLSearchParams(params);
+                const keysForDel:string[] = [];
+                urlSearchParams.forEach((value:string, key:string) => {
+                    if (value == "null") {
+                        keysForDel.push(key);
+                    }
+                });
+                keysForDel.forEach(key => {
+                    urlSearchParams.delete(key);
+                });
+                return urlSearchParams.toString();
+            }catch (e){
+                console.log(e)
+                return ""
+            }
+            }}
     )
 }
 export const getHotDealsByProductId = (getHotDealsRequest: GetHotDealsRequest, productId: number) =>{

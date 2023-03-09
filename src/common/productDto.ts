@@ -8,10 +8,12 @@ export interface ProductType {
     productTypeId: number,
     productTypeName: string
 }
+
 export interface ProductPurpose {
     productPurposeId: number,
     productPurposeName: string
 }
+
 export interface Manufacturer {
     manufacturerId: number,
     manufacturerName: string
@@ -66,4 +68,34 @@ export interface ClassifyProduct {
     productId: number,
     modelName: string,
     productInfoCandidateHtml: string
+}
+
+export interface GetProductFunctionTypesResponse {
+    productFunctionTypes: GetProductFunctionTypeDTO[]
+}
+
+export interface GetProductFunctionTypeDTO {
+    productFunctionTypeId: number,
+    productFunctionTypeName: string,
+    productFunctions: GetProductFunctionDTO[]
+}
+
+export interface GetProductFunctionDTO {
+    productFunctionId: number,
+    productFunctionName: string,
+}
+
+export interface ProductFunctionFilterWrapper {
+    productFunctionFilters: ProductFunctionFilter[],
+}
+
+export interface ProductFunctionFilter {
+    productFunctionTypeId: number,
+    productFunctionIdList: number[]
+}
+
+export interface SetProductFunctionFilterDTO {
+    productFunctionTypeId: number,
+    productFunctionId: number,
+    isChecked: boolean
 }

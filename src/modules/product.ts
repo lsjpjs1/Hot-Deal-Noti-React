@@ -1,11 +1,18 @@
 import {AnyAction} from "redux";
 import {RootState} from "./index";
 import {ThunkAction} from "redux-thunk";
-import {ClassifyHotDealRequest, GetProductsRequest, ProductDto, ProductInitData} from "../common/productDto";
-import {classifyHotDeal, getProductInitData, getProducts} from "../api/productApi";
+import {
+    ClassifyHotDealRequest, GetProductFunctionTypeDTO,
+    GetProductFunctionTypesResponse,
+    GetProductsRequest,
+    ProductDto,
+    ProductInitData
+} from "../common/productDto";
+import {classifyHotDeal, getProductFunctionTypes, getProductInitData, getProducts} from "../api/productApi";
 
 const GET_PRODUCT_INIT_DATA_SUCCESS = "GET_PRODUCT_INIT_DATA_SUCCESS" as const;
 const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS" as const;
+const GET_PRODUCT_FUNCTION_TYPES_SUCCESS = "GET_PRODUCT_FUNCTION_TYPES_SUCCESS" as const;
 const CLASSIFY_HOT_DEAL_SUCCESS = "CLASSIFY_HOT_DEAL_SUCCESS" as const;
 
 const SET_MODEL_NAME = "SET_MODEL_NAME" as const;
@@ -24,6 +31,11 @@ export const getProductInitDataSuccess = (productInitData: ProductInitData) => (
 export const getProductsSuccess = (products: ProductDto[]) => ({
     type: GET_PRODUCTS_SUCCESS,
     products: products
+});
+
+export const getProductFunctionTypesSuccess = (response: GetProductFunctionTypesResponse) => ({
+    type: GET_PRODUCT_FUNCTION_TYPES_SUCCESS,
+    productFunctionTypes: response.productFunctionTypes
 });
 
 export const classifyHotDealSuccess = () => ({
@@ -64,6 +76,16 @@ export const setHotDealId = (hotDealId: number) => ({
     hotDealId: hotDealId
 });
 
+export const callGetProductFunctionTypes =
+    (): ThunkAction<void, RootState, unknown, AnyAction> =>
+        async (dispatch, getState) => {
+            await getProductFunctionTypes(getState().productReducer.productTypeId).then((res) => {
+                dispatch(getProductFunctionTypesSuccess(res.data))
+            }).catch((error) => {
+                console.log(error.response.data)
+            })
+        };
+
 
 export const callGetProductInitData =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
@@ -101,6 +123,7 @@ export const callClassifyHotDeal =
 type ProductAction =
     | ReturnType<typeof getProductInitDataSuccess>
     | ReturnType<typeof getProductsSuccess>
+    | ReturnType<typeof getProductFunctionTypesSuccess>
     | ReturnType<typeof setProductTypeId>
     | ReturnType<typeof setProductId>
     | ReturnType<typeof setProductPurposeId>
@@ -114,14 +137,18 @@ type ProductState = {
     productInitData: ProductInitData,
     products: ProductDto[],
     getProductsRequest: GetProductsRequest,
-    classifyHotDealRequest: ClassifyHotDealRequest
+    classifyHotDealRequest: ClassifyHotDealRequest,
+    productTypeId: number,
+    productFunctionTypes: GetProductFunctionTypeDTO[]
 }
 
 const initialState: ProductState = {
     productInitData: null,
     products: [],
     getProductsRequest: null,
-    classifyHotDealRequest: null
+    classifyHotDealRequest: null,
+    productTypeId: 1,
+    productFunctionTypes: []
 }
 
 function productReducer(
@@ -138,6 +165,11 @@ function productReducer(
             return {
                 ...state,
                 products: action.products
+            }
+        case GET_PRODUCT_FUNCTION_TYPES_SUCCESS:
+            return {
+                ...state,
+                productFunctionTypes: action.productFunctionTypes
             }
         case SET_PRODUCT_TYPE_ID:
             return {

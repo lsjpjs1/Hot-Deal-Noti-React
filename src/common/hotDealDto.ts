@@ -60,6 +60,7 @@ export interface HotDealsQueryFilter {
     isShowReturnItem: boolean
     minDiscountRate: number
     maxDiscountRate: number
+    productFunctionFiltersJsonString: string
 }
 
 export interface PostHotDealRequest {

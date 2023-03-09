@@ -38,10 +38,10 @@ const MainContainer = () => {
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
-
+    console.log(getHotDealRequest.filter.productFunctionFiltersJsonString)
 
     useEffect(() => {
-
+        console.log(JSON.stringify({productFunctionFilters:[{productFunctionTypeId:1,productFunctionIdList:[1,14]}]}))
         // @ts-ignore
         dispatch(callPostConnectionHistory())
         // @ts-ignore

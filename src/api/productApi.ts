@@ -32,3 +32,8 @@ export const passHotDeal = (hotDealId: number) =>
 export const notClassifyHotDeal = (hotDealId: number) =>
     axiosInstance.patch(`/hot-deals/${hotDealId}/not-classify`
     )
+
+export const getProductFunctionTypes = (productTypeId: number) =>
+    axiosInstance.get(`/product-function-types/product-type/${productTypeId}`
+    )
+

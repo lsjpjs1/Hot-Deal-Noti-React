@@ -4,7 +4,13 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import React, {useEffect, useState} from "react";
 import "./SearchBar.css"
 import {ProductDto} from "../common/productDto";
-import {callGetProductInitData, callGetProducts, setManufacturerId, setModelName} from "../modules/product";
+import {
+    callGetProductFunctionTypes,
+    callGetProductInitData,
+    callGetProducts,
+    setManufacturerId,
+    setModelName
+} from "../modules/product";
 import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import { BrowserView, MobileView } from 'react-device-detect'
@@ -29,6 +35,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import mixpanel from "mixpanel-browser";
 import {RETURN_ITEM_SEARCH_MODE} from "../containers/ReturnHotDealsContainer";
 import DiscountRateFilter from "./DiscountRateFilter";
+import ProductFunctionFilter from "./filter/ProductFunctionFilter";
 
 type SearchBarProps = {
     onSearch: (s: string) => void;
@@ -117,6 +124,16 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         }
     }
 
+    const onFilterChange = () => {
+
+        goFirstPage()
+        if (searchMode==RETURN_ITEM_SEARCH_MODE){
+            getReturnHotDeals()
+        }else {
+            getHotDeals()
+        }
+    }
+
     const goFirstPage = () => {
         dispatch(setPage(0))
     }
@@ -144,7 +161,8 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
         // @ts-ignore
         dispatch(callGetProductInitData())
-
+        // @ts-ignore
+        dispatch(callGetProductFunctionTypes())
     }, []);
 
     return (
@@ -223,18 +241,19 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 }}
                 style={{alignItems:"center",display:"flex",justifyContent:"center",top:"-50%"}}
             >
-                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"20px"
+                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"20px",height:"30%",overflowY:"auto"
                     }}>
 
 
                     <div>
 
-                        <Container maxWidth={"sm"}>
+                        <Container maxWidth={"sm"} >
                             <HotDealSortingSelect onSelect={onHotDealSortingSelect}></HotDealSortingSelect>
                             <ProductPurposeSelect onSelect={onProductPurposeSelect}></ProductPurposeSelect>
                             <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
                             <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                             <DiscountRateFilter onSliderChange={onSliderChange}></DiscountRateFilter>
+                            <ProductFunctionFilter onFilterChange={onFilterChange}/>
                         </Container>
                     </div>
 

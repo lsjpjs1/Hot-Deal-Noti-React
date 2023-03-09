@@ -25,6 +25,7 @@ import {getInitData} from "../api/getInitDataApi";
 import {InitData} from "../common/InitData";
 import {postCustomerRequirement} from "../api/customerRequirementApi";
 import {PostCustomerRequirementRequest} from "../common/customerRequirementDto";
+import {ProductFunctionFilter, ProductFunctionFilterWrapper, SetProductFunctionFilterDTO} from "../common/productDto";
 
 const GET_HOT_DEALS_SUCCESS = "GET_HOT_DEALS_SUCCESS" as const;
 const GET_RETURN_HOT_DEALS_SUCCESS = "GET_RETURN_HOT_DEALS_SUCCESS" as const;
@@ -52,6 +53,20 @@ const SET_ADD_HOT_DEAL_SITE = "SET_ADD_HOT_DEAL_SITE" as const;
 const SET_ADD_HOT_DEAL_ORIGINAL_PRICE = "SET_ADD_HOT_DEAL_ORIGINAL_PRICE" as const;
 const SET_ADD_HOT_DEAL_DISCOUNT_PRICE = "SET_ADD_HOT_DEAL_DISCOUNT_PRICE" as const;
 const SET_ADD_HOT_DEAL_DISCOUNT_RATE = "SET_ADD_HOT_DEAL_DISCOUNT_RATE" as const;
+
+
+const SET_PRODUCT_FUNCTION_CHECK_BOX_MAP = "SET_PRODUCT_FUNCTION_CHECK_BOX_MAP" as const;
+const SET_PRODUCT_FUNCTION_FILTER_WRAPPER = "SET_PRODUCT_FUNCTION_FILTER_WRAPPER" as const;
+
+export const setProductFunctionCheckBoxMap = (productFunctionId: number) => ({
+    type: SET_PRODUCT_FUNCTION_CHECK_BOX_MAP,
+    productFunctionId: productFunctionId
+});
+
+export const setProductFunctionFilterWrapper = (setProductFunctionFilterDTO: SetProductFunctionFilterDTO) => ({
+    type: SET_PRODUCT_FUNCTION_FILTER_WRAPPER,
+    setProductFunctionFilterDTO: setProductFunctionFilterDTO
+});
 
 export const setAddHotDealSite = (site: string) => ({
     type: SET_ADD_HOT_DEAL_SITE,
@@ -189,7 +204,7 @@ export const callGetHotDeals =
                     dispatch(getHotDealsSuccess(page.content, page.totalPages))
                 }
             }).catch((error) => {
-                console.log(error.response.data)
+                console.log(error.response)
             })
         };
 
@@ -368,6 +383,8 @@ type HotDealAction =
     | ReturnType<typeof setAddHotDealOriginalPrice>
     | ReturnType<typeof setAddHotDealDiscountPrice>
     | ReturnType<typeof setAddHotDealDiscountRate>
+    | ReturnType<typeof setProductFunctionCheckBoxMap>
+    | ReturnType<typeof setProductFunctionFilterWrapper>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -380,7 +397,9 @@ type HotDealState = {
     productIdForSearch: number,
     postCustomerRequirementRequest:PostCustomerRequirementRequest,
     postHotDealRequest: PostHotDealRequest,
-    searchMode: string
+    searchMode: string,
+    productFunctionFilterWrapper: ProductFunctionFilterWrapper,
+    productFunctionCheckBoxMap: Map<number, boolean>
 }
 
 const initialState: HotDealState = {
@@ -402,7 +421,8 @@ const initialState: HotDealState = {
             manufacturerId: null,
             isShowReturnItem: null,
             minDiscountRate: 0,
-            maxDiscountRate: 100
+            maxDiscountRate: 100,
+            productFunctionFiltersJsonString: null
         },
         sourceSitesMap: new Map<string, boolean>([
             ["11번가",false],
@@ -426,7 +446,9 @@ const initialState: HotDealState = {
         url: null,
         sourceSite: null
     },
-    searchMode: null
+    searchMode: null,
+    productFunctionFilterWrapper: {productFunctionFilters:[]},
+    productFunctionCheckBoxMap: new Map<number, boolean>()
 }
 
 function hotDealReducer(
@@ -646,6 +668,78 @@ function hotDealReducer(
                 postHotDealRequest: {
                     ...state.postHotDealRequest,
                     discountRate: action.discountRate
+                }
+            }
+        case SET_PRODUCT_FUNCTION_CHECK_BOX_MAP:
+            const copyMap = new Map(state.productFunctionCheckBoxMap);
+            if(state.productFunctionCheckBoxMap.has(action.productFunctionId)){
+                copyMap.set(action.productFunctionId,!copyMap.get(action.productFunctionId))
+            }else{
+                copyMap.set(action.productFunctionId,true)
+            }
+            return {
+                ...state,
+                productFunctionCheckBoxMap: copyMap
+            }
+        case SET_PRODUCT_FUNCTION_FILTER_WRAPPER:
+            const targetProductFunctionTypeId = action.setProductFunctionFilterDTO.productFunctionTypeId
+            const targetProductFunctionId = action.setProductFunctionFilterDTO.productFunctionId
+            const productFunctionFilterWrapper = state.productFunctionFilterWrapper;
+            if (action.setProductFunctionFilterDTO.isChecked){
+                //체크가 이제 풀리는 상황
+
+                //1.펑션 아이디 리스트에서 제거
+                var tarProductFunctionFilter = null
+                for (let i = 0; i <productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId==targetProductFunctionTypeId){
+                        tarProductFunctionFilter = productFunctionFilterWrapper.productFunctionFilters[i]
+                    }
+                }
+                if (tarProductFunctionFilter==null){
+                    return {...state}
+                }
+                for(let i = 0; i < tarProductFunctionFilter.productFunctionIdList.length; i++) {
+                    if (tarProductFunctionFilter.productFunctionIdList[i] === targetProductFunctionId) {
+                        tarProductFunctionFilter.productFunctionIdList.splice(i, 1);
+                    }
+                }
+
+                //1-1.펑션 아이디 리스트 길이 0이면 펑션 타입아이디도 제거
+                console.log("길이:"+tarProductFunctionFilter.productFunctionIdList.length)
+                if (tarProductFunctionFilter.productFunctionIdList.length==0){
+                    for(let i = 0; i < productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                        if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId === targetProductFunctionTypeId) {
+                            productFunctionFilterWrapper.productFunctionFilters.splice(i, 1);
+                        }
+                    }
+                }
+
+            }else{
+                //체크를 이제 하는 상황
+
+                //1.펑션 아이디 리스트에 추가
+                var tarProductFunctionFilter = null
+                for (let i = 0; i <productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId==targetProductFunctionTypeId){
+                        tarProductFunctionFilter = productFunctionFilterWrapper.productFunctionFilters[i]
+                    }
+                }
+                if (tarProductFunctionFilter==null){
+                    productFunctionFilterWrapper.productFunctionFilters.push({productFunctionTypeId:targetProductFunctionTypeId,productFunctionIdList:[targetProductFunctionId]});
+                }else{
+                    tarProductFunctionFilter.productFunctionIdList.push(targetProductFunctionId)
+                }
+
+            }
+            //2. 펑션래퍼 스트링 업데이트
+            return {
+                ...state,
+                getHotDealRequest:{
+                    ...state.getHotDealRequest,
+                    filter:{
+                        ...state.getHotDealRequest.filter,
+                        productFunctionFiltersJsonString: JSON.stringify(state.productFunctionFilterWrapper)
+                    }
                 }
             }
         default:
