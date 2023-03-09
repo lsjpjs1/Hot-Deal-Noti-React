@@ -41,7 +41,7 @@
 .price-history-button{
     white-space: nowrap;
     right: 2px;
-    background-color:#9393E1 !important;
+    background-color:#A5A5DF !important;
     color: white !important;
     font-weight: bold !important;
     height: 29px;
@@ -51,11 +51,11 @@
 
 .price-history-button-mobile{
     white-space: nowrap;
-    background-color:#9393E1 !important;
+    background-color:#A5A5DF !important;
     color: white !important;
     font-weight: bold !important;
     height: 27px;
-    margin-left: 10px !important;
+    bottom: 5px !important;
 }
 
 .see-all-button{

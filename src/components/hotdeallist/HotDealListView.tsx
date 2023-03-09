@@ -662,13 +662,13 @@ const HotDealListView = (props: Props) => {
                                     <Typography className={"mobile-hot-deal-return-info-text"}>
                                         {hotDeal.returnItemQuality+" / "+hotDeal.returnItemQualityDetail}
                                     </Typography>
-                                }
-
+                                }                                
                                 
-                                
-                                <Button variant="contained" className="price-history-button-mobile" onClick={()=>onClickPriceHistory(hotDeal)} >역대특가조회</Button>
                                 {naverShoppingLinkButton(hotDeal)} 
                             </div>
+                            
+                            <div style={{ textAlign:"left"}}><Button variant="contained" className="price-history-button-mobile" onClick={()=>onClickPriceHistory(hotDeal)} >역대특가조회</Button></div>
+
 
                             <div className={"mobile-hot-deal-metadata-container"}>
                                 <img className={"mobile-clock-image"}
