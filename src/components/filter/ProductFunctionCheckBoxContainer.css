@@ -1,0 +1,4 @@
+.form-control-label-container{
+    width: 400px !important;
+    display: flex;
+}

@@ -21,7 +21,7 @@ const ProductFunctionFilter = (props: ProductFunctionCheckBoxContainerProps) => 
         );
 
     return (
-        <div>
+        <div style={{marginTop:20}}>
             {productFunctionCheckBoxContainers}
         </div>
     )

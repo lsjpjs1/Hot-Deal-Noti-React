@@ -6,6 +6,7 @@ import {RootState} from "../../modules";
 import {callGetInitData, setProductFunctionCheckBoxMap, setProductFunctionFilterWrapper} from "../../modules/hotDeal";
 import mixpanel from "mixpanel-browser";
 import productFunctionFilter from "./ProductFunctionFilter";
+import "./ProductFunctionCheckBoxContainer.css"
 
 type ProductFunctionCheckBoxContainerProps = {
     productFunctionType: GetProductFunctionTypeDTO,
@@ -16,9 +17,9 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
     const dispatch = useDispatch();
     const productFunctionCheckBoxMap = useSelector((state: RootState) => state.hotDealReducer.productFunctionCheckBoxMap);
     const checkBoxes = props.productFunctionType.productFunctions.map(productFunction => (
-        <div >
+        <div style={{}}>
             <FormControlLabel
-            style={{backgroundColor:"red", width: 200}}
+            style={{width: 200}}
                 checked={productFunctionCheckBoxMap.has(productFunction.productFunctionId) ?
                     productFunctionCheckBoxMap.get(productFunction.productFunctionId) :
                     false
@@ -58,7 +59,7 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
     return (
         <div>
             <b>{props.productFunctionType.productFunctionTypeName}</b>
-            <div style={{display:"flex"}}>
+            <div className="form-control-label-container">
                 {checkBoxes}
             </div>
         </div>
