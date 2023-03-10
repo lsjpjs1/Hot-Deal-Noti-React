@@ -39,9 +39,6 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-text-size-adjust: none;
         font-family:'LINESeedKR-Rg', sans-serif;
         font-display: fallback;
-        ${widthMedia.tablet}{
-            font-size: 10px;
-        }
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
