@@ -43,6 +43,7 @@
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.4.1",
     "styled-components": "^5.3.5",
+    "styled-reset": "^4.4.5",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
@@ -71,6 +72,7 @@
     ]
   },
   "devDependencies": {
-    "@types/mixpanel-browser": "^2.38.0"
+    "@types/mixpanel-browser": "^2.38.0",
+    "@types/styled-components": "^5.1.26"
   }
 }
