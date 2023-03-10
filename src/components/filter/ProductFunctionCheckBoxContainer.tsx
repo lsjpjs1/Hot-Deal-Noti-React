@@ -18,6 +18,7 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
     const checkBoxes = props.productFunctionType.productFunctions.map(productFunction => (
         <div >
             <FormControlLabel
+            style={{backgroundColor:"red", width: 200}}
                 checked={productFunctionCheckBoxMap.has(productFunction.productFunctionId) ?
                     productFunctionCheckBoxMap.get(productFunction.productFunctionId) :
                     false
