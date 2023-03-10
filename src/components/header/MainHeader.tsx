@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBar from "../SearchBar";
+import SearchBar from "../searchbar/SearchBar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   callGetHotDeals,
@@ -91,9 +91,7 @@ const MainHeader = () => {
           </S.MobileLoginMenuItem>
         </S.LogoImageContainer>
 
-        <S.SearchBarContainer>
-          <SearchBar onSearch={onSearch} onSearchTextChange={(e) => {}} />
-        </S.SearchBarContainer>
+        <SearchBar onSearch={onSearch} onSearchTextChange={(e) => {}} />
 
         <S.HeaderMenuContainer>
           <S.HeaderMenuItem

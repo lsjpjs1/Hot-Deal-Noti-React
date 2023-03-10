@@ -35,16 +35,7 @@ export const LogoImage = styled.img`
   width: 240px;
   height: 60px;
 `;
-export const SearchBarContainer = styled.div`
-  margin-left: 32px;
-  ${widthMedia.pc} {
-    margin-bottom: 24px;
-    margin-left: 0px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-`;
+
 export const HeaderMenuContainer = styled.div`
   display: flex;
   justify-content: space-around;
