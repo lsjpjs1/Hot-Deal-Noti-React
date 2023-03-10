@@ -89,9 +89,9 @@ const MainHeader = () => {
             }}
           >
             <S.HeaderMenuIcon src={"/image/icon/alarm.png"} />
-            <Link to={"/notifications"}>
-              <S.HeaderMenuText>특가 알림</S.HeaderMenuText>
-            </Link>
+            <S.HeaderMenuLinkText to={"/notifications"}>
+              특가 알림
+            </S.HeaderMenuLinkText>
           </S.HeaderMenuItem>
 
           <S.HeaderMenuItem
@@ -122,19 +122,25 @@ const MainHeader = () => {
 
           <S.HeaderMenuItem>
             <S.HeaderMenuIcon src={"/image/icon/star.png"} />
-            <Link to={"/favorite"}>
-              <S.HeaderMenuText>즐겨찾기</S.HeaderMenuText>
-            </Link>
+            <S.HeaderMenuLinkText to={"/favorite"}>
+              즐겨찾기
+            </S.HeaderMenuLinkText>
           </S.HeaderMenuItem>
-          <S.LoginItem>
+          <S.LoginMenuItem>
             {localStorage.getItem("authToken") ? (
-              <S.HeaderMenuText onClick={logout}>로그아웃 </S.HeaderMenuText>
+              <S.LoginItem>
+                <S.LoginImg src={"image/icon/login.png"} />
+                <S.HeaderMenuText onClick={logout}>로그아웃 </S.HeaderMenuText>
+              </S.LoginItem>
             ) : (
               <Link to={"/login"}>
-                <S.HeaderMenuText>로그인</S.HeaderMenuText>
+                <S.LoginItem>
+                  <S.LoginImg src={"image/icon/login.png"} />
+                  <S.HeaderMenuText>로그인</S.HeaderMenuText>
+                </S.LoginItem>
               </Link>
             )}
-          </S.LoginItem>
+          </S.LoginMenuItem>
         </S.HeaderMenuContainer>
       </S.MainHeaderContainer>
       {/* <MobileView>

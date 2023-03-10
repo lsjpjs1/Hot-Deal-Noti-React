@@ -2,21 +2,9 @@ export const theme = {
   color: {
     white: "#fff",
     black: "black",
-    grayBlack: "#E7E7E7",
-    purple: "#7E7BFF",
-    newPurple: "#644BFF",
-    purpleBold: "#8879B0",
-    pink: "#D59FFF",
-    gray: "#BBBBBB",
-    grayLight: "rgba(217, 217, 217, 0.1)",
-    oatmeal: "#D9D9D9",
-    oatmealLight: "#747474",
-    blue: "#4F4BFF",
   },
   boxShadow: {
     normal: "0 3px 8px 0 rgb(0 0 0 / 10%)",
-    purple: "0 3px 8px 0 #d6c9ff",
-    blue: "0 3px 8px 0 #b3e2e6",
   },
 };
 
@@ -27,15 +15,7 @@ export const fonts = {
     LINESeedKRBold: `'LINESeedKR-Bd', sans-serif;`,
   },
   size: {
-    description: "1.8rem",
-    subDescription: "1.5rem",
-    featureDescription: "1.3rem",
-    xLarge: "3rem", // 60px
-    large: "2.5rem", // 36px
-    medium: "1.8rem", // 28px
-    small: "1.5rem", // 24px
-    xSmall: "1.2rem", // 20px
-    tiny: "1rem", // 16px
+    medium: "1.5rem", // 28px
   },
   color: {
     lightGray: "#78797A",
