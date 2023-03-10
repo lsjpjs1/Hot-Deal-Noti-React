@@ -17,7 +17,17 @@ const ProductFunctionFilter = (props: ProductFunctionCheckBoxContainerProps) => 
 
 
         const productFunctionCheckBoxContainers = productFunctionTypes.map(productFunctionType =>
-            (<ProductFunctionCheckBoxContainer productFunctionType={productFunctionType} onFilterChange={props.onFilterChange}/>)
+            {
+                if (productFunctionType.productFunctionTypeName=="CPU 명"){
+                    return 
+                }
+                return (
+                    <div>
+                        <ProductFunctionCheckBoxContainer productFunctionType={productFunctionType} onFilterChange={props.onFilterChange}/>
+                    </div>
+
+                )
+            }
         );
 
     return (

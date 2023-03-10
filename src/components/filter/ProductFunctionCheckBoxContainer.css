@@ -1,4 +1,15 @@
 .form-control-label-container{
-    width: 400px !important;
     display: flex;
+}
+
+.form-control-label-item{
+    padding: 10px;
+    margin-right: auto;
+}
+
+.product-function-check-box-accordian-summary{
+    font-size: 14px;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
 }
