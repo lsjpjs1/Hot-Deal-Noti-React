@@ -27,7 +27,7 @@ const RecommendationHotDealsContainer = () => {
     }
     return(
         <div>
-            <HotDealListView title={"추천 특가 👍"} hotDeals={recommendationHotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={""}/>
+            <HotDealListView title={"추천 특가"} hotDeals={recommendationHotDeals} hotDealLinkOnClick={hotDealLinkOnClick} pageType={""}/>
 
 
         </div>
