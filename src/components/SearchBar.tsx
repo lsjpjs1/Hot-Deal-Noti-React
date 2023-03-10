@@ -239,9 +239,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 onClose={() => {
                     setIsOpenFilter(false)
                 }}
-                style={{alignItems:"center",display:"flex",justifyContent:"center",top:"-50%"}}
+                style={{alignItems:"center",display:"flex",justifyContent:"center"}}
             >
-                <div style={{backgroundColor:"white", borderRadius: "14px",padding:"30px",height:"30%", overflowY:"scroll"
+                <div style={{backgroundColor:"white", borderRadius: "14px",padding:"30px",height:"80%", overflowY:"auto"
                     }}>
 
 
