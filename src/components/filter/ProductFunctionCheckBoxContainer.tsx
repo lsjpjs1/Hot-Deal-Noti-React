@@ -1,11 +1,17 @@
 import {HotDealPreview} from "../../common/hotDealDto";
 import {GetProductFunctionTypeDTO, SetProductFunctionFilterDTO} from "../../common/productDto";
-import {Checkbox, FormControlLabel} from "@material-ui/core";
+import { Checkbox, FormControlLabel, Grid, Typography} from "@material-ui/core";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../modules";
 import {callGetInitData, setProductFunctionCheckBoxMap, setProductFunctionFilterWrapper} from "../../modules/hotDeal";
 import mixpanel from "mixpanel-browser";
 import productFunctionFilter from "./ProductFunctionFilter";
+import "./ProductFunctionCheckBoxContainer.css"
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import React from "react";
+import Accordion from "@mui/material/Accordion";
 
 type ProductFunctionCheckBoxContainerProps = {
     productFunctionType: GetProductFunctionTypeDTO,
@@ -16,7 +22,8 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
     const dispatch = useDispatch();
     const productFunctionCheckBoxMap = useSelector((state: RootState) => state.hotDealReducer.productFunctionCheckBoxMap);
     const checkBoxes = props.productFunctionType.productFunctions.map(productFunction => (
-        <div >
+        <Grid className={"form-control-label-item"} item={true} spacing={1}
+              key={productFunction.productFunctionId}>
             <FormControlLabel
                 checked={productFunctionCheckBoxMap.has(productFunction.productFunctionId) ?
                     productFunctionCheckBoxMap.get(productFunction.productFunctionId) :
@@ -40,7 +47,8 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
                         dispatch(setProductFunctionFilterWrapper({
                             productFunctionTypeId:props.productFunctionType.productFunctionTypeId,
                             productFunctionId:productFunction.productFunctionId,
-                            isChecked: isChecked
+                            isChecked: isChecked,
+                            productFunctionTypeName: props.productFunctionType.productFunctionTypeName
                         }))
                         dispatch(setProductFunctionCheckBoxMap(productFunction.productFunctionId))
                         props.onFilterChange()
@@ -51,15 +59,33 @@ const ProductFunctionCheckBoxContainer = (props: ProductFunctionCheckBoxContaine
                 }
                 label={productFunction.productFunctionName}
             />
-        </div>
+        </Grid>
     ));
 
     return (
         <div>
-            <b>{props.productFunctionType.productFunctionTypeName}</b>
-            <div style={{display:"flex"}}>
-                {checkBoxes}
-            </div>
+            <Accordion
+                style={{marginTop:13}} square={true}
+            >
+                <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    className="product-function-check-box-accordian-summary"
+
+                >
+                                <span  >
+                                    <b>{props.productFunctionType.productFunctionTypeName}</b>
+                                </span>
+
+                </AccordionSummary>
+                <AccordionDetails>
+                    <Grid className={"form-control-label-container"} container={true} justifyContent={"center"}>
+                        {checkBoxes}
+                    </Grid>
+                </AccordionDetails>
+            </Accordion>
+
+
         </div>
     )
 }

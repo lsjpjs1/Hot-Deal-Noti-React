@@ -39,10 +39,12 @@ const MainContainer = () => {
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
 
+
     const choochoo = <img src={"/image/icon/filter.png"}></img>
 
-    useEffect(() => {
 
+    useEffect(() => {
+        console.log(JSON.stringify({productFunctionFilters:[{productFunctionTypeId:1,productFunctionIdList:[1,14]}]}))
         // @ts-ignore
         dispatch(callPostConnectionHistory())
         // @ts-ignore

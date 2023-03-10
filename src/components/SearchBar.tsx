@@ -241,7 +241,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 }}
                 style={{alignItems:"center",display:"flex",justifyContent:"center",top:"-50%"}}
             >
-                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"20px",height:"30%",overflowY:"auto"
+                <div style={{backgroundColor:"white", borderRadius: "14px",padding:"30px",height:"30%", overflowY:"scroll"
                     }}>
 
 
@@ -335,9 +335,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                 onClose={() => {
                     setIsOpenFilter(false)
                 }}
-                style={{alignItems:"center",display:"flex",justifyContent:"center",top:"-50%"}}
+                style={{alignItems:"center",display:"flex",justifyContent:"center"}}
             >
-                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"20px"
+                <div style={{backgroundColor: "white", borderRadius: "14px",padding:"30px",height:"70%", overflowY:"scroll"
                     }}>
 
 
@@ -349,6 +349,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
                             <ManufacturerSelect onSelect={onManufacturerSelect}></ManufacturerSelect>
                             <SourceSiteCheckBoxGroup onCheckBoxClick={onCheckBoxClick}></SourceSiteCheckBoxGroup>
                             <DiscountRateFilter onSliderChange={onSliderChange}></DiscountRateFilter>
+                            <ProductFunctionFilter onFilterChange={onFilterChange}/>
                         </Container>
                     </div>
 

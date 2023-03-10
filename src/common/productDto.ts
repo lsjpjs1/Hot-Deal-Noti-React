@@ -91,11 +91,13 @@ export interface ProductFunctionFilterWrapper {
 
 export interface ProductFunctionFilter {
     productFunctionTypeId: number,
+    isAndFilter:boolean
     productFunctionIdList: number[]
 }
 
 export interface SetProductFunctionFilterDTO {
     productFunctionTypeId: number,
     productFunctionId: number,
-    isChecked: boolean
+    isChecked: boolean,
+    productFunctionTypeName: string
 }

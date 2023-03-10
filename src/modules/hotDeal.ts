@@ -684,6 +684,7 @@ function hotDealReducer(
         case SET_PRODUCT_FUNCTION_FILTER_WRAPPER:
             const targetProductFunctionTypeId = action.setProductFunctionFilterDTO.productFunctionTypeId
             const targetProductFunctionId = action.setProductFunctionFilterDTO.productFunctionId
+            const targetProductFunctionName = action.setProductFunctionFilterDTO.productFunctionTypeName
             const productFunctionFilterWrapper = state.productFunctionFilterWrapper;
             if (action.setProductFunctionFilterDTO.isChecked){
                 //체크가 이제 풀리는 상황
@@ -725,7 +726,13 @@ function hotDealReducer(
                     }
                 }
                 if (tarProductFunctionFilter==null){
-                    productFunctionFilterWrapper.productFunctionFilters.push({productFunctionTypeId:targetProductFunctionTypeId,productFunctionIdList:[targetProductFunctionId]});
+                    let isAndFilter = false
+                    if (targetProductFunctionName.includes("부가")){
+                        isAndFilter = true
+                    }
+                    productFunctionFilterWrapper.productFunctionFilters.push(
+                        {productFunctionTypeId:targetProductFunctionTypeId,productFunctionIdList:[targetProductFunctionId],isAndFilter:isAndFilter}
+                    );
                 }else{
                     tarProductFunctionFilter.productFunctionIdList.push(targetProductFunctionId)
                 }
