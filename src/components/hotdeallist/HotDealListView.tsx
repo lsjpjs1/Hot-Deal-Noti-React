@@ -6,7 +6,7 @@ import {
     callPostFavoriteHotDeal,
     setIsShowReturnItem
 } from "../../modules/hotDeal";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Badge, Button, Chip, Grid, Modal, Tooltip, Typography} from "@material-ui/core";
 import React from "react";
 import ReactGA from "react-ga4";
@@ -26,6 +26,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import {RootState} from "../../modules";
 
 moment.locale("ko");
 
@@ -41,16 +42,17 @@ const HotDealListView = (props: Props) => {
     const navigate = useNavigate();
     const [isOpenPopup, setIsOpenPopup] = useState(false);
     const [currentHotDealLink,setCurrentHotDealLink] = useState("")
-
+    const historicalLowPrice = useSelector((state: RootState) => state.hotDealReducer.historicalLowPrice);
 
     if (props.pageType == "PRODUCT") {
         const htmlTitle = document.querySelector("title");
-        htmlTitle.innerHTML = props.hotDeals.length > 0 ?
-            props.hotDeals[0].modelName + " 특가 목록 | 역대가 " + Math.min(...props.hotDeals.map((hotdeal) => {
-                return hotdeal.isCandidateProduct?1000000000:hotdeal.discountPrice
-            })).toLocaleString() + "원" + " | 진짜 최저가 | 노트북 특가 | 특가 어디가"
-            :
-            htmlTitle.innerHTML;
+        if (historicalLowPrice!=null){
+            htmlTitle.innerHTML = props.hotDeals.length > 0 ?
+                props.hotDeals[0].modelName + " 특가 목록 | 역대가 " + historicalLowPrice.toLocaleString() + "원" + " | 진짜 최저가 | 노트북 특가 | 특가 어디가"
+                :
+                htmlTitle.innerHTML;
+        }
+
     }
 
 

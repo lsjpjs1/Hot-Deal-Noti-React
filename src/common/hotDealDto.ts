@@ -1,3 +1,4 @@
+import {Page} from "./page";
 
 
 export interface HotDealPreview {
@@ -39,6 +40,11 @@ export interface ProductAdditionalFunctionDTO {
     productFunctionTypeName:string
     productFunctionName:string
 
+}
+
+export interface GetHotDealByProductIdResponse {
+    hotDeals: Page<HotDealPreview>
+    historicalLowPrice: number
 }
 
 export interface NotClassifiedHotDeal {

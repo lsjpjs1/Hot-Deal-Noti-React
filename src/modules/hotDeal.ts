@@ -1,4 +1,9 @@
-import {HotDealPreview, NotClassifiedHotDeal, PostHotDealRequest} from "../common/hotDealDto";
+import {
+    GetHotDealByProductIdResponse,
+    HotDealPreview,
+    NotClassifiedHotDeal,
+    PostHotDealRequest
+} from "../common/hotDealDto";
 import {
     deleteHotDeal,
     deletePermanentHotDeal, deleteProductIdHotDeal,
@@ -128,10 +133,11 @@ export const getRecommendationHotDealsSuccess = (recommendationHotDeals: HotDeal
     recommendationHotDeals: recommendationHotDeals
 });
 
-export const getHotDealsByProductIdSuccess = (hotDeals: HotDealPreview[], totalPages: number) => ({
+export const getHotDealsByProductIdSuccess = (hotDeals: HotDealPreview[], totalPages: number, historicalLowPrice: number) => ({
     type: GET_HOT_DEALS_BY_PRODUCT_ID_SUCCESS,
     hotDeals: hotDeals,
-    totalPages: totalPages
+    totalPages: totalPages,
+    historicalLowPrice: historicalLowPrice
 });
 
 export const getNotClassifiedHotDealsSuccess = (notClassifiedHotDeals: NotClassifiedHotDeal[]) => ({
@@ -141,7 +147,7 @@ export const getNotClassifiedHotDealsSuccess = (notClassifiedHotDeals: NotClassi
 
 export const getInitDataSuccess = (initData: InitData) => ({
     type: GET_INIT_DATA_SUCCESS,
-    initData:initData
+    initData: initData
 });
 export const setProductIdForSearch = (productId: number) => ({
     type: SET_PRODUCT_ID_FOR_SEARCH,
@@ -182,25 +188,23 @@ export const setCustomerRequirementBody = (customerRequirementBody: string) => (
     customerRequirementBody: customerRequirementBody
 });
 
-export const setSourceSites = (checked:boolean, sourceSite: string) => ({
+export const setSourceSites = (checked: boolean, sourceSite: string) => ({
     type: SET_SOURCE_SITES,
     checked: checked,
     sourceSite: sourceSite
 });
 
 
-
-
 export const callGetHotDeals =
-    (isReturnHotDealMode:boolean = false): ThunkAction<void, RootState, unknown, AnyAction> =>
+    (isReturnHotDealMode: boolean = false): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             const isShowReturnItem = getState().hotDealReducer.getHotDealRequest.filter.isShowReturnItem
             await getHotDeals(getState().hotDealReducer.getHotDealRequest).then((res) => {
                 const page: Page<HotDealPreview> = res.data
-                if (isShowReturnItem==true){
+                if (isShowReturnItem == true) {
                     dispatch(getReturnHotDealsSuccess(page.content, page.totalPages, isReturnHotDealMode))
                     dispatch(setIsShowReturnItem(null))
-                }else{
+                } else {
                     dispatch(getHotDealsSuccess(page.content, page.totalPages))
                 }
             }).catch((error) => {
@@ -233,16 +237,17 @@ export const callGetRecommendationHotDeals =
 export const callGetHotDealsByProductId =
     (): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
-            await getHotDealsByProductId(getState().hotDealReducer.getHotDealRequest,getState().hotDealReducer.productIdForSearch).then((res) => {
-                const page: Page<HotDealPreview> = res.data
-                dispatch(getHotDealsByProductIdSuccess(page.content, page.totalPages))
+            await getHotDealsByProductId(getState().hotDealReducer.getHotDealRequest, getState().hotDealReducer.productIdForSearch).then((res) => {
+                const getHotDealByProductIdResponse: GetHotDealByProductIdResponse = res.data
+                const page: Page<HotDealPreview> = getHotDealByProductIdResponse.hotDeals
+                dispatch(getHotDealsByProductIdSuccess(page.content, page.totalPages, getHotDealByProductIdResponse.historicalLowPrice))
             }).catch((error) => {
                 console.log(error.response.data)
             })
         };
 
 export const callGetHotDealsByHotDealId =
-    (hotDealId:number): ThunkAction<void, RootState, unknown, AnyAction> =>
+    (hotDealId: number): ThunkAction<void, RootState, unknown, AnyAction> =>
         async (dispatch, getState) => {
             await getHotDealsByHotDealId(hotDealId).then((res) => {
                 const hotDealPreview: HotDealPreview = res.data
@@ -391,11 +396,12 @@ type HotDealState = {
     returnHotDeals: HotDealPreview[],
     recommendationHotDeals: HotDealPreview[],
     notClassifiedHotDeals: NotClassifiedHotDeal[],
-    initData:  InitData
+    initData: InitData
     totalPages: number,
     getHotDealRequest: GetHotDealsRequest,
     productIdForSearch: number,
-    postCustomerRequirementRequest:PostCustomerRequirementRequest,
+    historicalLowPrice: number,
+    postCustomerRequirementRequest: PostCustomerRequirementRequest,
     postHotDealRequest: PostHotDealRequest,
     searchMode: string,
     productFunctionFilterWrapper: ProductFunctionFilterWrapper,
@@ -425,16 +431,17 @@ const initialState: HotDealState = {
             productFunctionFiltersJsonString: null
         },
         sourceSitesMap: new Map<string, boolean>([
-            ["11번가",false],
-            ["G마켓",false],
-            ["옥션",false],
-            ["롯데ON",false],
-            ["쿠팡",false],
-            ["하이마트",false]
+                ["11번가", false],
+                ["G마켓", false],
+                ["옥션", false],
+                ["롯데ON", false],
+                ["쿠팡", false],
+                ["하이마트", false]
             ]
         )
     },
     productIdForSearch: null,
+    historicalLowPrice: null,
     postCustomerRequirementRequest: {
         customerRequirementBody: ""
     },
@@ -447,7 +454,7 @@ const initialState: HotDealState = {
         sourceSite: null
     },
     searchMode: null,
-    productFunctionFilterWrapper: {productFunctionFilters:[]},
+    productFunctionFilterWrapper: {productFunctionFilters: []},
     productFunctionCheckBoxMap: new Map<number, boolean>()
 }
 
@@ -463,7 +470,7 @@ function hotDealReducer(
                 totalPages: action.totalPages
             }
         case "GET_RETURN_HOT_DEALS_SUCCESS":
-            if (action.isReturnHotDealMode){
+            if (action.isReturnHotDealMode) {
                 return {
                     ...state,
                     returnHotDeals: action.hotDeals,
@@ -484,7 +491,8 @@ function hotDealReducer(
             return {
                 ...state,
                 hotDeals: action.hotDeals,
-                totalPages: action.totalPages
+                totalPages: action.totalPages,
+                historicalLowPrice: action.historicalLowPrice
             }
         case GET_NOT_CLASSIFIED_HOT_DEALS_SUCCESS:
             return {
@@ -553,7 +561,7 @@ function hotDealReducer(
                     ...state.getHotDealRequest,
                     filter: {
                         ...state.getHotDealRequest.filter,
-                        productPurposeId: isNaN(action.productPurposeId) ? null: action.productPurposeId
+                        productPurposeId: isNaN(action.productPurposeId) ? null : action.productPurposeId
                     }
                 }
             }
@@ -564,7 +572,7 @@ function hotDealReducer(
                     ...state.getHotDealRequest,
                     filter: {
                         ...state.getHotDealRequest.filter,
-                        manufacturerId: isNaN(action.manufacturerId) ? null: action.manufacturerId
+                        manufacturerId: isNaN(action.manufacturerId) ? null : action.manufacturerId
                     }
                 }
             }
@@ -580,8 +588,8 @@ function hotDealReducer(
                 }
             }
         case "SET_SOURCE_SITES":
-            const newSourceSitesMap  = new Map(state.getHotDealRequest.sourceSitesMap);
-            newSourceSitesMap.set(action.sourceSite,action.checked)
+            const newSourceSitesMap = new Map(state.getHotDealRequest.sourceSitesMap);
+            newSourceSitesMap.set(action.sourceSite, action.checked)
             return {
                 ...state,
                 getHotDealRequest: {
@@ -627,13 +635,13 @@ function hotDealReducer(
                 }
             }
         case SET_ADD_HOT_DEAL_ORIGINAL_PRICE:
-            if (state.postHotDealRequest.originalPrice!=null&& state.postHotDealRequest.discountPrice!=null){
+            if (state.postHotDealRequest.originalPrice != null && state.postHotDealRequest.discountPrice != null) {
                 return {
                     ...state,
                     postHotDealRequest: {
                         ...state.postHotDealRequest,
                         originalPrice: action.originalPrice,
-                        discountRate: Math.floor(100-(state.postHotDealRequest.discountPrice/action.originalPrice))
+                        discountRate: Math.floor(100 - (state.postHotDealRequest.discountPrice / action.originalPrice))
                     }
                 }
             }
@@ -645,13 +653,13 @@ function hotDealReducer(
                 }
             }
         case "SET_ADD_HOT_DEAL_DISCOUNT_PRICE":
-            if (state.postHotDealRequest.originalPrice!=null&& state.postHotDealRequest.discountPrice!=null){
+            if (state.postHotDealRequest.originalPrice != null && state.postHotDealRequest.discountPrice != null) {
                 return {
                     ...state,
                     postHotDealRequest: {
                         ...state.postHotDealRequest,
                         discountPrice: action.discountPrice,
-                        discountRate: Math.floor(100-100*(action.discountPrice/state.postHotDealRequest.originalPrice))
+                        discountRate: Math.floor(100 - 100 * (action.discountPrice / state.postHotDealRequest.originalPrice))
                     }
                 }
             }
@@ -672,10 +680,10 @@ function hotDealReducer(
             }
         case SET_PRODUCT_FUNCTION_CHECK_BOX_MAP:
             const copyMap = new Map(state.productFunctionCheckBoxMap);
-            if(state.productFunctionCheckBoxMap.has(action.productFunctionId)){
-                copyMap.set(action.productFunctionId,!copyMap.get(action.productFunctionId))
-            }else{
-                copyMap.set(action.productFunctionId,true)
+            if (state.productFunctionCheckBoxMap.has(action.productFunctionId)) {
+                copyMap.set(action.productFunctionId, !copyMap.get(action.productFunctionId))
+            } else {
+                copyMap.set(action.productFunctionId, true)
             }
             return {
                 ...state,
@@ -686,54 +694,58 @@ function hotDealReducer(
             const targetProductFunctionId = action.setProductFunctionFilterDTO.productFunctionId
             const targetProductFunctionName = action.setProductFunctionFilterDTO.productFunctionTypeName
             const productFunctionFilterWrapper = state.productFunctionFilterWrapper;
-            if (action.setProductFunctionFilterDTO.isChecked){
+            if (action.setProductFunctionFilterDTO.isChecked) {
                 //체크가 이제 풀리는 상황
 
                 //1.펑션 아이디 리스트에서 제거
                 var tarProductFunctionFilter = null
-                for (let i = 0; i <productFunctionFilterWrapper.productFunctionFilters.length; i++) {
-                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId==targetProductFunctionTypeId){
+                for (let i = 0; i < productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId == targetProductFunctionTypeId) {
                         tarProductFunctionFilter = productFunctionFilterWrapper.productFunctionFilters[i]
                     }
                 }
-                if (tarProductFunctionFilter==null){
+                if (tarProductFunctionFilter == null) {
                     return {...state}
                 }
-                for(let i = 0; i < tarProductFunctionFilter.productFunctionIdList.length; i++) {
+                for (let i = 0; i < tarProductFunctionFilter.productFunctionIdList.length; i++) {
                     if (tarProductFunctionFilter.productFunctionIdList[i] === targetProductFunctionId) {
                         tarProductFunctionFilter.productFunctionIdList.splice(i, 1);
                     }
                 }
 
                 //1-1.펑션 아이디 리스트 길이 0이면 펑션 타입아이디도 제거
-                console.log("길이:"+tarProductFunctionFilter.productFunctionIdList.length)
-                if (tarProductFunctionFilter.productFunctionIdList.length==0){
-                    for(let i = 0; i < productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                console.log("길이:" + tarProductFunctionFilter.productFunctionIdList.length)
+                if (tarProductFunctionFilter.productFunctionIdList.length == 0) {
+                    for (let i = 0; i < productFunctionFilterWrapper.productFunctionFilters.length; i++) {
                         if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId === targetProductFunctionTypeId) {
                             productFunctionFilterWrapper.productFunctionFilters.splice(i, 1);
                         }
                     }
                 }
 
-            }else{
+            } else {
                 //체크를 이제 하는 상황
 
                 //1.펑션 아이디 리스트에 추가
                 var tarProductFunctionFilter = null
-                for (let i = 0; i <productFunctionFilterWrapper.productFunctionFilters.length; i++) {
-                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId==targetProductFunctionTypeId){
+                for (let i = 0; i < productFunctionFilterWrapper.productFunctionFilters.length; i++) {
+                    if (productFunctionFilterWrapper.productFunctionFilters[i].productFunctionTypeId == targetProductFunctionTypeId) {
                         tarProductFunctionFilter = productFunctionFilterWrapper.productFunctionFilters[i]
                     }
                 }
-                if (tarProductFunctionFilter==null){
+                if (tarProductFunctionFilter == null) {
                     let isAndFilter = false
-                    if (targetProductFunctionName.includes("부가")){
+                    if (targetProductFunctionName.includes("부가")) {
                         isAndFilter = true
                     }
                     productFunctionFilterWrapper.productFunctionFilters.push(
-                        {productFunctionTypeId:targetProductFunctionTypeId,productFunctionIdList:[targetProductFunctionId],isAndFilter:isAndFilter}
+                        {
+                            productFunctionTypeId: targetProductFunctionTypeId,
+                            productFunctionIdList: [targetProductFunctionId],
+                            isAndFilter: isAndFilter
+                        }
                     );
-                }else{
+                } else {
                     tarProductFunctionFilter.productFunctionIdList.push(targetProductFunctionId)
                 }
 
@@ -741,9 +753,9 @@ function hotDealReducer(
             //2. 펑션래퍼 스트링 업데이트
             return {
                 ...state,
-                getHotDealRequest:{
+                getHotDealRequest: {
                     ...state.getHotDealRequest,
-                    filter:{
+                    filter: {
                         ...state.getHotDealRequest.filter,
                         productFunctionFiltersJsonString: JSON.stringify(state.productFunctionFilterWrapper)
                     }

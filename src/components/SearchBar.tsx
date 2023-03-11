@@ -15,7 +15,7 @@ import {Autocomplete} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import { BrowserView, MobileView } from 'react-device-detect'
 import {
-    callGetHotDeals,
+    callGetHotDeals, callGetHotDealsByProductId,
     callGetInitData,
     setDiscountRateFilter,
     setIsShowReturnItem,
@@ -47,6 +47,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     const dispatch = useDispatch();
     const products = useSelector((state: RootState) => state.productReducer.products);
     const searchMode = useSelector((state: RootState) => state.hotDealReducer.searchMode);
+    const productIdForSearch = useSelector((state: RootState) => state.hotDealReducer.productIdForSearch);
     const [searchBody, setSearchBody] = useState("");
     const [isOpenFilter, setIsOpenFilter] = useState(false);
     const [open, setOpen] = useState(false);
@@ -64,7 +65,10 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
-        }else {
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
+            }else {
             getHotDeals()
         }
     }
@@ -79,6 +83,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
         }else {
             getHotDeals()
         }
@@ -90,6 +97,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
         }else {
             getHotDeals()
         }
@@ -100,6 +110,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
         }else {
             getHotDeals()
         }
@@ -119,6 +132,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
         }else {
             getHotDeals()
         }
@@ -129,6 +145,9 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()
+        }else if(productIdForSearch!=null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
         }else {
             getHotDeals()
         }

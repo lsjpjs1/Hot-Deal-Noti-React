@@ -38,7 +38,7 @@ const MainContainer = () => {
     const totalPages = useSelector((state: RootState) => state.hotDealReducer.totalPages);
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
-
+    const historicalLowPrice = useSelector((state: RootState) => state.hotDealReducer.historicalLowPrice);
 
     const choochoo = <img src={"/image/icon/filter.png"}></img>
 
@@ -78,7 +78,14 @@ const MainContainer = () => {
             }
         );
         dispatch(setPage(page.selected))
-        getHotDeals()
+
+        if(params.productId != null){
+            // @ts-ignore
+            dispatch(callGetHotDealsByProductId())
+        }else{
+            getHotDeals()
+        }
+
         window.scrollTo(0, 0);
     }
 
@@ -220,9 +227,7 @@ const MainContainer = () => {
                         <h1>
                             {hotDeals[0].modelName}
                             <br/>
-                            {"역대 최저가 : " + Math.min(...hotDeals.map((hotdeal) => {
-                                return hotdeal.isCandidateProduct?1000000000:hotdeal.discountPrice
-                            })).toLocaleString() + "원"}
+                            {historicalLowPrice!=0?"역대 최저가 : " + historicalLowPrice.toLocaleString() + "원":""}
                         </h1>
                     </div>}
                 {
