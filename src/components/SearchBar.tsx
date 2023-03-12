@@ -17,7 +17,7 @@ import { BrowserView, MobileView } from 'react-device-detect'
 import {
     callGetHotDeals, callGetHotDealsByProductId,
     callGetInitData,
-    setDiscountRateFilter,
+    setDiscountRateFilter, setHideRecommendationHotDeal,
     setIsShowReturnItem,
     setPage,
     setProductPurposeId,
@@ -61,6 +61,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onHotDealSortingSelect = (sort: string) => {
+        dispatch(setHideRecommendationHotDeal(true))
         dispatch(setSort(sort))
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
@@ -75,6 +76,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
 
     const onSliderChange = (valueList: number|number[]) => {
+        dispatch(setHideRecommendationHotDeal(true))
 
         // @ts-ignore
         mixpanel.track("discountFilterChange", {"minDiscountRate": valueList[0], "maxDiscountRate":valueList[1]});
@@ -92,6 +94,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onProductPurposeSelect = (productPurposeId: number) => {
+        dispatch(setHideRecommendationHotDeal(true))
 
         dispatch(setProductPurposeId(productPurposeId))
         goFirstPage()
@@ -106,6 +109,8 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onManufacturerSelect = (manufacturerId: number) => {
+        dispatch(setHideRecommendationHotDeal(true))
+        dispatch(setHideRecommendationHotDeal(true))
         dispatch(setManufacturerId(manufacturerId))
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
@@ -119,6 +124,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
     }
 
     const onCheckBoxClick = (checked: boolean, sourceSite: string) => {
+        dispatch(setHideRecommendationHotDeal(true))
         if (checked){
             mixpanel.track(
                 "sourceSiteSelect",
@@ -142,6 +148,7 @@ const SearchBar = (searchBarProps: SearchBarProps) => {
 
     const onFilterChange = () => {
 
+        dispatch(setHideRecommendationHotDeal(true))
         goFirstPage()
         if (searchMode==RETURN_ITEM_SEARCH_MODE){
             getReturnHotDeals()

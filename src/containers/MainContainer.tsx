@@ -39,6 +39,7 @@ const MainContainer = () => {
     const getHotDealRequest = useSelector((state: RootState) => state.hotDealReducer.getHotDealRequest);
     const initData = useSelector((state: RootState) => state.hotDealReducer.initData);
     const historicalLowPrice = useSelector((state: RootState) => state.hotDealReducer.historicalLowPrice);
+    const hideRecommendationHotDeal = useSelector((state: RootState) => state.hotDealReducer.hideRecommendationHotDeal);
 
     const choochoo = <img src={"/image/icon/filter.png"}></img>
 
@@ -234,7 +235,7 @@ const MainContainer = () => {
 
 
                 }
-                {recommendationHotDeals.length>0&&getHotDealRequest.filter.searchBody==null&&
+                {recommendationHotDeals.length>0&&getHotDealRequest.filter.searchBody==null&&!hideRecommendationHotDeal&&
                 <HotDealListView title={"추천 특가"} hotDeals={shuffleHotDeals(recommendationHotDeals)} hotDealLinkOnClick={hotDealLinkOnClick}
                     pageType={params.productId != null ? "PRODUCT" : ""}></HotDealListView>}
                 {returnHotDeals.length>0&&

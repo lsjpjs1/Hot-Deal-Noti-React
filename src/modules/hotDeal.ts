@@ -63,6 +63,13 @@ const SET_ADD_HOT_DEAL_DISCOUNT_RATE = "SET_ADD_HOT_DEAL_DISCOUNT_RATE" as const
 const SET_PRODUCT_FUNCTION_CHECK_BOX_MAP = "SET_PRODUCT_FUNCTION_CHECK_BOX_MAP" as const;
 const SET_PRODUCT_FUNCTION_FILTER_WRAPPER = "SET_PRODUCT_FUNCTION_FILTER_WRAPPER" as const;
 
+const SET_HIDE_RECOMMENDATION_HOT_DEAL = "SET_HIDE_RECOMMENDATION_HOT_DEAL" as const;
+
+export const setHideRecommendationHotDeal = (isHide: boolean) => ({
+    type: SET_HIDE_RECOMMENDATION_HOT_DEAL,
+    isHide: isHide
+});
+
 export const setProductFunctionCheckBoxMap = (productFunctionId: number) => ({
     type: SET_PRODUCT_FUNCTION_CHECK_BOX_MAP,
     productFunctionId: productFunctionId
@@ -390,6 +397,7 @@ type HotDealAction =
     | ReturnType<typeof setAddHotDealDiscountRate>
     | ReturnType<typeof setProductFunctionCheckBoxMap>
     | ReturnType<typeof setProductFunctionFilterWrapper>
+    | ReturnType<typeof setHideRecommendationHotDeal>
 
 type HotDealState = {
     hotDeals: HotDealPreview[],
@@ -405,7 +413,8 @@ type HotDealState = {
     postHotDealRequest: PostHotDealRequest,
     searchMode: string,
     productFunctionFilterWrapper: ProductFunctionFilterWrapper,
-    productFunctionCheckBoxMap: Map<number, boolean>
+    productFunctionCheckBoxMap: Map<number, boolean>,
+    hideRecommendationHotDeal: boolean
 }
 
 const initialState: HotDealState = {
@@ -455,7 +464,8 @@ const initialState: HotDealState = {
     },
     searchMode: null,
     productFunctionFilterWrapper: {productFunctionFilters: []},
-    productFunctionCheckBoxMap: new Map<number, boolean>()
+    productFunctionCheckBoxMap: new Map<number, boolean>(),
+    hideRecommendationHotDeal: false
 }
 
 function hotDealReducer(
@@ -760,6 +770,11 @@ function hotDealReducer(
                         productFunctionFiltersJsonString: JSON.stringify(state.productFunctionFilterWrapper)
                     }
                 }
+            }
+        case SET_HIDE_RECOMMENDATION_HOT_DEAL:
+            return {
+                ...state,
+                hideRecommendationHotDeal: action.isHide
             }
         default:
             return state
