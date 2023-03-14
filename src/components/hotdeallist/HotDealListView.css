@@ -20,7 +20,7 @@
 
 .model-name-span{
 
-    display: inline-block; 
+    display: inline-block;
     overflow: hidden !important;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -28,6 +28,18 @@
     font-weight: bold;
     line-height: 30px;
     width: 187px;;
+}
+
+.model-name-span:hover{
+
+    display: inline-block;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14.5px;
+    font-weight: bold;
+    line-height: 30px;
+    width: 300px;
 }
 
 .accordian-summary-mobile{
